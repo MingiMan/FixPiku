@@ -80,14 +80,17 @@ public class WeaponController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
         {
+            animator.SetBool("IsAxe", false);
+            animator.SetBool("IsPickAxe", false);
+
             WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
             switch (weaponType)
             {
                 case WeaponType.Axe:         
-                    animator.SetBool("IsAxe", IsAttack);
+                    animator.SetBool("IsAxe", true);
                     break;
                 case WeaponType.PickAxe:
-                    animator.SetBool("IsPickAxe", IsAttack);
+                    animator.SetBool("IsPickAxe", true);
                     break;
                 default:
                     break;
