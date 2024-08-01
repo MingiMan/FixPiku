@@ -1,0 +1,147 @@
+[33mcommit 2a2761584a932a968cfecc1fb107b49bc21003f5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msubDevelop[m[33m, [m[1;31morigin/subDevelop[m[33m)[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Fri Aug 2 00:53:25 2024 +0900
+
+    검 생성
+
+[33mcommit c1a0343aaecac77fdbe7d868395c097bb53c4d0a[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 21:01:49 2024 +0900
+
+    테스트
+
+[33mcommit b715da018428f3df05561682d40d0847d045081a[m[33m ([m[1;31morigin/develop[m[33m)[m
+Merge: 7705d6a f1ab422
+Author: snowcandy3355 <48379127+snowcandy3355@users.noreply.github.com>
+Date:   Thu Aug 1 20:43:25 2024 +0900
+
+    Merge pull request #1 from MingiMan/subDevelop
+    
+    subDevelop 테스트
+
+[33mcommit f1ab422c647da4c979bec1872b3e85ec53e8f33b[m
+Author: BaeMinhyeok <snowcandy3355@gmail.com>
+Date:   Thu Aug 1 20:36:48 2024 +0900
+
+    subDevelop 테스트
+
+[33mcommit 7705d6a8d7a607c3b71ebe773a5f479ee6f1636b[m
+Author: BaeMinhyeok <snowcandy3355@gmail.com>
+Date:   Thu Aug 1 20:25:54 2024 +0900
+
+    배민혁 폴더 생성
+
+[33mcommit c474fc6222ef1e0cd7056c74d1f5692c622ad53c[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 18:47:39 2024 +0900
+
+    플레이어 웨폰생성!
+
+[33mcommit adfbd28e265d5cbe46583fc9174c238f1fed7656[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 18:37:07 2024 +0900
+
+    캐릭터 웨폰 생성
+
+[33mcommit 55ef4b5323779f6d4dd301338bb683c81595036e[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 18:26:54 2024 +0900
+
+    Tree
+
+[33mcommit d33310b9a6fa732cfcba1f1cd3800727be839d03[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 18:22:44 2024 +0900
+
+    맵 2단
+
+[33mcommit 1608a8e70f0c16f4ad0a069e99264d84e4b692ec[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 18:14:23 2024 +0900
+
+    맵 지형 1단
+
+[33mcommit c334418028dbe9946cd7339891401c1ff4e1f44b[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 18:01:04 2024 +0900
+
+    맵 1단
+
+[33mcommit 42b1228dfefcc0db160cf782649f6af8cde31323[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 17:49:21 2024 +0900
+
+    TileMap
+
+[33mcommit 6aa71324a2e80e40a2a8f40b2234fdf94c9f76a2[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 17:45:50 2024 +0900
+
+    Save changes before switching to dev/SMG
+
+[33mcommit d87a65daabdf1c878c38d859af12d92d612eba64[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 17:30:40 2024 +0900
+
+    맵
+
+[33mcommit d618066970349ee083c937f2557fa739c591f3a8[m
+Merge: b632062 250c4a6
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 17:24:02 2024 +0900
+
+    Merge branch 'develop' of https://github.com/MingiMan/FixPiku into develop
+
+[33mcommit 250c4a6be806fe122f209cb5072d9e3bba48d79e[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 17:23:00 2024 +0900
+
+    캐릭터움직임 생성
+
+[33mcommit b632062d24b8d7b9f6513fb15cc111e62a134445[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 17:21:38 2024 +0900
+
+    3D Tilemap with Rule Tiles
+
+[33mcommit 40588236c5747207580b3458f951a4d203d54c07[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Thu Aug 1 17:03:39 2024 +0900
+
+    장승민작업
+
+[33mcommit 55b9a98a339821cad4fb3f20e5d24554e8f292bc[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 16:49:18 2024 +0900
+
+    캐릭터 생성!
+
+[33mcommit c1152ad0a00dd67c9e5d82226d07877756f48b44[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 16:21:21 2024 +0900
+
+    캐릭터 생성
+
+[33mcommit 2b2037e9bc53bee75f975e2bb6a7b4e8706d2aaa[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 16:05:01 2024 +0900
+
+    캐릭터 생성
+
+[33mcommit d5aa9cf592097f2daa82a9f733ab4d8cf1ea83a0[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Thu Aug 1 15:54:23 2024 +0900
+
+    새문서
+
+[33mcommit 0d34f31b1a938763b073bca31f45bd198567d01c[m
+Author: jaunseungmin <wkdtmd0224@naver.com>
+Date:   Wed Jul 31 17:50:26 2024 +0900
+
+    큐브
+
+[33mcommit a2f3f7cd89014ed636958ebd80838ae91d196b5c[m
+Author: ShinMinGi <minky5576@naver.com>
+Date:   Wed Jul 31 17:25:33 2024 +0900
+
+    새 문서 생성

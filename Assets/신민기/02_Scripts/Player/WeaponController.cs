@@ -41,13 +41,11 @@ public class WeaponController : MonoBehaviour
 
         // 무기 교체 조건 확인
         if (Input.GetButtonDown("Swap1") && hasWeapon[0] && !IsSwap)
-        {
             weaponIndex = 0;
-        }
         else if (Input.GetButtonDown("Swap2") && hasWeapon[1] && !IsSwap)
-        {
             weaponIndex = 1;
-        }
+        else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap)
+            weaponIndex = 2;
 
         if (weaponIndex >= 0 && weaponIndex < weapons.Length)
         {
@@ -80,17 +78,17 @@ public class WeaponController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
         {
-            animator.SetBool("IsAxe", false);
-            animator.SetBool("IsPickAxe", false);
-
             WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
             switch (weaponType)
             {
                 case WeaponType.Axe:         
-                    animator.SetBool("IsAxe", true);
+                    animator.SetBool("IsAxe", IsAttack);
                     break;
                 case WeaponType.PickAxe:
-                    animator.SetBool("IsPickAxe", true);
+                    animator.SetBool("IsPickAxe", IsAttack);
+                    break;
+                case WeaponType.Sword:
+                    animator.SetBool("IsSword", IsAttack);
                     break;
                 default:
                     break;
@@ -98,11 +96,12 @@ public class WeaponController : MonoBehaviour
             animator.SetTrigger("OnAttack");
             equipWeapon.GetComponent<Weapon>().Use();
             atkDelay = 0;
+            IsAttack = false;
         }
     }
 
 
-    public void WeaponUnLock() // 무기 해금 아직 구현 안함
+    public void WeaponLock() // 무기 해금 아직 구현 안함
     {
         Weapon weapon = GetComponent<Weapon>();
         hasWeapon[weapon.weaponNum] = true;
