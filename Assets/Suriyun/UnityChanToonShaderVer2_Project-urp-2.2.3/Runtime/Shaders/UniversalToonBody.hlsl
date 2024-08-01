@@ -369,7 +369,7 @@
                 return 1.0h;
 #endif
 
-                ShadowSamplingData shadowSamplingData = GetAdditionalLightShadowSamplingData();
+                ShadowSamplingData shadowSamplingData = GetAdditionalLightShadowSamplingData(0);
 
 #if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
                 lightIndex = _AdditionalShadowsIndices[lightIndex];
