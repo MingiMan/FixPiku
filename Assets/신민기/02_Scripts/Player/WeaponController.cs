@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [Header("0 : µµ³¢  1 : °î±ªÀÌ  2 : °Ë")]  // °ËÀº ¾ÆÁ÷ ±¸Çö¾ÈÇÞÀ½!
+    [Header("0 : µµ³¢  1 : °î±ªÀÌ  2 : °Ë")]
     public GameObject[] weapons;
     bool[] hasWeapon;
     Weapon equipWeapon;
@@ -11,7 +11,6 @@ public class WeaponController : MonoBehaviour
     bool IsSwap;
     bool IsAttack;
     float atkDelay;
-
 
     private void Awake()
     {
@@ -39,12 +38,11 @@ public class WeaponController : MonoBehaviour
     {
         int weaponIndex = -1;
 
-        // ¹«±â ±³Ã¼ Á¶°Ç È®ÀÎ
-        if (Input.GetButtonDown("Swap1") && hasWeapon[0] && !IsSwap)
+        if (Input.GetButtonDown("Swap1") && hasWeapon[0] && !IsSwap && !weapons[0].activeSelf)
             weaponIndex = 0;
-        else if (Input.GetButtonDown("Swap2") && hasWeapon[1] && !IsSwap)
+        else if (Input.GetButtonDown("Swap2") && hasWeapon[1] && !IsSwap && !weapons[1].activeSelf)
             weaponIndex = 1;
-        else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap)
+        else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
             weaponIndex = 2;
 
         if (weaponIndex >= 0 && weaponIndex < weapons.Length)
@@ -79,24 +77,26 @@ public class WeaponController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
         {
             WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
-            switch (weaponType)
+
+        
+            animator.SetBool("IsAxe", false);
+            animator.SetBool("IsPickAxe", false);
+            animator.SetBool("IsSword", false);
+
+            string weaponBool = weaponType switch
             {
-                case WeaponType.Axe:         
-                    animator.SetBool("IsAxe", IsAttack);
-                    break;
-                case WeaponType.PickAxe:
-                    animator.SetBool("IsPickAxe", IsAttack);
-                    break;
-                case WeaponType.Sword:
-                    animator.SetBool("IsSword", IsAttack);
-                    break;
-                default:
-                    break;
-            }
+                WeaponType.Axe => "IsAxe",
+                WeaponType.PickAxe => "IsPickAxe",
+                WeaponType.Sword => "IsSword",
+                _ => null
+            };
+
+            if (weaponBool != null)
+                animator.SetBool(weaponBool, true);
+
             animator.SetTrigger("OnAttack");
             equipWeapon.GetComponent<Weapon>().Use();
             atkDelay = 0;
-            IsAttack = false;
         }
     }
 
