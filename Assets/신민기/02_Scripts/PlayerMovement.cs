@@ -222,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Turn()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
