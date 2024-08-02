@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -42,11 +43,13 @@ public class PlayerMovement : MonoBehaviour
     float staminaCoolTime;
     float currentStamina;
 
-
     [Header("Player HP")]
-    [SerializeField] Image hpBar;
     [SerializeField] int maxHp;
     int currentHp;
+    Slider hpBar;
+    Slider backHpBar;
+    TextMeshProUGUI maxHpText;
+    TextMeshProUGUI currentHpText;
 
 
     private void Awake()
@@ -56,6 +59,10 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
         staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
+         hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
+         backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
+        maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
+        currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -63,11 +70,13 @@ public class PlayerMovement : MonoBehaviour
         Initalize();
     }
 
-    void Initalize()
+    void Initalize() 
     {
         IsAcitve = true;
         currentStamina = maxStamina;
         currentHp = maxHp;
+        maxHpText.text = "/ " + $"{maxHp}";
+        currentHpText.text = $"{currentHp}";
         staminaParent.SetActive(false);
     }
 
@@ -83,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         Turn();
         UpdateStamina();
+        UpdateHpUI();
     }
 
     void MoveInput()
@@ -241,6 +251,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void UpdateHpUI()
+    {
+        hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
+        currentHpText.text = $"{currentHp}";
+    }
 
     private void OnAnimatorMove()
     {
