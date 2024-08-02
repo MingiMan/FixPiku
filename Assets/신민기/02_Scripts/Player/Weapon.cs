@@ -7,11 +7,17 @@ public enum WeaponType
     PickAxe,
     Sword
 }
+public enum AtkType
+{
+    Melee, Range
+}
+
 
 [RequireComponent(typeof(BoxCollider))]
 public class Weapon : MonoBehaviour
 {
     public WeaponType weaponType;
+    public AtkType atkType;
     public int weaponNum;
     public float atkSpeed;
     [SerializeField] int woodDamage;
@@ -28,8 +34,11 @@ public class Weapon : MonoBehaviour
 
     public void Use()
     {
-        StopCoroutine(Swing());
-        StartCoroutine(Swing());
+        if(atkType == AtkType.Melee)
+        {
+            StopCoroutine(Swing());
+            StartCoroutine(Swing());
+        }
     }
 
     IEnumerator Swing()
