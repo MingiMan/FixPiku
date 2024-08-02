@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [Header("0 : µµ³¢  1 : °î±ªÀÌ  2 : °Ë")]
+    [Header("0 : µµ³¢  1 : °î±ªÀÌ  2 : °Ë 3 : Ä³³í")]
     public GameObject[] weapons;
     bool[] hasWeapon;
     Weapon equipWeapon;

@@ -8,6 +8,8 @@ TagManager:
   - Tile Mesh
   - Rule Tile
   - Grid
+  - MELEE
+  - ENEMY
   layers:
   - Default
   - TransparentFX
