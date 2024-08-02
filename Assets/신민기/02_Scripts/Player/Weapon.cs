@@ -5,7 +5,8 @@ public enum WeaponType
 {
     Axe,
     PickAxe,
-    Sword
+    Sword,
+    Cannon,
 }
 public enum AtkType
 {
@@ -16,6 +17,7 @@ public enum AtkType
 [RequireComponent(typeof(BoxCollider))]
 public class Weapon : MonoBehaviour
 {
+    PlayerMovement player;
     public WeaponType weaponType;
     public AtkType atkType;
     public int weaponNum;
@@ -25,6 +27,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] int monsterDamage;
     [SerializeField] float enableTime;
     BoxCollider meleeArea;
+
+    [Space(10)]
+    [Header("Range")]
+    public Transform bulletPos;
+    public GameObject cannonBulletPrefab;
+    public int maxAmmo;
+    public int curAmmo;
 
     private void Awake()
     {
@@ -39,6 +48,11 @@ public class Weapon : MonoBehaviour
             StopCoroutine(Swing());
             StartCoroutine(Swing());
         }
+        else if (atkType == AtkType.Range)
+        {
+            curAmmo--;
+            StartCoroutine(RangeAttack());
+        }
     }
 
     IEnumerator Swing()
@@ -47,5 +61,12 @@ public class Weapon : MonoBehaviour
         meleeArea.enabled = true;
         yield return new WaitForSeconds(0.3f);
         meleeArea.enabled = false;
+    }
+
+    IEnumerator RangeAttack()
+    {
+        yield return new WaitForSeconds(1f);
+        GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position,Quaternion.identity);
+        bullet.GetComponent<CannonBullet>().FireBullet(bulletPos.transform);
     }
 }
