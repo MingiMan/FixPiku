@@ -8,6 +8,7 @@ public enum WeaponType
     Sword
 }
 
+[RequireComponent(typeof(BoxCollider))]
 public class Weapon : MonoBehaviour
 {
     public WeaponType weaponType;
