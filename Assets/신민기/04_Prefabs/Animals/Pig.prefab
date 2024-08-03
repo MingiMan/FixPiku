@@ -324,13 +324,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadDustParticle: {fileID: 132836380312461158, guid: 3d62bfbb169a40c428b652efb36ed79b, type: 3}
   Stats:
-    health: 120
+    health: 100
     atkDamage: 0
     atkSpeed: 0
     walkSpeed: 4
-    runSpeed: 10
+    runSpeed: 8
     walkTime: 5
-    waitTime: 3
+    waitTime: 5
     runTime: 5
     monsterType: 0
   dead_Sound: {fileID: 8300000, guid: 872576eae71354e449641997b00aec3f, type: 3}
