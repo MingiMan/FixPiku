@@ -1,6 +1,6 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -18,12 +18,11 @@ public class PlayerMovement : MonoBehaviour
     float dempTime;
     float ySpeed;
 
-    public bool IsActive;
     bool IsRun;
     bool IsFalling;
     bool IsGrounded;
     bool BlockRotationPlayer;
-    bool IsSpecificAcitve; // ½ºÅ×¹Ì³ª°¡ ¶³¾îÁö¸é Æ¯Á¤Çàµ¿À» ºÒ°¡´ÉÇÏµµ·Ï ¸¸µç bool °ª
+    bool IsAcitve; // ìŠ¤í…Œë¯¸ë‚˜ê°€ ë–¨ì–´ì§€ë©´ íŠ¹ì •í–‰ë™ì„ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ë§Œë“  bool ê°’
     bool IsRecovering;
 
     [Header("Player Stats")]
@@ -60,10 +59,10 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
         staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
-        hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
-        backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
-        maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
-        currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
+        // hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
+        // backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
+        // maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
+        // currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -73,8 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Initalize()
     {
-        IsActive = true;
-        IsSpecificAcitve = true;
+        IsAcitve = true;
         currentStamina = maxStamina;
         currentHp = maxHp;
         maxHpText.text = "/ " + $"{maxHp}";
@@ -84,22 +82,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsActive)
-        {
-            MoveInput();
-            Move();
-        }
+        MoveInput();
+        Move();
     }
 
     private void Update()
     {
-        if (IsActive)
-        {
-            JumpInput();
-            Turn();
-        }
-
+        JumpInput();
         GroundCheck();
+        Turn();
         UpdateStamina();
         UpdateHpUI();
     }
@@ -112,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         moveAmount = new Vector3(inputX, 0, inputZ).sqrMagnitude;
         moveDirection = new Vector3(inputX, 0, inputZ).normalized;
 
-        if (Input.GetButton("Run") && moveAmount > 0 && IsSpecificAcitve)
+        if (Input.GetButton("Run") && moveAmount > 0 && IsAcitve)
         {
             IsRun = true;
             currentSpeed = runSpeed;
@@ -162,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded && IsSpecificAcitve)
+        if (Input.GetButtonDown("Jump") && IsGrounded && IsAcitve)
         {
             ySpeed = jumpForce;
             CostStamina(jumpCost, false);
@@ -170,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    #region ½ºÅ×¹Ì³ª
+    #region ìŠ¤í…Œë¯¸ë‚˜
     void CostStamina(float cost, bool UseDeltaTime = false)
     {
         staminaParent.SetActive(true);
@@ -206,15 +197,15 @@ public class PlayerMovement : MonoBehaviour
                 {
                     staminaParent.SetActive(false);
                     IsRecovering = false;
-                    IsSpecificAcitve = true;
+                    IsAcitve = true;
                 }
             }
         }
 
         if (currentStamina <= 0)
-            IsSpecificAcitve = false;
-        else if (currentStamina >= jumpCost) // Á¡ÇÁºñ¿ëÀÌ Á¦ÀÏ Å« °ªÀÌ¶ó¼­ Á¡ÇÁºñ¿ë¸¸Å­ Ã¤¿ü´õ¶ó¸é ´Ù½Ã Æ¯Á¤Çàµ¿À» È°¼ºÈ­ ÇÒ ¼ö ÀÖ´Ù.
-            IsSpecificAcitve = true;
+            IsAcitve = false;
+        else if (currentStamina >= jumpCost) // ì í”„ë¹„ìš©ì´ ì œì¼ í° ê°’ì´ë¼ì„œ ì í”„ë¹„ìš©ë§Œí¼ ì±„ì› ë”ë¼ë©´ ë‹¤ì‹œ íŠ¹ì •í–‰ë™ì„ í™œì„±í™” í•  ìˆ˜ ìˆë‹¤.
+            IsAcitve = true;
 
         staminaBar.fillAmount = currentStamina / maxStamina;
     }
@@ -241,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Turn()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -264,17 +255,6 @@ public class PlayerMovement : MonoBehaviour
     {
         hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
         currentHpText.text = $"{currentHp}";
-    }
-
-    // ¾Ö´Ï¸ŞÀÌ¼Ç¿¡ Å¬¸³À¸·Î »ç¿ë
-    public void UnActive()
-    {
-        IsActive = false;
-    }
-
-    public void Active()
-    {
-        IsActive = true;
     }
 
     private void OnAnimatorMove()

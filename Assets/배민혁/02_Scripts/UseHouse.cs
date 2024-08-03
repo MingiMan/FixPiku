@@ -44,13 +44,13 @@ public class UseHouse : MonoBehaviour
                 switch (slots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
                 {
                     case ("Rock"):
-                        slotText.text = $"<color=#000000>{player.GetComponent<PlayerController>().rock}</color>";
+                        slotText.text = $"<color=#000000>{player.GetComponent<PlayerState>().rock}</color>";
                         break;
                     case ("Wood"):
-                        slotText.text = $"<color=#ffffff>{player.GetComponent<PlayerController>().wood}</color>";
+                        slotText.text = $"<color=#ffffff>{player.GetComponent<PlayerState>().wood}</color>";
                         break;
                     case ("Leather"):
-                        slotText.text = $"<color=#ffffff>{player.GetComponent<PlayerController>().leather}</color>";
+                        slotText.text = $"<color=#ffffff>{player.GetComponent<PlayerState>().leather}</color>";
                         break;
 
                     default:

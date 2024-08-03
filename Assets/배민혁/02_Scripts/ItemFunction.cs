@@ -21,20 +21,20 @@ public class ItemFunction : MonoBehaviour
                 case ("ROCK"):
                     Debug.Log("ROCK");
                     // coll.gameObject.GetComponent<PlayerController>().rock += 1;
-                    player.GetComponent<PlayerController>().rock += 1;
+                    player.GetComponent<PlayerState>().rock += 1;
                     Destroy(this.gameObject);
                     break;
                 case ("WOOD"):
                     Debug.Log("WOOD");
                     // coll.gameObject.GetComponent<PlayerController>().wood += 1;
-                    player.GetComponent<PlayerController>().wood += 1;
+                    player.GetComponent<PlayerState>().wood += 1;
 
                     Destroy(this.gameObject);
                     break;
                 case ("LEATHER"):
                     Debug.Log("LEATHER");
                     // coll.gameObject.GetComponent<PlayerController>().leather += 1;
-                    player.GetComponent<PlayerController>().leather += 1;
+                    player.GetComponent<PlayerState>().leather += 1;
                     Destroy(this.gameObject);
                     break;
 

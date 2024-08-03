@@ -307,6 +307,7 @@ MonoBehaviour:
   chop_sound: 
   falldown_sound: 
   logChange_sound: 
+  regenPrefab: {fileID: 8879705187690626018}
 --- !u!136 &8591226318266320195
 CapsuleCollider:
   m_ObjectHideFlags: 0

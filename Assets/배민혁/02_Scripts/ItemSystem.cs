@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class TreeFunction : MonoBehaviour
+public class ItemSystem : MonoBehaviour
 {
 
     private float woodHp = 100;
@@ -9,7 +9,7 @@ public class TreeFunction : MonoBehaviour
     private float damagePoint;
 
     [SerializeField]
-    private GameObject Log_Prefabs;  // 통나무. 나무가 쓰러진 이후 생성할.
+    private GameObject Log_Prefabs;  // 통나무. 나무가 쓰러진 이후 생성할 재료.
 
     [SerializeField]
     private float force;  // 나무가 땅에 쓰러지도록 밀어줄 힘의 세기(랜덤으로 정할 것) 
@@ -44,17 +44,32 @@ public class TreeFunction : MonoBehaviour
     private Vector3 _pos;
     private bool treeActive = true;
 
+    [SerializeField]
+    private GameObject regenPrefab;
+    private float regenTime = 10.0f;  // 나무 재생성시간
+    private Vector3 itemPosition;
+    private Quaternion itemRotation;
+
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        damagePoint = player.GetComponent<PlayerController>().attackState;
+        itemPosition = this.gameObject.transform.position;  // 기존 오브젝트위치
+        itemRotation = this.gameObject.transform.rotation;  // 기존 오브젝트회전  
+
 
     }
     void Update()
     {
+        damagePoint = player.GetComponent<PlayerState>().attackState;
+
+    }
+    void OnTriggerEnter(Collider coll)
+    {
+        Debug.Log(coll.tag);
         if (treeActive)
         {
-            if (Input.GetButtonDown("Fire3"))//오브젝트 체력다는 조건 추후 피격기능으로 수정필요!!!!!!!!
+            if (coll.CompareTag("MELEE"))//오브젝트 체력다는 조건 추후 피격기능으로 수정필요!!!!!!!!
             {
 
                 //Hit(_pos);
@@ -66,10 +81,10 @@ public class TreeFunction : MonoBehaviour
                     treeActive = false;
                 }
             }
-
         }
 
     }
+
     /*private void Hit(Vector3 _pos)
     {
         //SoundManager.instance.PlaySE(chop_sound);
@@ -89,6 +104,7 @@ public class TreeFunction : MonoBehaviour
         childRigid.AddForce(Random.Range(-force, force), 0f, Random.Range(-force, force));
 
         StartCoroutine(LogCoroutine());
+        StartCoroutine(RegenCoroutine());
     }
 
     IEnumerator LogCoroutine()
@@ -120,5 +136,14 @@ public class TreeFunction : MonoBehaviour
         //SoundManager.instance.PlaySE(logChange_sound);
 
         Destroy(childTree.gameObject);
+    }
+    IEnumerator RegenCoroutine()
+    {
+        yield return new WaitForSeconds(regenTime);
+        Debug.Log("regen");
+        Instantiate(regenPrefab, itemPosition, itemRotation);
+        Destroy(this.gameObject);
+
+
     }
 }
