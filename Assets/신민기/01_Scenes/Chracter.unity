@@ -1154,6 +1154,7 @@ GameObject:
   - component: {fileID: 1643619910}
   - component: {fileID: 1643619912}
   - component: {fileID: 1643619914}
+  - component: {fileID: 1643619916}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1529,6 +1530,25 @@ Transform:
   - {fileID: 1643619913}
   m_Father: {fileID: 1643619919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1643619916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643133541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c7efd3103cd0d42a571c868e14a676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  turnSpeed: 500
+  rock: 0
+  wood: 0
+  leather: 0
+  attackState: 10
+  animator: {fileID: 0}
 --- !u!4 &1643619917
 Transform:
   m_ObjectHideFlags: 0
