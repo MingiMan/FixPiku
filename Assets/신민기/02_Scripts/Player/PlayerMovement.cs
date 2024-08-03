@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -18,11 +18,12 @@ public class PlayerMovement : MonoBehaviour
     float dempTime;
     float ySpeed;
 
+    public bool IsActive;
     bool IsRun;
     bool IsFalling;
     bool IsGrounded;
     bool BlockRotationPlayer;
-    bool IsAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
+    bool IsSpecificAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
 
     [Header("Player Stats")]
@@ -59,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
         staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
-         hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
-         backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
+        hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
+        backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
         maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
         currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
     }
@@ -70,9 +71,10 @@ public class PlayerMovement : MonoBehaviour
         Initalize();
     }
 
-    void Initalize() 
+    void Initalize()
     {
-        IsAcitve = true;
+        IsActive = true;
+        IsSpecificAcitve = true;
         currentStamina = maxStamina;
         currentHp = maxHp;
         maxHpText.text = "/ " + $"{maxHp}";
@@ -82,15 +84,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveInput();
-        Move();
+        if (IsActive)
+        {
+            MoveInput();
+            Move();
+        }
     }
 
     private void Update()
     {
-        JumpInput();
+        if (IsActive)
+        {
+            JumpInput();
+            Turn();
+        }
+
         GroundCheck();
-        Turn();
         UpdateStamina();
         UpdateHpUI();
     }
@@ -103,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         moveAmount = new Vector3(inputX, 0, inputZ).sqrMagnitude;
         moveDirection = new Vector3(inputX, 0, inputZ).normalized;
 
-        if (Input.GetButton("Run") && moveAmount > 0 && IsAcitve)
+        if (Input.GetButton("Run") && moveAmount > 0 && IsSpecificAcitve)
         {
             IsRun = true;
             currentSpeed = runSpeed;
@@ -153,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded && IsAcitve)
+        if (Input.GetButtonDown("Jump") && IsGrounded && IsSpecificAcitve)
         {
             ySpeed = jumpForce;
             CostStamina(jumpCost, false);
@@ -197,15 +206,15 @@ public class PlayerMovement : MonoBehaviour
                 {
                     staminaParent.SetActive(false);
                     IsRecovering = false;
-                    IsAcitve = true;
+                    IsSpecificAcitve = true;
                 }
             }
         }
 
         if (currentStamina <= 0)
-            IsAcitve = false;
+            IsSpecificAcitve = false;
         else if (currentStamina >= jumpCost) // 점프비용이 제일 큰 값이라서 점프비용만큼 채웠더라면 다시 특정행동을 활성화 할 수 있다.
-            IsAcitve = true;
+            IsSpecificAcitve = true;
 
         staminaBar.fillAmount = currentStamina / maxStamina;
     }
@@ -232,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Turn()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -255,6 +264,17 @@ public class PlayerMovement : MonoBehaviour
     {
         hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
         currentHpText.text = $"{currentHp}";
+    }
+
+    // 애니메이션에 클립으로 사용
+    public void UnActive()
+    {
+        IsActive = false;
+    }
+
+    public void Active()
+    {
+        IsActive = true;
     }
 
     private void OnAnimatorMove()

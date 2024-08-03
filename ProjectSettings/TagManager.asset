@@ -10,14 +10,16 @@ TagManager:
   - Grid
   - MELEE
   - ENEMY
+  - Castle
+  - enemyBug
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PLAYER
   - Water
   - UI
-  - 
+  - DEAD
   - 
   - 
   - 
