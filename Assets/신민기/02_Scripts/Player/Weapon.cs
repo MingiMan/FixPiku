@@ -13,11 +13,9 @@ public enum AtkType
     Melee, Range
 }
 
-
 [RequireComponent(typeof(BoxCollider))]
 public class Weapon : MonoBehaviour
 {
-    PlayerMovement player;
     public WeaponType weaponType;
     public AtkType atkType;
     public int weaponNum;
@@ -63,10 +61,28 @@ public class Weapon : MonoBehaviour
         meleeArea.enabled = false;
     }
 
+    public void EnableCollider()
+    {
+        meleeArea.enabled = true;
+    }
+
+    public void DisableCollider()
+    {
+        meleeArea.enabled = false;
+    }
+
     IEnumerator RangeAttack()
     {
         yield return new WaitForSeconds(1f);
         GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position,Quaternion.identity);
         bullet.GetComponent<CannonBullet>().FireBullet(bulletPos.transform);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ENEMY"))
+        {
+            other.GetComponent<Enemys>().Damage(monsterDamage, transform.position);
+        }
     }
 }

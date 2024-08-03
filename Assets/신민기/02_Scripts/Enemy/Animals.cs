@@ -13,7 +13,7 @@ public class Animals : Enemys
         IsRunning = true;
     }
 
-    protected override void Damage(int _dmg, Vector3 _tarGetPos)
+    public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
         base.Damage(_dmg, _tarGetPos);
 
@@ -61,6 +61,7 @@ public class Animals : Enemys
     protected void Wait()
     {
         currentTime = Stats.waitTime;
+        PlaySE(idle_Sound);
     }
 
     protected void Peek()

@@ -8,8 +8,11 @@ public class Enemys : MonoBehaviour
     protected Animator animator;
     protected Rigidbody rigid;
     protected AudioSource theAudio;
-    protected NavMeshAgent nav; 
+    protected NavMeshAgent nav;
     protected Transform playerTr;
+    protected Material mat;
+    protected SkinnedMeshRenderer skinnedMesh;
+    [SerializeField] ParticleSystem deadDustParticle;
 
     protected int currentHp;
     protected float currentTime;
@@ -18,10 +21,16 @@ public class Enemys : MonoBehaviour
     protected bool IsWalking;
     protected bool IsRunning;
     protected bool IsDead;
+    protected bool Invisible;
     protected Vector3 destination;
 
     [Header("Monster Stats")]
     [SerializeField] public BasicMonsters.Base Stats;
+
+    [Header("SoundClip(없는 몬스터도 있음)")]
+    [SerializeField] protected AudioClip dead_Sound;
+    [SerializeField] protected AudioClip hurt_Sound;
+    [SerializeField] protected AudioClip idle_Sound;
 
     private void Awake()
     {
@@ -30,6 +39,8 @@ public class Enemys : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         theAudio = GetComponent<AudioSource>();
         playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+        skinnedMesh = GetComponentInChildren<SkinnedMeshRenderer>();
+        mat = skinnedMesh.material;
     }
 
     protected void Start()
@@ -53,6 +64,7 @@ public class Enemys : MonoBehaviour
 
     protected virtual void Initialize()
     {
+        Invisible = false;
         IsWalking = false;
         IsRunning = false;
         IsAction = true;
@@ -123,8 +135,8 @@ public class Enemys : MonoBehaviour
             yield return null;
         }
     }
-    
-     protected IEnumerator Jump(NavMeshAgent agent, float height, float duration)
+
+    protected IEnumerator Jump(NavMeshAgent agent, float height, float duration)
     {
         OffMeshLinkData data = agent.currentOffMeshLinkData;
         Vector3 startPos = agent.transform.position;
@@ -153,26 +165,77 @@ public class Enemys : MonoBehaviour
         IsRunning = true;
     }
 
-    protected virtual void Damage(int _dmg, Vector3 _tarGetPos)
+    public virtual void Damage(int _dmg, Vector3 _tarGetPos)
     {
-        currentHp -= _dmg;
-
-        if (currentHp <= 0)
+        if (!IsDead && !Invisible)
         {
-            Dead();
-            return;
+            Invisible = true;
+            currentHp -= _dmg;
+
+            if (currentHp <= 0)
+            {
+                Dead();
+                return;
+            }
+
+            if (hurt_Sound != null)
+                PlaySE(hurt_Sound);
+
+            StartCoroutine(ColorDamage());
+            animator.SetTrigger("OnDamage");
         }
-        animator.SetTrigger("OnDamage");
-        // PlaySE(hurt_Sound);
     }
+
+    IEnumerator ColorDamage()
+    {
+        float duration = 0.2f;
+        float elapsed = 0f;
+        Color originalColor = mat.color;
+        Color damagedColor = Color.red;
+
+        while (elapsed < duration)
+        {
+            mat.color = Color.Lerp(originalColor, damagedColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        mat.color = damagedColor;
+
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            mat.color = Color.Lerp(damagedColor, originalColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Invisible = false;
+        mat.color = originalColor;
+    }
+
     protected void Dead()
     {
+        mat.color = Color.red;
         IsWalking = false;
         IsRunning = false;
         IsDead = true;
-        // PlaySE(dead_Sound);
-        // gameObject.layer = 8;
+        if (dead_Sound != null)
+            PlaySE(dead_Sound);
+        gameObject.layer = 6;
+        gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
+        Invoke(nameof(DestroyEnemy), 2f);
+    }
+
+    protected void PlaySE(AudioClip _clip)
+    {
+        theAudio.clip = _clip;
+        theAudio.Play();
+    }
+
+    private void DestroyEnemy()
+    {
+        Instantiate(deadDustParticle, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 
     protected virtual void OnAnimatorMove()
