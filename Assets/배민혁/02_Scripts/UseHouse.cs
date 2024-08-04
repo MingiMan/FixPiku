@@ -23,10 +23,9 @@ public class UseHouse : MonoBehaviour
     //public int wood = 0;  // 필요나무
     //public int leather = 0;  // 필요가죽
 
-
-
     void Start()
     {
+
         HouseUI.enabled = false;
         player = GameObject.FindWithTag("Player");
         inevetotyScript = inventory.GetComponent<Inventory>();

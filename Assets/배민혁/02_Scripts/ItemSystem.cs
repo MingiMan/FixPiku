@@ -44,18 +44,12 @@ public class ItemSystem : MonoBehaviour
     private Vector3 _pos;
     private bool treeActive = true;
 
-    [SerializeField]
-    private GameObject regenPrefab;
-    private float regenTime = 10.0f;  // 나무 재생성시간
-    private Vector3 itemPosition;
-    private Quaternion itemRotation;
 
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        itemPosition = this.gameObject.transform.position;  // 기존 오브젝트위치
-        itemRotation = this.gameObject.transform.rotation;  // 기존 오브젝트회전  
+
 
 
     }
@@ -104,18 +98,19 @@ public class ItemSystem : MonoBehaviour
         childRigid.AddForce(Random.Range(-force, force), 0f, Random.Range(-force, force));
 
         StartCoroutine(LogCoroutine());
-        StartCoroutine(RegenCoroutine());
+        StopCoroutine(LogCoroutine());
+
     }
 
     IEnumerator LogCoroutine()
     {
-        Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f), Quaternion.LookRotation(stump.transform.up));
-        Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
+        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f), Quaternion.LookRotation(stump.transform.up));
+        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
+        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
 
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(1.0f, 3.0f) + stump.transform.up, Quaternion.LookRotation(stump.transform.up));
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(1.0f, 3.0f) + stump.transform.up, Quaternion.LookRotation(stump.transform.up));
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(1.0f, 3.0f) + stump.transform.up, Quaternion.LookRotation(stump.transform.up));
 
         //Instantiate(Log_Prefabs, stump.transform.position + Random.insideUnitSphere, Quaternion.identity);
         //Instantiate(Log_Prefabs, stump.transform.position + Random.insideUnitSphere, Quaternion.identity);
@@ -136,14 +131,7 @@ public class ItemSystem : MonoBehaviour
         //SoundManager.instance.PlaySE(logChange_sound);
 
         Destroy(childTree.gameObject);
+        this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
     }
-    IEnumerator RegenCoroutine()
-    {
-        yield return new WaitForSeconds(regenTime);
-        Debug.Log("regen");
-        Instantiate(regenPrefab, itemPosition, itemRotation);
-        Destroy(this.gameObject);
 
-
-    }
 }

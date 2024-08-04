@@ -47,15 +47,5 @@ public class ItemFunction : MonoBehaviour
 
 
     }
-    // void OnTriggerStay(Collider coll)
-    // {
-    //     if (coll.CompareTag("PLAYER"))
-    //     {
-    //         Debug.Log("rock2");
 
-    //         coll.gameObject.GetComponent<PlayerController>().rock += 1;
-    //         Destroy(this.gameObject);
-    //     }
-
-    // }
 }
