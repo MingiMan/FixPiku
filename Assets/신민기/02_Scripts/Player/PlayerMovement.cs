@@ -22,8 +22,9 @@ public class PlayerMovement : MonoBehaviour
     bool IsFalling;
     bool IsGrounded;
     bool BlockRotationPlayer;
-    bool IsAcitve; // ½ºÅ×¹Ì³ª°¡ ¶³¾îÁö¸é Æ¯Á¤Çàµ¿À» ºÒ°¡´ÉÇÏµµ·Ï ¸¸µç bool °ª
+    bool IsParticularAcitve; // ìŠ¤í…Œë¯¸ë‚˜ê°€ ë–¨ì–´ì§€ë©´ íŠ¹ì •í–‰ë™ì„ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ë§Œë“  bool ê°’
     bool IsRecovering;
+    bool IsActive;
 
     [Header("Player Stats")]
     [SerializeField] float moveSpeed;
@@ -59,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
         staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
-         hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
-         backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
+        hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
+        backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
         maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
         currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
     }
@@ -70,9 +71,10 @@ public class PlayerMovement : MonoBehaviour
         Initalize();
     }
 
-    void Initalize() 
+    void Initalize()
     {
-        IsAcitve = true;
+        IsParticularAcitve = true;
+        IsActive = true;
         currentStamina = maxStamina;
         currentHp = maxHp;
         maxHpText.text = "/ " + $"{maxHp}";
@@ -82,15 +84,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveInput();
-        Move();
+        if (IsActive)
+        {
+            MoveInput();
+            Move();
+        }
     }
 
     private void Update()
     {
-        JumpInput();
+        if (IsActive)
+        {
+            JumpInput();
+            Turn();
+        }
         GroundCheck();
-        Turn();
         UpdateStamina();
         UpdateHpUI();
     }
@@ -103,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         moveAmount = new Vector3(inputX, 0, inputZ).sqrMagnitude;
         moveDirection = new Vector3(inputX, 0, inputZ).normalized;
 
-        if (Input.GetButton("Run") && moveAmount > 0 && IsAcitve)
+        if (Input.GetButton("Run") && moveAmount > 0 && IsParticularAcitve)
         {
             IsRun = true;
             currentSpeed = runSpeed;
@@ -153,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded && IsAcitve)
+        if (Input.GetButtonDown("Jump") && IsGrounded && IsParticularAcitve)
         {
             ySpeed = jumpForce;
             CostStamina(jumpCost, false);
@@ -161,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    #region ½ºÅ×¹Ì³ª
+    #region ìŠ¤í…Œë¯¸ë‚˜
     void CostStamina(float cost, bool UseDeltaTime = false)
     {
         staminaParent.SetActive(true);
@@ -197,15 +205,15 @@ public class PlayerMovement : MonoBehaviour
                 {
                     staminaParent.SetActive(false);
                     IsRecovering = false;
-                    IsAcitve = true;
+                    IsParticularAcitve = true;
                 }
             }
         }
 
         if (currentStamina <= 0)
-            IsAcitve = false;
-        else if (currentStamina >= jumpCost) // Á¡ÇÁºñ¿ëÀÌ Á¦ÀÏ Å« °ªÀÌ¶ó¼­ Á¡ÇÁºñ¿ë¸¸Å­ Ã¤¿ü´õ¶ó¸é ´Ù½Ã Æ¯Á¤Çàµ¿À» È°¼ºÈ­ ÇÒ ¼ö ÀÖ´Ù.
-            IsAcitve = true;
+            IsParticularAcitve = false;
+        else if (currentStamina >= jumpCost) // ì í”„ë¹„ìš©ì´ ì œì¼ í° ê°’ì´ë¼ì„œ ì í”„ë¹„ìš©ë§Œí¼ ì±„ì› ë”ë¼ë©´ ë‹¤ì‹œ íŠ¹ì •í–‰ë™ì„ í™œì„±í™” í•  ìˆ˜ ìˆë‹¤.
+            IsParticularAcitve = true;
 
         staminaBar.fillAmount = currentStamina / maxStamina;
     }
@@ -249,6 +257,16 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UnActive()
+    {
+        IsActive = false;
+    }
+
+    public void Active()
+    {
+        IsActive = true;
     }
 
     void UpdateHpUI()

@@ -1,98 +1,279 @@
 fileFormatVersion: 2
 guid: a614435b39d0cac42bbaa199c1fa991e
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180535
+  packageName: Farm Animals Mega Toon Series
+  packageVersion: 1.0
+  assetPath: Assets/Farm Animals Pack Mega Toon Series/Cow Mega Toon Series/FBX/Cow.FBX
+  uploadId: 393876
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Cow
-    100004: Rig
-    100006: RigHead
-    100008: RigHeadGizmo
-    100010: RigLBLeg1
-    100012: RigLBLeg2
-    100014: RigLBLegAnkle
-    100016: RigLBLegPlatform
-    100018: RigLFLeg1
-    100020: RigLFLeg2
-    100022: RigLFLegAnkle
-    100024: RigLFLegPlatform
-    100026: RigNeck
-    100028: RigPelvis
-    100030: RigPelvisGizmo
-    100032: RigRBLeg1
-    100034: RigRBLeg2
-    100036: RigRBLegAnkle
-    100038: RigRBLegPlatform
-    100040: RigRFLeg1
-    100042: RigRFLeg2
-    100044: RigRFLegAnkle
-    100046: RigRFLegPlatform
-    100048: RigRibcage
-    100050: RigRibcageGizmo
-    100052: RigSpine
-    100054: RigTail1
-    100056: RigTail1Gizmo
-    100058: RigTail2
-    100060: RigTail2Gizmo
-    100062: RigTail3
-    100064: RigTail3Gizmo
-    100066: RigTail4
-    100068: RigTail4Gizmo
-    100070: RigTail5
-    100072: RigTail5Gizmo
-    100074: RigTail6
-    100076: RigTail6Gizmo
-    400000: //RootNode
-    400002: Cow
-    400004: Rig
-    400006: RigHead
-    400008: RigHeadGizmo
-    400010: RigLBLeg1
-    400012: RigLBLeg2
-    400014: RigLBLegAnkle
-    400016: RigLBLegPlatform
-    400018: RigLFLeg1
-    400020: RigLFLeg2
-    400022: RigLFLegAnkle
-    400024: RigLFLegPlatform
-    400026: RigNeck
-    400028: RigPelvis
-    400030: RigPelvisGizmo
-    400032: RigRBLeg1
-    400034: RigRBLeg2
-    400036: RigRBLegAnkle
-    400038: RigRBLegPlatform
-    400040: RigRFLeg1
-    400042: RigRFLeg2
-    400044: RigRFLegAnkle
-    400046: RigRFLegPlatform
-    400048: RigRibcage
-    400050: RigRibcageGizmo
-    400052: RigSpine
-    400054: RigTail1
-    400056: RigTail1Gizmo
-    400058: RigTail2
-    400060: RigTail2Gizmo
-    400062: RigTail3
-    400064: RigTail3Gizmo
-    400066: RigTail4
-    400068: RigTail4Gizmo
-    400070: RigTail5
-    400072: RigTail5Gizmo
-    400074: RigTail6
-    400076: RigTail6Gizmo
-    2100000: No Name
-    2100002: 'Material #27'
-    2300000: //RootNode
-    2300002: Cow
-    3300000: //RootNode
-    3300002: Cow
-    4300000: Cow
-    9500000: //RootNode
-    13700000: Cow
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Cow
+  - first:
+      1: 100004
+    second: Rig
+  - first:
+      1: 100006
+    second: RigHead
+  - first:
+      1: 100008
+    second: RigHeadGizmo
+  - first:
+      1: 100010
+    second: RigLBLeg1
+  - first:
+      1: 100012
+    second: RigLBLeg2
+  - first:
+      1: 100014
+    second: RigLBLegAnkle
+  - first:
+      1: 100016
+    second: RigLBLegPlatform
+  - first:
+      1: 100018
+    second: RigLFLeg1
+  - first:
+      1: 100020
+    second: RigLFLeg2
+  - first:
+      1: 100022
+    second: RigLFLegAnkle
+  - first:
+      1: 100024
+    second: RigLFLegPlatform
+  - first:
+      1: 100026
+    second: RigNeck
+  - first:
+      1: 100028
+    second: RigPelvis
+  - first:
+      1: 100030
+    second: RigPelvisGizmo
+  - first:
+      1: 100032
+    second: RigRBLeg1
+  - first:
+      1: 100034
+    second: RigRBLeg2
+  - first:
+      1: 100036
+    second: RigRBLegAnkle
+  - first:
+      1: 100038
+    second: RigRBLegPlatform
+  - first:
+      1: 100040
+    second: RigRFLeg1
+  - first:
+      1: 100042
+    second: RigRFLeg2
+  - first:
+      1: 100044
+    second: RigRFLegAnkle
+  - first:
+      1: 100046
+    second: RigRFLegPlatform
+  - first:
+      1: 100048
+    second: RigRibcage
+  - first:
+      1: 100050
+    second: RigRibcageGizmo
+  - first:
+      1: 100052
+    second: RigSpine
+  - first:
+      1: 100054
+    second: RigTail1
+  - first:
+      1: 100056
+    second: RigTail1Gizmo
+  - first:
+      1: 100058
+    second: RigTail2
+  - first:
+      1: 100060
+    second: RigTail2Gizmo
+  - first:
+      1: 100062
+    second: RigTail3
+  - first:
+      1: 100064
+    second: RigTail3Gizmo
+  - first:
+      1: 100066
+    second: RigTail4
+  - first:
+      1: 100068
+    second: RigTail4Gizmo
+  - first:
+      1: 100070
+    second: RigTail5
+  - first:
+      1: 100072
+    second: RigTail5Gizmo
+  - first:
+      1: 100074
+    second: RigTail6
+  - first:
+      1: 100076
+    second: RigTail6Gizmo
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Cow
+  - first:
+      4: 400004
+    second: Rig
+  - first:
+      4: 400006
+    second: RigHead
+  - first:
+      4: 400008
+    second: RigHeadGizmo
+  - first:
+      4: 400010
+    second: RigLBLeg1
+  - first:
+      4: 400012
+    second: RigLBLeg2
+  - first:
+      4: 400014
+    second: RigLBLegAnkle
+  - first:
+      4: 400016
+    second: RigLBLegPlatform
+  - first:
+      4: 400018
+    second: RigLFLeg1
+  - first:
+      4: 400020
+    second: RigLFLeg2
+  - first:
+      4: 400022
+    second: RigLFLegAnkle
+  - first:
+      4: 400024
+    second: RigLFLegPlatform
+  - first:
+      4: 400026
+    second: RigNeck
+  - first:
+      4: 400028
+    second: RigPelvis
+  - first:
+      4: 400030
+    second: RigPelvisGizmo
+  - first:
+      4: 400032
+    second: RigRBLeg1
+  - first:
+      4: 400034
+    second: RigRBLeg2
+  - first:
+      4: 400036
+    second: RigRBLegAnkle
+  - first:
+      4: 400038
+    second: RigRBLegPlatform
+  - first:
+      4: 400040
+    second: RigRFLeg1
+  - first:
+      4: 400042
+    second: RigRFLeg2
+  - first:
+      4: 400044
+    second: RigRFLegAnkle
+  - first:
+      4: 400046
+    second: RigRFLegPlatform
+  - first:
+      4: 400048
+    second: RigRibcage
+  - first:
+      4: 400050
+    second: RigRibcageGizmo
+  - first:
+      4: 400052
+    second: RigSpine
+  - first:
+      4: 400054
+    second: RigTail1
+  - first:
+      4: 400056
+    second: RigTail1Gizmo
+  - first:
+      4: 400058
+    second: RigTail2
+  - first:
+      4: 400060
+    second: RigTail2Gizmo
+  - first:
+      4: 400062
+    second: RigTail3
+  - first:
+      4: 400064
+    second: RigTail3Gizmo
+  - first:
+      4: 400066
+    second: RigTail4
+  - first:
+      4: 400068
+    second: RigTail4Gizmo
+  - first:
+      4: 400070
+    second: RigTail5
+  - first:
+      4: 400072
+    second: RigTail5Gizmo
+  - first:
+      4: 400074
+    second: RigTail6
+  - first:
+      4: 400076
+    second: RigTail6Gizmo
+  - first:
+      21: 2100000
+    second: No Name
+  - first:
+      21: 2100002
+    second: Material #27
+  - first:
+      23: 2300000
+    second: //RootNode
+  - first:
+      23: 2300002
+    second: Cow
+  - first:
+      33: 3300000
+    second: //RootNode
+  - first:
+      33: 3300002
+    second: Cow
+  - first:
+      43: 4300000
+    second: Cow
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Cow
   externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -101,9 +282,8 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -121,29 +301,40 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 1.2
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -152,10 +343,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -165,21 +356,20 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.012
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 180535
-  packageName: Farm Animals Mega Toon Series
-  packageVersion: 1.0
-  assetPath: Assets/Farm Animals Pack Mega Toon Series/Cow Mega Toon Series/FBX/Cow.FBX
-  uploadId: 393876

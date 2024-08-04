@@ -5,7 +5,8 @@ public enum MonsterType
     Pig,
     Cow,
     Chicken,
-    Sheep
+    Sheep,
+    Wolf,
 }
 
     [CreateAssetMenu(fileName = "Monster Profile", menuName = "New Monster/Basic")]

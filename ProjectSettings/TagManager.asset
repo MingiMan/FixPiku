@@ -10,15 +10,24 @@ TagManager:
   - Grid
   - MELEE
   - ENEMY
+  - Castle
+  - enemyBug
+  - LEATHER
+  - TREE
+  - PLAYER
+  - WOOD
+  - ROCK
+  - INVENTORY
+  - HOUSE
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PLAYER
   - Water
   - UI
-  - 
-  - 
+  - DEAD
+  - HOUSE
   - 
   - 
   - 

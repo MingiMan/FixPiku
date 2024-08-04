@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [Header("0 : µµ³¢  1 : °î±ªÀÌ  2 : °Ë 3 : Ä³³í")]
+    [Header("0 : ë„ë¼  1 : ê³¡ê´­ì´  2 : ê²€ 3 : ìºë…¼")]
     public GameObject[] weapons;
     bool[] hasWeapon;
     Weapon equipWeapon;
@@ -44,6 +44,8 @@ public class WeaponController : MonoBehaviour
             weaponIndex = 1;
         else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
             weaponIndex = 2;
+        else if (Input.GetButtonDown("Swap4") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
+            weaponIndex = 3;
 
         if (weaponIndex >= 0 && weaponIndex < weapons.Length)
         {
@@ -78,16 +80,18 @@ public class WeaponController : MonoBehaviour
         {
             WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
 
-        
+
             animator.SetBool("IsAxe", false);
             animator.SetBool("IsPickAxe", false);
             animator.SetBool("IsSword", false);
+            animator.SetBool("IsCannon", false);
 
             string weaponBool = weaponType switch
             {
                 WeaponType.Axe => "IsAxe",
                 WeaponType.PickAxe => "IsPickAxe",
                 WeaponType.Sword => "IsSword",
+                WeaponType.Cannon => "IsCannon",
                 _ => null
             };
 
@@ -101,7 +105,7 @@ public class WeaponController : MonoBehaviour
     }
 
 
-    public void WeaponLock() // ¹«±â ÇØ±İ ¾ÆÁ÷ ±¸Çö ¾ÈÇÔ
+    public void WeaponLock() // ë¬´ê¸° í•´ê¸ˆ ì•„ì§ êµ¬í˜„ ì•ˆí•¨
     {
         Weapon weapon = GetComponent<Weapon>();
         hasWeapon[weapon.weaponNum] = true;
