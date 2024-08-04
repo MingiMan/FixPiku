@@ -12,6 +12,13 @@ TagManager:
   - ENEMY
   - Castle
   - enemyBug
+  - LEATHER
+  - TREE
+  - PLAYER
+  - WOOD
+  - ROCK
+  - INVENTORY
+  - HOUSE
   layers:
   - Default
   - TransparentFX
@@ -20,7 +27,7 @@ TagManager:
   - Water
   - UI
   - DEAD
-  - 
+  - HOUSE
   - 
   - 
   - 

@@ -2,6 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyType
+{
+    Animal,
+    Monster,
+}
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemys : MonoBehaviour
 {
@@ -13,6 +18,7 @@ public class Enemys : MonoBehaviour
     protected Material mat;
     protected SkinnedMeshRenderer skinnedMesh;
     [SerializeField] ParticleSystem deadDustParticle;
+    public EnemyType enemyType;
 
     protected int currentHp;
     protected float currentTime;
@@ -27,7 +33,7 @@ public class Enemys : MonoBehaviour
     [Header("Monster Stats")]
     [SerializeField] public BasicMonsters.Base Stats;
 
-    [Header("SoundClip(없는 몬스터도 있음)")]
+    [Header("SoundClip(사운드가 없는 몬스터도 있음)")]
     [SerializeField] protected AudioClip dead_Sound;
     [SerializeField] protected AudioClip hurt_Sound;
     [SerializeField] protected AudioClip idle_Sound;
@@ -43,7 +49,7 @@ public class Enemys : MonoBehaviour
         mat = skinnedMesh.material;
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         currentHp = Stats.health;
         currentTime = Stats.waitTime;
@@ -56,6 +62,7 @@ public class Enemys : MonoBehaviour
         if (!IsDead)
             ElapseTime();
     }
+
     protected virtual void FixedUpdate()
     {
         if (!IsDead)
@@ -64,6 +71,7 @@ public class Enemys : MonoBehaviour
 
     protected virtual void Initialize()
     {
+        Debug.Log("32");
         Invisible = false;
         IsWalking = false;
         IsRunning = false;

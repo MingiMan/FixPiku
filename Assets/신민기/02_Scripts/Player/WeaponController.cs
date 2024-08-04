@@ -44,6 +44,8 @@ public class WeaponController : MonoBehaviour
             weaponIndex = 1;
         else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
             weaponIndex = 2;
+        else if (Input.GetButtonDown("Swap4") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
+            weaponIndex = 3;
 
         if (weaponIndex >= 0 && weaponIndex < weapons.Length)
         {
@@ -82,12 +84,14 @@ public class WeaponController : MonoBehaviour
             animator.SetBool("IsAxe", false);
             animator.SetBool("IsPickAxe", false);
             animator.SetBool("IsSword", false);
+            animator.SetBool("IsCannon", false);
 
             string weaponBool = weaponType switch
             {
                 WeaponType.Axe => "IsAxe",
                 WeaponType.PickAxe => "IsPickAxe",
                 WeaponType.Sword => "IsSword",
+                WeaponType.Cannon => "IsCannon",
                 _ => null
             };
 

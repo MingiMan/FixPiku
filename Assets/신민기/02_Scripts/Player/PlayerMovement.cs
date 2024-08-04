@@ -22,8 +22,9 @@ public class PlayerMovement : MonoBehaviour
     bool IsFalling;
     bool IsGrounded;
     bool BlockRotationPlayer;
-    bool IsAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
+    bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
+    bool IsActive;
 
     [Header("Player Stats")]
     [SerializeField] float moveSpeed;
@@ -59,10 +60,10 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
         staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
-        // hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
-        // backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
-        // maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
-        // currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
+        hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
+        backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
+        maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
+        currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -72,7 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Initalize()
     {
-        IsAcitve = true;
+        IsParticularAcitve = true;
+        IsActive = true;
         currentStamina = maxStamina;
         currentHp = maxHp;
         maxHpText.text = "/ " + $"{maxHp}";
@@ -82,15 +84,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveInput();
-        Move();
+        if (IsActive)
+        {
+            MoveInput();
+            Move();
+        }
     }
 
     private void Update()
     {
-        JumpInput();
+        if (IsActive)
+        {
+            JumpInput();
+            Turn();
+        }
         GroundCheck();
-        Turn();
         UpdateStamina();
         UpdateHpUI();
     }
@@ -103,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         moveAmount = new Vector3(inputX, 0, inputZ).sqrMagnitude;
         moveDirection = new Vector3(inputX, 0, inputZ).normalized;
 
-        if (Input.GetButton("Run") && moveAmount > 0 && IsAcitve)
+        if (Input.GetButton("Run") && moveAmount > 0 && IsParticularAcitve)
         {
             IsRun = true;
             currentSpeed = runSpeed;
@@ -153,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded && IsAcitve)
+        if (Input.GetButtonDown("Jump") && IsGrounded && IsParticularAcitve)
         {
             ySpeed = jumpForce;
             CostStamina(jumpCost, false);
@@ -197,15 +205,15 @@ public class PlayerMovement : MonoBehaviour
                 {
                     staminaParent.SetActive(false);
                     IsRecovering = false;
-                    IsAcitve = true;
+                    IsParticularAcitve = true;
                 }
             }
         }
 
         if (currentStamina <= 0)
-            IsAcitve = false;
+            IsParticularAcitve = false;
         else if (currentStamina >= jumpCost) // 점프비용이 제일 큰 값이라서 점프비용만큼 채웠더라면 다시 특정행동을 활성화 할 수 있다.
-            IsAcitve = true;
+            IsParticularAcitve = true;
 
         staminaBar.fillAmount = currentStamina / maxStamina;
     }
@@ -249,6 +257,16 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UnActive()
+    {
+        IsActive = false;
+    }
+
+    public void Active()
+    {
+        IsActive = true;
     }
 
     void UpdateHpUI()
