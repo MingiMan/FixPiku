@@ -59,10 +59,10 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
         staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
-        // hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
-        // backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
-        // maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
-        // currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
+        hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
+        backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
+        maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
+        currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
