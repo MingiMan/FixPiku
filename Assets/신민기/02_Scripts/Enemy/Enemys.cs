@@ -71,7 +71,6 @@ public class Enemys : MonoBehaviour
 
     protected virtual void Initialize()
     {
-        Debug.Log("32");
         Invisible = false;
         IsWalking = false;
         IsRunning = false;

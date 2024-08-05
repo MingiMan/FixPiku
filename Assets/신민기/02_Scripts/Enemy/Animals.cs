@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Animals : Enemys
 {
-    bool IsHappy;
+    protected bool IsHappy;
 
     public override void Run(Vector3 _tarGetPos)
     {
@@ -58,19 +58,20 @@ public class Animals : Enemys
         }
     }
 
-    protected void Wait()
+    protected virtual void Wait()
     {
         currentTime = Stats.waitTime;
-        PlaySE(idle_Sound);
+        if(idle_Sound != null)
+            PlaySE(idle_Sound);
     }
 
-    protected void Peek()
+    protected virtual void Peek()
     {
         currentTime = Stats.waitTime;
         IsHappy = true;
     }
 
-    protected void Walk()
+    protected virtual void Walk()
     {
         currentTime = Stats.walkTime;
         nav.speed = Stats.walkSpeed;

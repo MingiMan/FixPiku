@@ -20,10 +20,13 @@ public class Weapon : MonoBehaviour
     public AtkType atkType;
     public int weaponNum;
     public float atkSpeed;
-    [SerializeField] int woodDamage;
-    [SerializeField] int rockDamage;
-    [SerializeField] int monsterDamage;
+    
+    public int woodDamage;
+    public int rockDamage;
+    public int monsterDamage;
+
     [SerializeField] float enableTime;
+    
     BoxCollider meleeArea;
 
     [Space(10)]
