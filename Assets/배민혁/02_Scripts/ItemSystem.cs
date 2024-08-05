@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 public class ItemSystem : MonoBehaviour
 {
 
@@ -51,7 +52,6 @@ public class ItemSystem : MonoBehaviour
         player = GameObject.FindWithTag("Player");
 
 
-
     }
     void Update()
     {
@@ -60,6 +60,7 @@ public class ItemSystem : MonoBehaviour
     }
     void OnTriggerEnter(Collider coll)
     {
+        Debug.Log(coll.tag);
         if (treeActive)
         {
             if (coll.CompareTag("MELEE"))//오브젝트 체력다는 조건 추후 피격기능으로 수정필요!!!!!!!!

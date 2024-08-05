@@ -85,7 +85,7 @@ public class Snake : Animals
     }
 
 
-    protected void Patrol() // ¼øÂû
+    protected void Patrol() // ï¿½ï¿½ï¿½ï¿½
     {
         currentTime = Stats.walkTime;
         nav.speed = Stats.walkSpeed;
@@ -107,7 +107,7 @@ public class Snake : Animals
             if (rayHits.Length > 0 && !IsAttack)
                 StartCoroutine(Attack());
 
-            else if (Vector3.Distance(transform.position,playerTr.transform.position) > 15f)
+            else if (Vector3.Distance(transform.position, playerTr.transform.position) > 15f)
             {
                 Initialize();
             }
@@ -151,7 +151,7 @@ public class Snake : Animals
     {
         if (IsTracking)
         {
-            IsAction = false; // ÇöÀç È°µ¿À» ¸ðµÎ Áß´ÜÇÏ°í ÇÃ·¹ÀÌ¾î¸¦ ÂÑ¾Æ°¡µµ·ÏÇÑ´Ù.
+            IsAction = false; // ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß´ï¿½ï¿½Ï°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½Ñ¾Æ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
             IsHappy = false;
             IsRunning = true;
             nav.speed = Stats.runSpeed;
@@ -162,7 +162,7 @@ public class Snake : Animals
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
+            //other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
         }
     }
 

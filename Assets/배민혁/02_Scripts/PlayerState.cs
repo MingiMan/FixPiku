@@ -11,7 +11,7 @@ public class PlayerState : MonoBehaviour
     void OnTriggerEnter(Collider coll)
     {
 
-        Debug.Log(coll.name);
+        //Debug.Log(coll.name);
         switch (coll.tag)
         {
             case ("ROCK"):
