@@ -44,7 +44,7 @@ public class WeaponController : MonoBehaviour
             weaponIndex = 1;
         else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
             weaponIndex = 2;
-        else if (Input.GetButtonDown("Swap4") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
+        else if (Input.GetButtonDown("Swap4") && hasWeapon[3] && !IsSwap && !weapons[3].activeSelf)
             weaponIndex = 3;
 
         if (weaponIndex >= 0 && weaponIndex < weapons.Length)

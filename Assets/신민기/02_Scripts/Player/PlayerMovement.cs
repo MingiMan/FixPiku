@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -25,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
     bool IsActive;
+    bool IsInvincible;
+    bool backHpHit;
 
     [Header("Player Stats")]
     [SerializeField] float moveSpeed;
@@ -100,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         }
         GroundCheck();
         UpdateStamina();
-        UpdateHpUI();
+        UpdateHP();
     }
 
     void MoveInput()
@@ -259,6 +262,49 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    public void OnDamage(int _atkDamage)
+    {
+        if (IsInvincible || currentHp <= 0) return; 
+
+        IsInvincible = true;
+        animator.SetTrigger("OnDamage");
+
+        currentHp -= _atkDamage;
+        UpdateHpUI();
+
+        if (!backHpHit)
+        {
+            StartCoroutine(BackHpCoroutine());
+        }
+    }
+
+    private void UpdateHP()
+    {
+        backHpBar.value = Mathf.Lerp(backHpBar.value, hpBar.value, Time.deltaTime * 10f);
+
+        if (Mathf.Abs(hpBar.value - backHpBar.value) < 0.01f)
+        {
+            backHpHit = false;
+            backHpBar.value = hpBar.value;
+        }
+    }
+    private void UpdateHpUI()
+    {
+        hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
+        currentHpText.text = $"{currentHp}";
+    }
+
+    private IEnumerator BackHpCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        backHpHit = true;
+        yield return new WaitForSeconds(0.5f);
+        IsInvincible = false;
+    }
+
+
+    #region 애니메이션 이벤트들
     public void UnActive()
     {
         IsActive = false;
@@ -268,12 +314,7 @@ public class PlayerMovement : MonoBehaviour
     {
         IsActive = true;
     }
-
-    void UpdateHpUI()
-    {
-        hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
-        currentHpText.text = $"{currentHp}";
-    }
+    #endregion
 
     private void OnAnimatorMove()
     {

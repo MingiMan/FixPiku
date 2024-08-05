@@ -19,6 +19,7 @@ TagManager:
   - ROCK
   - INVENTORY
   - HOUSE
+  - BLOCK
   layers:
   - Default
   - TransparentFX
