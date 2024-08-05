@@ -55,17 +55,16 @@ public class ItemSystem : MonoBehaviour
     }
     void Update()
     {
-        damagePoint = player.GetComponent<PlayerState>().attackState;
+        //damagePoint = player.GetComponent<PlayerState>().attackState;
 
     }
     void OnTriggerEnter(Collider coll)
     {
-        Debug.Log(coll.tag);
         if (treeActive)
         {
             if (coll.CompareTag("MELEE"))//오브젝트 체력다는 조건 추후 피격기능으로 수정필요!!!!!!!!
             {
-
+                damagePoint = coll.gameObject.GetComponent<Weapon>().woodDamage;
                 //Hit(_pos);
                 woodHp -= damagePoint;
                 Debug.Log(woodHp);
@@ -104,13 +103,11 @@ public class ItemSystem : MonoBehaviour
 
     IEnumerator LogCoroutine()
     {
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f), Quaternion.LookRotation(stump.transform.up));
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
-
+        Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        //Debug.Log(childTree.gameObject.transform.parent.name);
+        //Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position, Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
 
         //Instantiate(Log_Prefabs, stump.transform.position + Random.insideUnitSphere, Quaternion.identity);
         //Instantiate(Log_Prefabs, stump.transform.position + Random.insideUnitSphere, Quaternion.identity);

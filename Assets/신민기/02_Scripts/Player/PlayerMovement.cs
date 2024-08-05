@@ -47,10 +47,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player HP")]
     [SerializeField] int maxHp;
     int currentHp;
-    Slider hpBar;
-    Slider backHpBar;
-    TextMeshProUGUI maxHpText;
-    TextMeshProUGUI currentHpText;
+    // Slider hpBar;
+    // Slider backHpBar;
+    // TextMeshProUGUI maxHpText;
+    // TextMeshProUGUI currentHpText;
 
 
     private void Awake()
@@ -76,10 +76,10 @@ public class PlayerMovement : MonoBehaviour
         IsParticularAcitve = true;
         IsActive = true;
         currentStamina = maxStamina;
-        currentHp = maxHp;
-        maxHpText.text = "/ " + $"{maxHp}";
-        currentHpText.text = $"{currentHp}";
-        staminaParent.SetActive(false);
+        // currentHp = maxHp;
+        // maxHpText.text = "/ " + $"{maxHp}";
+        // currentHpText.text = $"{currentHp}";
+        // staminaParent.SetActive(false);
     }
 
     private void FixedUpdate()

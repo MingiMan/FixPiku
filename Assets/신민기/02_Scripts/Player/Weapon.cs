@@ -20,9 +20,9 @@ public class Weapon : MonoBehaviour
     public AtkType atkType;
     public int weaponNum;
     public float atkSpeed;
-    [SerializeField] int woodDamage;
-    [SerializeField] int rockDamage;
-    [SerializeField] int monsterDamage;
+    public int woodDamage;
+    public int rockDamage;
+    public int monsterDamage;
     [SerializeField] float enableTime;
     BoxCollider meleeArea;
 
@@ -41,7 +41,7 @@ public class Weapon : MonoBehaviour
 
     public void Use()
     {
-        if(atkType == AtkType.Melee)
+        if (atkType == AtkType.Melee)
         {
             StopCoroutine(Swing());
             StartCoroutine(Swing());
@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
     IEnumerator RangeAttack()
     {
         yield return new WaitForSeconds(1f);
-        GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position,Quaternion.identity);
+        GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position, Quaternion.identity);
         bullet.GetComponent<CannonBullet>().FireBullet(bulletPos.transform);
     }
 
