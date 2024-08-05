@@ -55,11 +55,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+
+        //Debug.Log(GameObject.Find("StaminaBar").transform.name); 
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         cam = Camera.main;
         staminaParent = GetComponentInChildren<Canvas>().gameObject;
-        staminaBar = GameObject.Find("Canvas").transform.Find("StaminaBar").GetComponent<Image>();
+        staminaBar = GameObject.Find("StaminaBar").transform.GetComponent<Image>(); // 수정
         hpBar = GameObject.Find("PlayerHealth").transform.Find("PlayerHpSlider").GetComponent<Slider>();
         backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
         maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();

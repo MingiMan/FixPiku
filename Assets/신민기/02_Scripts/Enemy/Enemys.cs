@@ -71,7 +71,6 @@ public class Enemys : MonoBehaviour
 
     protected virtual void Initialize()
     {
-        Debug.Log("32");
         Invisible = false;
         IsWalking = false;
         IsRunning = false;
@@ -220,7 +219,7 @@ public class Enemys : MonoBehaviour
         mat.color = originalColor;
     }
 
-    protected void Dead()
+    protected virtual void Dead()
     {
         mat.color = Color.red;
         IsWalking = false;
@@ -231,6 +230,15 @@ public class Enemys : MonoBehaviour
         gameObject.layer = 6;
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
+
+        switch (enemyType)
+        {
+            case EnemyType.Animal:
+                GameManager.Instance.OnAnimalDeath();
+                break;
+            case EnemyType.Monster:
+                break;
+        }
         Invoke(nameof(DestroyEnemy), 2f);
     }
 

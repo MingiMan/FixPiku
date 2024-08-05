@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 public class ItemSystem : MonoBehaviour
 {
 
@@ -27,11 +28,6 @@ public class ItemSystem : MonoBehaviour
     private Rigidbody childRigid; // 쓰러질 나무인 나무 윗부분에 붙어있는 Rigidbody를 통해 나무가 쓰러지면 중력을 활성화 해주어야 함.
 
     [SerializeField]
-    private GameObject go_hit_effect_prefab;  // 나무 도끼질 할 때마다 이펙트 효과(나무 파편)
-    [SerializeField]
-    private float debrisDestroyTime;  // 파편 제거 시간. 나무 도끼질 이펙트(나무 파편) 파괴될 시간
-
-    [SerializeField]
     private float destroyTime;  // 나무 제거 시간. 나무 윗 부분이 땅에 쓰러지고 나서 파괴될 시간.
 
     [SerializeField]
@@ -40,8 +36,6 @@ public class ItemSystem : MonoBehaviour
     private string falldown_sound;  // 나무 쓰러질 때 재생시킬 사운드 이름 
     [SerializeField]
     private string logChange_sound;  // 나무 쓰러져서 통나무로 바뀔 때 재생시킬 사운드 이름
-
-    private Vector3 _pos;
     private bool treeActive = true;
 
 
@@ -51,21 +45,19 @@ public class ItemSystem : MonoBehaviour
         player = GameObject.FindWithTag("Player");
 
 
-
     }
     void Update()
     {
-        damagePoint = player.GetComponent<PlayerState>().attackState;
+        //damagePoint = player.GetComponent<PlayerState>().attackState;
 
     }
     void OnTriggerEnter(Collider coll)
     {
-        Debug.Log(coll.tag);
         if (treeActive)
         {
-            if (coll.CompareTag("MELEE"))//오브젝트 체력다는 조건 추후 피격기능으로 수정필요!!!!!!!!
+            if (coll.CompareTag("MELEE"))
             {
-
+                damagePoint = coll.gameObject.GetComponent<Weapon>().woodDamage;
                 //Hit(_pos);
                 woodHp -= damagePoint;
                 Debug.Log(woodHp);
@@ -104,13 +96,11 @@ public class ItemSystem : MonoBehaviour
 
     IEnumerator LogCoroutine()
     {
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f), Quaternion.LookRotation(stump.transform.up));
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
-        // Instantiate(Log_Prefabs, stump.transform.position * Random.Range(0.1f, 0.2f) + stump.transform.up * Random.Range(1.0f, 3.0f) + stump.transform.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
-        Instantiate(Log_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.1f, 0.2f) + this.gameObject.transform.parent.right * Random.Range(-1.0f, 1.0f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
-
+        Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
+        //Debug.Log(childTree.gameObject.transform.parent.name);
+        //Instantiate(Log_Prefabs, childTree.gameObject.transform.parent.position, Quaternion.LookRotation(stump.transform.parent.up * Random.Range(0.0f, 180.0f)));
 
         //Instantiate(Log_Prefabs, stump.transform.position + Random.insideUnitSphere, Quaternion.identity);
         //Instantiate(Log_Prefabs, stump.transform.position + Random.insideUnitSphere, Quaternion.identity);
