@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
                 switch (slots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
                 {
                     case ("Rock"):
+<<<<<<< HEAD
                         slotText.text = $"<color=#ffffff>{player.GetComponent<PlayerState>().rock}</color>";
                         break;
                     case ("Wood"):
@@ -30,6 +31,15 @@ public class Inventory : MonoBehaviour
                         break;
                     case ("Leather"):
                         slotText.text = $"<color=#ffffff>{player.GetComponent<PlayerState>().leather}</color>";
+=======
+                        slotText.text = $"<color=#000000>{player.GetComponent<PlayerState>().rock}</color>";
+                        break;
+                    case ("Wood"):
+                        slotText.text = $"<color=#000000>{player.GetComponent<PlayerState>().wood}</color>";
+                        break;
+                    case ("Leather"):
+                        slotText.text = $"<color=#000000>{player.GetComponent<PlayerState>().leather}</color>";
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
                         break;
 
                     default:

@@ -7,10 +7,14 @@ public class ItemRegen : MonoBehaviour
     public GameObject parentObject;
     public GameObject regenPrefab;
     private float regenTime = 5.0f;  // 나무 재생성시간
+<<<<<<< HEAD
     private Vector3 itemPosition;
     private Quaternion itemRotation;
     Transform[] childList;
 
+=======
+    Transform[] childList;
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
     public bool checkObject = false;// object 있으면 true 없으면 false
 
     void Start()

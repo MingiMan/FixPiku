@@ -20,10 +20,19 @@ public class Weapon : MonoBehaviour
     public AtkType atkType;
     public int weaponNum;
     public float atkSpeed;
+<<<<<<< HEAD
     [SerializeField] int woodDamage;
     [SerializeField] int rockDamage;
     [SerializeField] int monsterDamage;
     [SerializeField] float enableTime;
+=======
+
+    public int woodDamage;
+    public int rockDamage;
+    public int monsterDamage;
+    [SerializeField] float enableTime;
+
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
     BoxCollider meleeArea;
 
     [Space(10)]
@@ -41,7 +50,11 @@ public class Weapon : MonoBehaviour
 
     public void Use()
     {
+<<<<<<< HEAD
         if(atkType == AtkType.Melee)
+=======
+        if (atkType == AtkType.Melee)
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
         {
             StopCoroutine(Swing());
             StartCoroutine(Swing());
@@ -74,7 +87,11 @@ public class Weapon : MonoBehaviour
     IEnumerator RangeAttack()
     {
         yield return new WaitForSeconds(1f);
+<<<<<<< HEAD
         GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position,Quaternion.identity);
+=======
+        GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position, Quaternion.identity);
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
         bullet.GetComponent<CannonBullet>().FireBullet(bulletPos.transform);
     }
 

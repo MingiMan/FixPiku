@@ -16,7 +16,11 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 1
+=======
+  m_IsActive: 0
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
 --- !u!4 &5557224765262913928
 Transform:
   m_ObjectHideFlags: 0
@@ -51,7 +55,11 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
+<<<<<<< HEAD
   m_Radius: 2
+=======
+  m_Radius: 1.2
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8604270983622776101
 GameObject:
@@ -171,7 +179,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8604270983622776101}
+<<<<<<< HEAD
   m_Enabled: 1
+=======
+  m_Enabled: 0
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e45c5cb083e7fc41951b709a42e3bf2, type: 3}
   m_Name: 

@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Combined Mesh
+<<<<<<< HEAD
+=======
+  - Tile Mesh
+  - Rule Tile
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
   - Grid
   - MELEE
   - ENEMY
@@ -17,7 +22,11 @@ TagManager:
   - ROCK
   - INVENTORY
   - HOUSE
+<<<<<<< HEAD
   - BROCK
+=======
+  - BLOCK
+>>>>>>> dd014889354572f0abb1d3a42768d4434be9d3a4
   layers:
   - Default
   - TransparentFX
