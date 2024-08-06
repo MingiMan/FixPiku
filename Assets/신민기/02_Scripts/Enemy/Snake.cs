@@ -17,6 +17,7 @@ public class Snake : Animals
         {
             ElapseTime();
             PlayerTracking();
+            FreezeRotation();
         }
     }
 
@@ -35,9 +36,9 @@ public class Snake : Animals
         PlayerTracking();
     }
 
-    public override void Damage(int _dmg, Vector3 _tarGetPos)
+    public override void Damage(int _dmg, Vector3 _tarGetPos, bool IsCannon)
     {
-        base.Damage(_dmg, _tarGetPos);
+        base.Damage(_dmg, _tarGetPos, IsCannon);
 
         IsTracking = true;
 
@@ -84,14 +85,12 @@ public class Snake : Animals
             PlaySE(idle_Sound);
     }
 
-
-    protected void Patrol() // ����
+    protected void Patrol()
     {
         currentTime = Stats.walkTime;
         nav.speed = Stats.walkSpeed;
         IsRunning = true;
     }
-
 
 
     protected override void Move()
@@ -121,19 +120,14 @@ public class Snake : Animals
 
     IEnumerator Attack()
     {
-        nav.isStopped = true;
-        IsRunning = false;
-        IsTracking = false;
         IsAttack = true;
         animator.SetTrigger("OnAttack");
         yield return new WaitForSeconds(0.6f);
-        rigid.isKinematic = true;
+        meleeArea.enabled = true;
         yield return new WaitForSeconds(1f);
-        rigid.isKinematic = false;
-        yield return new WaitForSeconds(0.1f);
+        meleeArea.enabled = false;
+        yield return new WaitForSeconds(1f);
         IsAttack = false;
-        IsTracking = true;
-        nav.isStopped = false;
     }
 
 
@@ -151,7 +145,7 @@ public class Snake : Animals
     {
         if (IsTracking)
         {
-            IsAction = false; // ���� Ȱ���� ��� �ߴ��ϰ� �÷��̾ �Ѿư������Ѵ�.
+            IsAction = false;
             IsHappy = false;
             IsRunning = true;
             nav.speed = Stats.runSpeed;
@@ -162,7 +156,7 @@ public class Snake : Animals
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
+            other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
         }
     }
 

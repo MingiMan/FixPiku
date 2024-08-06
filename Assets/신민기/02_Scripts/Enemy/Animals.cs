@@ -13,9 +13,9 @@ public class Animals : Enemys
         IsRunning = true;
     }
 
-    public override void Damage(int _dmg, Vector3 _tarGetPos)
+    public override void Damage(int _dmg, Vector3 _tarGetPos,bool IsCannon)
     {
-        base.Damage(_dmg, _tarGetPos);
+        base.Damage(_dmg, _tarGetPos,IsCannon);
 
         if (!IsDead)
             Run(_tarGetPos);

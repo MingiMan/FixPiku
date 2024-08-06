@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
+using UnityEditor.Rendering.LookDev;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -25,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
     bool IsActive;
+    bool IsInvincible;
+    bool backHpHit;
 
     [Header("Player Stats")]
     [SerializeField] float moveSpeed;
@@ -102,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         }
         GroundCheck();
         UpdateStamina();
-        UpdateHpUI();
+        UpdateHP();
     }
 
     void MoveInput()
@@ -242,25 +246,56 @@ public class PlayerMovement : MonoBehaviour
 
     void Turn()
     {
-        if (Input.GetMouseButton(1))
+        //if (Input.GetMouseButton(1))
+        //{
+        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit rayHit;
+
+        //    if (Physics.Raycast(ray, out rayHit, Mathf.Infinity))
+        //    {
+        //        Vector3 directionToLook = rayHit.point - transform.position;
+        //        directionToLook.y = 0;
+
+        //        if (directionToLook != Vector3.zero)
+        //        {
+        //            Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
+        //            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        //        }
+        //    }
+        //}
+
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
+            Vector3 directionLookPos = hit.point - transform.position;
+            directionLookPos.y = 0;
 
-            if (Physics.Raycast(ray, out rayHit, Mathf.Infinity))
+            if(directionLookPos != Vector3.zero)
             {
-                Vector3 directionToLook = rayHit.point - transform.position;
-                directionToLook.y = 0;
-
-                if (directionToLook != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-                }
+                Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
         }
-    }
 
+    }
+    public void OnDamage(int _atkDamage)
+    {
+        if (IsInvincible || currentHp <= 0) return;
+
+        IsInvincible = true;
+        animator.SetTrigger("OnDamage");
+
+        currentHp -= _atkDamage;
+        UpdateHpUI();
+
+        if (!backHpHit)
+        {
+            StartCoroutine(BackHpCoroutine());
+        }
+
+    }
     public void UnActive()
     {
         IsActive = false;
@@ -271,11 +306,28 @@ public class PlayerMovement : MonoBehaviour
         IsActive = true;
     }
 
-    void UpdateHpUI()
+    private void UpdateHP()
+    {
+        backHpBar.value = Mathf.Lerp(backHpBar.value, hpBar.value, Time.deltaTime * 10f);
+
+        if (Mathf.Abs(hpBar.value - backHpBar.value) < 0.01f)
+        {
+            backHpHit = false;
+            backHpBar.value = hpBar.value;
+        }
+    }
+    private void UpdateHpUI()
     {
         hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
         currentHpText.text = $"{currentHp}";
     }
+
+    private IEnumerator BackHpCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        backHpHit = true;
+    }
+
 
     private void OnAnimatorMove()
     {

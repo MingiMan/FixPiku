@@ -60,7 +60,10 @@ public class Enemys : MonoBehaviour
     protected virtual void Update()
     {
         if (!IsDead)
+        {
             ElapseTime();
+            FreezeRotation();
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -172,7 +175,7 @@ public class Enemys : MonoBehaviour
         IsRunning = true;
     }
 
-    public virtual void Damage(int _dmg, Vector3 _tarGetPos)
+    public virtual void Damage(int _dmg, Vector3 _tarGetPos,bool IsCannon = false)
     {
         if (!IsDead && !Invisible)
         {
@@ -184,9 +187,18 @@ public class Enemys : MonoBehaviour
                 Dead();
                 return;
             }
-
             if (hurt_Sound != null)
                 PlaySE(hurt_Sound);
+
+            if (IsCannon)
+            {
+                rigid.freezeRotation = false;
+                _tarGetPos = _tarGetPos.normalized;
+                _tarGetPos += Vector3.up * 3f;
+                rigid.freezeRotation = false;
+                rigid.AddForce(_tarGetPos * 5, ForceMode.Impulse);
+                rigid.AddTorque(_tarGetPos * 20, ForceMode.Impulse);
+            }
 
             StartCoroutine(ColorDamage());
             animator.SetTrigger("OnDamage");
@@ -231,21 +243,32 @@ public class Enemys : MonoBehaviour
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
 
-        switch (enemyType)
-        {
-            case EnemyType.Animal:
-                GameManager.Instance.OnAnimalDeath();
-                break;
-            case EnemyType.Monster:
-                break;
-        }
+        //switch (enemyType)
+        //{
+        //    case EnemyType.Animal:
+        //        GameManager.Instance.OnAnimalDeath();
+        //        break;
+        //    case EnemyType.Monster:
+        //        break;
+        //}
         Invoke(nameof(DestroyEnemy), 2f);
+    }
+
+    protected void FreezeRotation()
+    {
+        rigid.angularVelocity = Vector3.zero;
     }
 
     protected void PlaySE(AudioClip _clip)
     {
         theAudio.clip = _clip;
         theAudio.Play();
+    }
+
+    public void HitByCannon(int damage ,Vector3 explosionPos)
+    {
+        Vector3 reactVec = transform.position - explosionPos;
+        Damage(damage,reactVec,true);
     }
 
     private void DestroyEnemy()
