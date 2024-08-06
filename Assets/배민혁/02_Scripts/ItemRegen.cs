@@ -6,7 +6,7 @@ public class ItemRegen : MonoBehaviour
 {
     public GameObject parentObject;
     public GameObject regenPrefab;
-    private float regenTime = 5.0f;  // 나무 재생성시간
+    //private float regenTime = 5.0f;  // 나무 재생성시간
     Transform[] childList;
     public bool checkObject = false;// object 있으면 true 없으면 false
 

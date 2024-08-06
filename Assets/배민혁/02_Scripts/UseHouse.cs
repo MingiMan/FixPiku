@@ -11,22 +11,16 @@ public class UseHouse : MonoBehaviour
     public GameObject player;
     public GameObject inventory;
     public List<Item> items;
-    public Inventory inevetotyScript;
     [SerializeField] private Transform slotParent;
     [SerializeField] private Slot[] slots;
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
     [SerializeField] int houseLevelLimit;
-
-
-
+    [SerializeField] HouseInventory houseInventory;
     public TextMeshProUGUI slotText;
     [SerializeField]
     private Canvas houseUI;
-    //public int rock = 0;  // 필요돌
-    //public int wood = 0;  // 필요나무
-    //public int leather = 0;  // 필요가죽
 
     [Serializable]
     public struct levelUpItem
@@ -39,14 +33,13 @@ public class UseHouse : MonoBehaviour
 
     public int houseLevel = 0;
     [SerializeField] private GameObject[] houseParts;
-    [SerializeField] private levelUpItem[] useLevelUpItem;
+    public levelUpItem[] useLevelUpItem;
 
     void Start()
     {
 
         houseUI.enabled = false;
         player = GameObject.FindWithTag("Player");
-        inevetotyScript = inventory.GetComponent<Inventory>();
 
     }
 
@@ -135,7 +128,7 @@ public class UseHouse : MonoBehaviour
             houseParts[1].gameObject.SetActive(true);
             houseParts[2].gameObject.SetActive(true);
             houseParts[3].gameObject.SetActive(true);
-            houseParts[4].gameObject.SetActive(false);
+            houseParts[4].gameObject.SetActive(true);
             houseParts[5].gameObject.SetActive(false);
             houseParts[6].gameObject.SetActive(false);
         }
@@ -146,20 +139,10 @@ public class UseHouse : MonoBehaviour
             houseParts[2].gameObject.SetActive(true);
             houseParts[3].gameObject.SetActive(true);
             houseParts[4].gameObject.SetActive(true);
-            houseParts[5].gameObject.SetActive(false);
-            houseParts[6].gameObject.SetActive(false);
-        }
-        else if (houseLevel == 6)// 집레벨 6
-        {
-            houseParts[0].gameObject.SetActive(true);
-            houseParts[1].gameObject.SetActive(true);
-            houseParts[2].gameObject.SetActive(true);
-            houseParts[3].gameObject.SetActive(true);
-            houseParts[4].gameObject.SetActive(true);
             houseParts[5].gameObject.SetActive(true);
             houseParts[6].gameObject.SetActive(false);
         }
-        else if (houseLevel == 7)// 집레벨 7
+        else if (houseLevel == 6)// 집레벨 6
         {
             houseParts[0].gameObject.SetActive(true);
             houseParts[1].gameObject.SetActive(true);
@@ -183,7 +166,7 @@ public class UseHouse : MonoBehaviour
     }
     public void HouseLevelUpClick()
     {
-        if (houseLevel < houseLevelLimit)
+        if (houseLevel < houseLevelLimit - 1)
         {
             houseLevel += 1;
         }
