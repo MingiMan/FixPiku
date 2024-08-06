@@ -341,7 +341,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
+      - time: 0.5685279
         functionName: DisableCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

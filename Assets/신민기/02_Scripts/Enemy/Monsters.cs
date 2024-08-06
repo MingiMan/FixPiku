@@ -1,27 +1,41 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 // 밤에만 나오는 몬스터들은 이 스크립트를 적용시켜준다.
 public class Monsters : Enemys
 {
-    Transform houseTR;
-    [SerializeField] float distance;
-    [SerializeField] Transform houseCheck;
     [SerializeField] protected BoxCollider meleeArea;
+
     public float targetRadius = 0.5f;
+
     public float targetRange = 1f;
+
     private RaycastHit[] sphereCastHits;
+
+    public Transform point;
+
     bool IsAttack;
-    bool IsCheck;
+
+    bool IsTest;
 
     protected override void Start()
     {
         base.Start();
-        houseTR = GameObject.FindGameObjectWithTag("HOUSE").transform;
         nav.ResetPath();
         nav.speed = Stats.runSpeed;
         IsRunning = true;
-        destination = houseTR.transform.position;
+        destination = point.position;
+        // RadomPointHouse();
+    }
+
+    void RadomPointHouse()
+    {
+        Transform[] childTransforms = GameObject.Find("HouseCheck").GetComponentsInChildren<Transform>();
+        int randomIndex = Random.Range(0,childTransforms.Length);
+        point = childTransforms[randomIndex];
+        destination = point.position;   
     }
 
     protected override void Move()
@@ -29,16 +43,31 @@ public class Monsters : Enemys
         if (IsRunning)
         {
             nav.SetDestination(destination);
+            
+            if(Vector3.Distance(transform.position, destination) <= nav.stoppingDistance)
+            {
+                IsRunning = false;
+                nav.isStopped = true;
+                IsTest = true;
+            }
         }
     }
+
 
     protected override void Update()
     {
         if (!IsDead)
         {
             Move();
-            BaseCheck();
-            AvoidOtherEnemies();
+            Test();
+        }
+    }
+
+    void Test()
+    {
+        if(IsTest &&  !IsAttack)
+        {
+            StartCoroutine(Attack());
         }
     }
 
@@ -52,28 +81,8 @@ public class Monsters : Enemys
 
     }
 
-    protected virtual void BaseCheck()
-    {
-        sphereCastHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("HOUSE"));
 
-        foreach (var hit in sphereCastHits)
-        {
-            if (hit.collider.CompareTag("HOUSE"))
-            {
-                Vector3 directionToBase = (hit.transform.position - transform.position).normalized;
-                Quaternion targetRotation = Quaternion.LookRotation(directionToBase);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1.5f);
-
-                destination = hit.point;
-                nav.SetDestination(destination);
-
-                nav.isStopped = true;
-                IsRunning = false;
-            }
-        }
-    }
-
-    protected virtual void AvoidOtherEnemies()
+    protected virtual void AvoidOtherEnemie()
     {
         float minimumDistance = 1.0f; // 최소 허용 거리
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, minimumDistance);
@@ -88,21 +97,15 @@ public class Monsters : Enemys
         }
     }
 
-
     IEnumerator Attack()
     {
-        nav.isStopped = true;
-        IsRunning = false;
         IsAttack = true;
         animator.SetTrigger("OnAttack");
-        yield return new WaitForSeconds(0.6f);
-        rigid.isKinematic = true;
-        yield return new WaitForSeconds(1f);
-        rigid.isKinematic = false;
-        yield return new WaitForSeconds(0.1f);
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
         IsAttack = false;
-        nav.isStopped = false;
     }
+
 
     public void EnableCollider()
     {
@@ -114,11 +117,23 @@ public class Monsters : Enemys
         meleeArea.enabled = false;
     }
 
-    protected override void OnAnimatorMove()
+    protected virtual void PlayerDetaticon()
     {
-        base.OnAnimatorMove();
-        animator.SetBool("IsAttack", IsAttack);
+        sphereCastHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("PLAYER"));
+
+        foreach (var hit in sphereCastHits)
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                //Vector3 directionToBase = (hit.transform.position - transform.position).normalized;
+                //Quaternion targetRotation = Quaternion.LookRotation(directionToBase);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1.5f);
+                destination = playerTr.transform.position;
+                nav.isStopped = false;               
+            }
+        }
     }
+
 
     private void OnDrawGizmos()
     {
@@ -142,4 +157,10 @@ public class Monsters : Enemys
             Gizmos.DrawSphere(hit.point, 0.1f); // 충돌 지점에 작은 구체를 그립니다.
         }
     }
+
+    protected override void OnAnimatorMove()
+    {
+        base.OnAnimatorMove();
+        animator.SetBool("IsAttack", IsAttack);
+    }   
 }
