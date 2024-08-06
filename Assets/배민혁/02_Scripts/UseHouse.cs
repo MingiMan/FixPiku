@@ -17,7 +17,7 @@ public class UseHouse : MonoBehaviour
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
-    [SerializeField] int houseLevelLimit = 4;
+    [SerializeField] int houseLevelLimit;
 
 
 
@@ -80,12 +80,21 @@ public class UseHouse : MonoBehaviour
     {
         LevelUpButton.onClick.AddListener(() => // 거점 레벨업 버튼
        {
-           Debug.Log($"체크{player.gameObject.GetComponent<PlayerState>().wood} ,{useLevelUpItem[houseLevel].wood}");
-           if (LevelUpItemCheck())
+           try
            {
-               Debug.Log("레벨업");
-               HouseLevelUpClick();
+               Debug.Log($"체크{player.gameObject.GetComponent<PlayerState>().wood} ,{useLevelUpItem[houseLevel].wood}");
+               if (LevelUpItemCheck())
+               {
+                   Debug.Log("레벨업");
+                   HouseLevelUpClick();
+               }
            }
+           catch (Exception e)
+           {
+               Debug.Log(e.Message);
+           }
+
+
        });
     }
     void HousePartsActive()
@@ -96,6 +105,9 @@ public class UseHouse : MonoBehaviour
             houseParts[1].gameObject.SetActive(true);
             houseParts[2].gameObject.SetActive(false);
             houseParts[3].gameObject.SetActive(false);
+            houseParts[4].gameObject.SetActive(false);
+            houseParts[5].gameObject.SetActive(false);
+            houseParts[6].gameObject.SetActive(false);
         }
         else if (houseLevel == 2)// 집레벨 2
         {
@@ -103,6 +115,9 @@ public class UseHouse : MonoBehaviour
             houseParts[1].gameObject.SetActive(true);
             houseParts[2].gameObject.SetActive(true);
             houseParts[3].gameObject.SetActive(false);
+            houseParts[4].gameObject.SetActive(false);
+            houseParts[5].gameObject.SetActive(false);
+            houseParts[6].gameObject.SetActive(false);
         }
         else if (houseLevel == 3)// 집레벨 3
         {
@@ -110,6 +125,49 @@ public class UseHouse : MonoBehaviour
             houseParts[1].gameObject.SetActive(true);
             houseParts[2].gameObject.SetActive(true);
             houseParts[3].gameObject.SetActive(true);
+            houseParts[4].gameObject.SetActive(false);
+            houseParts[5].gameObject.SetActive(false);
+            houseParts[6].gameObject.SetActive(false);
+        }
+        else if (houseLevel == 4)// 집레벨 4
+        {
+            houseParts[0].gameObject.SetActive(true);
+            houseParts[1].gameObject.SetActive(true);
+            houseParts[2].gameObject.SetActive(true);
+            houseParts[3].gameObject.SetActive(true);
+            houseParts[4].gameObject.SetActive(false);
+            houseParts[5].gameObject.SetActive(false);
+            houseParts[6].gameObject.SetActive(false);
+        }
+        else if (houseLevel == 5)// 집레벨 5
+        {
+            houseParts[0].gameObject.SetActive(true);
+            houseParts[1].gameObject.SetActive(true);
+            houseParts[2].gameObject.SetActive(true);
+            houseParts[3].gameObject.SetActive(true);
+            houseParts[4].gameObject.SetActive(true);
+            houseParts[5].gameObject.SetActive(false);
+            houseParts[6].gameObject.SetActive(false);
+        }
+        else if (houseLevel == 6)// 집레벨 6
+        {
+            houseParts[0].gameObject.SetActive(true);
+            houseParts[1].gameObject.SetActive(true);
+            houseParts[2].gameObject.SetActive(true);
+            houseParts[3].gameObject.SetActive(true);
+            houseParts[4].gameObject.SetActive(true);
+            houseParts[5].gameObject.SetActive(true);
+            houseParts[6].gameObject.SetActive(false);
+        }
+        else if (houseLevel == 7)// 집레벨 7
+        {
+            houseParts[0].gameObject.SetActive(true);
+            houseParts[1].gameObject.SetActive(true);
+            houseParts[2].gameObject.SetActive(true);
+            houseParts[3].gameObject.SetActive(true);
+            houseParts[4].gameObject.SetActive(true);
+            houseParts[5].gameObject.SetActive(true);
+            houseParts[6].gameObject.SetActive(true);
         }
         else // 집레벨 0
         {
@@ -117,11 +175,15 @@ public class UseHouse : MonoBehaviour
             houseParts[1].gameObject.SetActive(false);
             houseParts[2].gameObject.SetActive(false);
             houseParts[3].gameObject.SetActive(false);
+            houseParts[4].gameObject.SetActive(false);
+            houseParts[5].gameObject.SetActive(false);
+            houseParts[6].gameObject.SetActive(false);
+
         }
     }
     public void HouseLevelUpClick()
     {
-        if (houseLevel < houseLevelLimit - 1)
+        if (houseLevel < houseLevelLimit)
         {
             houseLevel += 1;
         }
