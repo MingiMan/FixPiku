@@ -49,14 +49,29 @@ public class Enemys : MonoBehaviour
         mat = skinnedMesh.material;
     }
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
         currentHp = Stats.health;
         currentTime = Stats.waitTime;
         IsAction = true;
         nav.autoTraverseOffMeshLink = false;
+        mat.color = Color.white;
+        Invisible = false;
+        IsDead = false;
+        gameObject.layer = 8;
+        gameObject.tag = "ENEMY";
         StartCoroutine(CheckOffMeshLink());
     }
+
+    //protected virtual void Start()
+    //{
+    //    currentHp = Stats.health;
+    //    currentTime = Stats.waitTime;
+    //    IsAction = true;
+    //    nav.autoTraverseOffMeshLink = false;
+    //    StartCoroutine(CheckOffMeshLink());
+    //}
+
     protected virtual void Update()
     {
         if (!IsDead)
@@ -175,7 +190,7 @@ public class Enemys : MonoBehaviour
         IsRunning = true;
     }
 
-    public virtual void Damage(int _dmg, Vector3 _tarGetPos,bool IsCannon = false)
+    public virtual void Damage(int _dmg, Vector3 _tarGetPos)
     {
         if (!IsDead && !Invisible)
         {
@@ -189,17 +204,6 @@ public class Enemys : MonoBehaviour
             }
             if (hurt_Sound != null)
                 PlaySE(hurt_Sound);
-
-            if (IsCannon)
-            {
-                rigid.freezeRotation = false;
-                _tarGetPos = _tarGetPos.normalized;
-                _tarGetPos += Vector3.up * 3f;
-                rigid.freezeRotation = false;
-                rigid.AddForce(_tarGetPos * 5, ForceMode.Impulse);
-                rigid.AddTorque(_tarGetPos * 20, ForceMode.Impulse);
-            }
-
             StartCoroutine(ColorDamage());
             animator.SetTrigger("OnDamage");
         }
@@ -243,15 +247,14 @@ public class Enemys : MonoBehaviour
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
 
-        //switch (enemyType)
-        //{
-        //    case EnemyType.Animal:
-        //        GameManager.Instance.OnAnimalDeath();
-        //        break;
-        //    case EnemyType.Monster:
-        //        break;
-        //}
-        Invoke(nameof(DestroyEnemy), 2f);
+        switch (enemyType)
+        {
+            case EnemyType.Animal:
+                StartCoroutine(AnimalDeath());
+                break;
+            case EnemyType.Monster:
+                break;
+        }
     }
 
     protected void FreezeRotation()
@@ -268,13 +271,15 @@ public class Enemys : MonoBehaviour
     public void HitByCannon(int damage ,Vector3 explosionPos)
     {
         Vector3 reactVec = transform.position - explosionPos;
-        Damage(damage,reactVec,true);
+        Damage(damage,reactVec);
     }
 
-    private void DestroyEnemy()
+
+    IEnumerator AnimalDeath()
     {
+        yield return new WaitForSeconds(3f);
         Instantiate(deadDustParticle, transform.position, transform.rotation);
-        Destroy(gameObject);
+        GameManager.Instance.animalSpawner.AnimalDeath(this.gameObject);
     }
 
     protected virtual void OnAnimatorMove()

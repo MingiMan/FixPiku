@@ -13,9 +13,9 @@ public class Animals : Enemys
         IsRunning = true;
     }
 
-    public override void Damage(int _dmg, Vector3 _tarGetPos,bool IsCannon)
+    public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
-        base.Damage(_dmg, _tarGetPos,IsCannon);
+        base.Damage(_dmg, _tarGetPos);
 
         if (!IsDead)
             Run(_tarGetPos);
@@ -83,5 +83,10 @@ public class Animals : Enemys
         animator.SetBool("IsWalking", IsWalking);
         animator.SetBool("IsRunning", IsRunning);
         animator.SetBool("IsHappy", IsHappy);
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
     }
 }

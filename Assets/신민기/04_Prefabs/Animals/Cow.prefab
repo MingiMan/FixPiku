@@ -1200,7 +1200,7 @@ GameObject:
   - component: {fileID: 6183367016006497789}
   - component: {fileID: 3362992235169776200}
   - component: {fileID: 2272889407419408910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cow
   m_TagString: ENEMY
   m_Icon: {fileID: 0}
@@ -1216,7 +1216,7 @@ Transform:
   m_GameObject: {fileID: 8345148812811970269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.94, z: 6.49}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1295,6 +1295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadDustParticle: {fileID: 132836380312461158, guid: 3d62bfbb169a40c428b652efb36ed79b, type: 3}
+  enemyType: 0
   Stats:
     health: 140
     atkDamage: 0

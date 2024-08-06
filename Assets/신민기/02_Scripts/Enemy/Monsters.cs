@@ -24,15 +24,15 @@ public class Monsters : Enemys
 
     public float checkDistance;
 
-    protected override void Start()
-    {
-        base.Start();
-        nav.ResetPath();
-        nav.speed = Stats.runSpeed;
-        IsRunning = true;
-        destination = point.position;
-        // RadomPointHouse();
-    }
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    nav.ResetPath();
+    //    nav.speed = Stats.runSpeed;
+    //    IsRunning = true;
+    //    // destination = point.position;
+    //    // RadomPointHouse();
+    //}
 
     void RadomPointHouse()
     {
@@ -51,20 +51,21 @@ public class Monsters : Enemys
             if (Vector3.Distance(transform.position, destination) <= nav.stoppingDistance)
             {
                 IsRunning = false;
-                 nav.isStopped = true;
-                if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit hit, checkDistance, LayerMask.GetMask("HOUSE")))
-                {
-                    if(hit.collider.gameObject.layer == LayerMask.NameToLayer("HOUSE"))
-                    {
-                        IsTest = true;
-                    }
-                }
-                else
-                {
-                    destination = point.position;
-                    IsRunning = true;
-                    nav.isStopped = false;
-                }
+                nav.isStopped = true;
+                IsTest = true;
+                //if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit hit, checkDistance, LayerMask.GetMask("HOUSE")))
+                //{
+                //    if(hit.collider.gameObject.layer == LayerMask.NameToLayer("HOUSE"))
+                //    {
+                //        IsTest = true;
+                //    }
+                //}
+                //else
+                //{
+                //    destination = point.position;
+                //    IsRunning = true;
+                //    nav.isStopped = false;
+                //}
             }
         }
     }

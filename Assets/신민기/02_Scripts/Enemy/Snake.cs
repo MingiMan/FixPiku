@@ -6,11 +6,11 @@ public class Snake : Animals
     [SerializeField] BoxCollider meleeArea;
     bool IsTracking;
     bool IsAttack;
-    protected override void Start()
-    {
-        base.Start();
-        meleeArea.enabled = false;
-    }
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    meleeArea.enabled = false;
+    //}
     protected override void Update()
     {
         if (!IsDead)
@@ -36,9 +36,9 @@ public class Snake : Animals
         PlayerTracking();
     }
 
-    public override void Damage(int _dmg, Vector3 _tarGetPos, bool IsCannon)
+    public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
-        base.Damage(_dmg, _tarGetPos, IsCannon);
+        base.Damage(_dmg, _tarGetPos);
 
         IsTracking = true;
 
