@@ -246,38 +246,38 @@ public class PlayerMovement : MonoBehaviour
 
     void Turn()
     {
-        //if (Input.GetMouseButton(1))
-        //{
-        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit rayHit;
-
-        //    if (Physics.Raycast(ray, out rayHit, Mathf.Infinity))
-        //    {
-        //        Vector3 directionToLook = rayHit.point - transform.position;
-        //        directionToLook.y = 0;
-
-        //        if (directionToLook != Vector3.zero)
-        //        {
-        //            Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
-        //            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-        //        }
-        //    }
-        //}
-
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 100))
+        if (Input.GetMouseButton(1))
         {
-            Vector3 directionLookPos = hit.point - transform.position;
-            directionLookPos.y = 0;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
 
-            if(directionLookPos != Vector3.zero)
+            if (Physics.Raycast(ray, out rayHit, Mathf.Infinity))
             {
-                Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                Vector3 directionToLook = rayHit.point - transform.position;
+                directionToLook.y = 0;
+              
+                if (directionToLook != Vector3.zero)
+                {
+                     Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
+                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
+                }
             }
         }
+
+        //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(ray, out hit, 100))
+        //{
+        //    Vector3 directionLookPos = hit.point - transform.position;
+        //    directionLookPos.y = 0;
+
+        //    if(directionLookPos != Vector3.zero)
+        //    {
+        //        Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        //    }
+        //}
 
     }
     public void OnDamage(int _atkDamage)

@@ -18,6 +18,7 @@ public class Enemys : MonoBehaviour
     protected Material mat;
     protected SkinnedMeshRenderer skinnedMesh;
     [SerializeField] ParticleSystem deadDustParticle;
+
     public EnemyType enemyType;
 
     protected int currentHp;
@@ -38,7 +39,7 @@ public class Enemys : MonoBehaviour
     [SerializeField] protected AudioClip hurt_Sound;
     [SerializeField] protected AudioClip idle_Sound;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -270,10 +271,10 @@ public class Enemys : MonoBehaviour
         theAudio.Play();
     }
 
-    public void HitByCannon(int damage ,Vector3 explosionPos)
+    public void HitByCannon(int damage, Vector3 explosionPos)
     {
         Vector3 reactVec = transform.position - explosionPos;
-        Damage(damage,reactVec);
+        Damage(damage, reactVec);
     }
 
 
