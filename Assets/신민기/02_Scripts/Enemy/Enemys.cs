@@ -58,6 +58,7 @@ public class Enemys : MonoBehaviour
         mat.color = Color.white;
         Invisible = false;
         IsDead = false;
+        rigid.isKinematic = false;
         gameObject.layer = 8;
         gameObject.tag = "ENEMY";
         StartCoroutine(CheckOffMeshLink());
@@ -246,7 +247,7 @@ public class Enemys : MonoBehaviour
         gameObject.layer = 6;
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
-
+        rigid.isKinematic = false;
         switch (enemyType)
         {
             case EnemyType.Animal:
@@ -260,6 +261,7 @@ public class Enemys : MonoBehaviour
     protected void FreezeRotation()
     {
         rigid.angularVelocity = Vector3.zero;
+        rigid.linearVelocity = Vector3.zero;
     }
 
     protected void PlaySE(AudioClip _clip)

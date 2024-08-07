@@ -20,13 +20,13 @@ public class PlayerMovement : MonoBehaviour
     float dempTime;
     float ySpeed;
 
+    public bool IsActive; // 외부스트립트에서도 적용시킬거임
     bool IsRun;
     bool IsFalling;
     bool IsGrounded;
     bool BlockRotationPlayer;
     bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
-    bool IsActive;
     bool IsInvincible;
     bool backHpHit;
 
@@ -326,6 +326,8 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         backHpHit = true;
+        yield return new WaitForSeconds(0.5f);
+        IsInvincible = false;
     }
 
 

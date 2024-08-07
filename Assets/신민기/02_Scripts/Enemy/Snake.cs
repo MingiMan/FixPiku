@@ -6,11 +6,14 @@ public class Snake : Animals
     [SerializeField] BoxCollider meleeArea;
     bool IsTracking;
     bool IsAttack;
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    meleeArea.enabled = false;
-    //}
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        rigid.isKinematic = false;
+        meleeArea.enabled = false;
+    }
+
     protected override void Update()
     {
         if (!IsDead)
@@ -118,27 +121,29 @@ public class Snake : Animals
         }
     }
 
-    IEnumerator Attack()
+    IEnumerator Attack() // 순서 바꾸지 마세요
     {
         IsAttack = true;
+        nav.isStopped = true;
         animator.SetTrigger("OnAttack");
-        yield return new WaitForSeconds(0.6f);
-        meleeArea.enabled = true;
         yield return new WaitForSeconds(1f);
-        meleeArea.enabled = false;
+        rigid.isKinematic = true;
         yield return new WaitForSeconds(1f);
+        nav.isStopped = false;
         IsAttack = false;
+        rigid.isKinematic = false;
     }
 
 
     public void EnableCollider()
     {
-        meleeArea.enabled = true;
+        meleeArea.enabled = true;      
     }
 
     public void DisableCollider()
     {
         meleeArea.enabled = false;
+        rigid.isKinematic = false;
     }
 
     void PlayerTracking()
