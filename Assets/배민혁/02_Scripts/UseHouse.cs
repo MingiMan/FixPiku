@@ -9,10 +9,9 @@ public class UseHouse : MonoBehaviour
 {
 
     public GameObject player;
+    public PlayerState playerState;
     public GameObject inventory;
     public List<Item> items;
-    [SerializeField] private Transform slotParent;
-    [SerializeField] private Slot[] slots;
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
@@ -34,7 +33,7 @@ public class UseHouse : MonoBehaviour
     public int houseLevel = 0;
     [SerializeField] private GameObject[] houseParts;
     public levelUpItem[] useLevelUpItem;
-    public PlayerState playerState;
+
 
     void Start()
     {
