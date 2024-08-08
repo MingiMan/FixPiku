@@ -4,6 +4,7 @@ using TMPro;
 using Mono.Cecil.Cil;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class UseHouse : MonoBehaviour
 {
@@ -34,12 +35,15 @@ public class UseHouse : MonoBehaviour
     public int houseLevel = 0;
     [SerializeField] private GameObject[] houseParts;
     public levelUpItem[] useLevelUpItem;
+    public PlayerState playerState;
 
     void Start()
     {
 
         houseUI.enabled = false;
         player = GameObject.FindWithTag("Player");
+
+        playerState = player.gameObject.GetComponent<PlayerState>();
 
     }
 
@@ -75,7 +79,7 @@ public class UseHouse : MonoBehaviour
        {
            try
            {
-               Debug.Log($"체크{player.gameObject.GetComponent<PlayerState>().wood} ,{useLevelUpItem[houseLevel].wood}");
+               // Debug.Log($"체크{playerState.wood} ,{useLevelUpItem[houseLevel].wood}");
                if (LevelUpItemCheck())
                {
                    Debug.Log("레벨업");
@@ -101,6 +105,7 @@ public class UseHouse : MonoBehaviour
             houseParts[4].gameObject.SetActive(false);
             houseParts[5].gameObject.SetActive(false);
             houseParts[6].gameObject.SetActive(false);
+            houseParts[1].gameObject.transform.localPosition = new Vector3(0, 0, 0);
         }
         else if (houseLevel == 2)// 집레벨 2
         {
@@ -155,25 +160,56 @@ public class UseHouse : MonoBehaviour
         else // 집레벨 0
         {
             houseParts[0].gameObject.SetActive(true);
-            houseParts[1].gameObject.SetActive(false);
+            houseParts[1].gameObject.SetActive(true);
             houseParts[2].gameObject.SetActive(false);
             houseParts[3].gameObject.SetActive(false);
             houseParts[4].gameObject.SetActive(false);
             houseParts[5].gameObject.SetActive(false);
             houseParts[6].gameObject.SetActive(false);
-
+            houseParts[1].gameObject.transform.localPosition = new Vector3(0, -1.5f, 0);
         }
     }
     public void HouseLevelUpClick()
     {
         if (houseLevel < houseLevelLimit - 1)
         {
+            // houseInventory.rock -= useLevelUpItem[houseLevel].rock;
+            // houseInventory.wood -= useLevelUpItem[houseLevel].wood;
+            // houseInventory.leather -= useLevelUpItem[houseLevel].leather;
+            if (playerState.rock > useLevelUpItem[houseLevel].rock)
+            {
+                playerState.rock -= useLevelUpItem[houseLevel].rock;
+            }
+            else
+            {
+                houseInventory.rock = houseInventory.rock + playerState.rock - useLevelUpItem[houseLevel].rock;
+                playerState.rock = 0;
+            }
+            if (playerState.wood > useLevelUpItem[houseLevel].wood)
+            {
+                playerState.wood -= useLevelUpItem[houseLevel].wood;
+            }
+            else
+            {
+                houseInventory.wood = houseInventory.wood + playerState.wood - useLevelUpItem[houseLevel].wood;
+                playerState.wood = 0;
+            }
+            if (playerState.leather > useLevelUpItem[houseLevel].leather)
+            {
+                playerState.leather -= useLevelUpItem[houseLevel].leather;
+            }
+            else
+            {
+                houseInventory.leather = houseInventory.leather + playerState.leather - useLevelUpItem[houseLevel].leather;
+                playerState.leather = 0;
+            }
+
             houseLevel += 1;
         }
     }
     public bool LevelUpItemCheck()
     {
-        if (player.gameObject.GetComponent<PlayerState>().wood >= useLevelUpItem[houseLevel].wood)
+        if (playerState.rock + houseInventory.rock >= useLevelUpItem[houseLevel].rock && playerState.wood + houseInventory.wood >= useLevelUpItem[houseLevel].wood && playerState.leather + houseInventory.leather >= useLevelUpItem[houseLevel].leather)
         {
             return true;
         }
