@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using UnityEditor.Rendering;
-
 public class HouseInventory : MonoBehaviour
 {
     public List<Item> items;
@@ -106,10 +102,6 @@ public class HouseInventory : MonoBehaviour
             }
         }
     }
-
-
-
-
     #region item slot 기능
     [SerializeField]
     private Transform QuestSlotParent;
