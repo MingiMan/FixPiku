@@ -18,6 +18,7 @@ public class Enemys : MonoBehaviour
     protected Material mat;
     protected SkinnedMeshRenderer skinnedMesh;
     [SerializeField] ParticleSystem deadDustParticle;
+
     public EnemyType enemyType;
 
     protected int currentHp;
@@ -38,7 +39,7 @@ public class Enemys : MonoBehaviour
     [SerializeField] protected AudioClip hurt_Sound;
     [SerializeField] protected AudioClip idle_Sound;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -58,6 +59,7 @@ public class Enemys : MonoBehaviour
         mat.color = Color.white;
         Invisible = false;
         IsDead = false;
+        rigid.isKinematic = false;
         gameObject.layer = 8;
         gameObject.tag = "ENEMY";
         StartCoroutine(CheckOffMeshLink());
@@ -246,7 +248,7 @@ public class Enemys : MonoBehaviour
         gameObject.layer = 6;
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
-
+        rigid.isKinematic = false;
         switch (enemyType)
         {
             case EnemyType.Animal:
@@ -260,6 +262,7 @@ public class Enemys : MonoBehaviour
     protected void FreezeRotation()
     {
         rigid.angularVelocity = Vector3.zero;
+        rigid.linearVelocity = Vector3.zero;
     }
 
     protected void PlaySE(AudioClip _clip)
@@ -268,10 +271,10 @@ public class Enemys : MonoBehaviour
         theAudio.Play();
     }
 
-    public void HitByCannon(int damage ,Vector3 explosionPos)
+    public void HitByCannon(int damage, Vector3 explosionPos)
     {
         Vector3 reactVec = transform.position - explosionPos;
-        Damage(damage,reactVec);
+        Damage(damage, reactVec);
     }
 
 

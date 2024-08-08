@@ -23,16 +23,14 @@ public class Monsters : Enemys
 
 
     public float checkDistance;
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        nav.ResetPath();
+        nav.speed = Stats.runSpeed;
+        IsRunning = true;
+    }
 
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    nav.ResetPath();
-    //    nav.speed = Stats.runSpeed;
-    //    IsRunning = true;
-    //    // destination = point.position;
-    //    // RadomPointHouse();
-    //}
 
     void RadomPointHouse()
     {
@@ -197,5 +195,5 @@ public class Monsters : Enemys
     {
         base.OnAnimatorMove();
         animator.SetBool("IsAttack", IsAttack);
-    }   
+    }
 }
