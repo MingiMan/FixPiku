@@ -12,7 +12,6 @@ public class HouseInventory : MonoBehaviour
 
 
     private GameObject player;
-    public GameObject Inventory;
     [SerializeField] UseHouse useHouse;
 
     public int rock = 0;
@@ -21,21 +20,22 @@ public class HouseInventory : MonoBehaviour
 
     void Update()
     {
-        slotUpdate();
+        QuestSlotUpdate();
+        HouseSlotUpdate();
         //Debug.Log($"{rock}, {wood}, {leather}");
 
     }
-    void slotUpdate()
+    void QuestSlotUpdate()
     {
         string temp;
         string textColor;
-        for (int i = 0; i < items.Count && i < slots.Length; i++)
+        for (int i = 0; i < items.Count && i < QuestSlots.Length; i++)
         {
-            slotText = slots[i].transform.GetComponentInChildren<TMP_Text>(); //slot의 text 가져오기
+            slotText = QuestSlots[i].transform.GetComponentInChildren<TMP_Text>(); //slot의 text 가져오기
 
             for (int j = 0; j < items.Count; j++)
             {
-                switch (slots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
+                switch (QuestSlots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
                 {
                     case ("Rock"):
                         if (rock + player.gameObject.GetComponent<PlayerState>().rock < useHouse.useLevelUpItem[useHouse.houseLevel].rock) textColor = "<color=#ff0000>";
@@ -72,19 +72,59 @@ public class HouseInventory : MonoBehaviour
             }
         }
     }
+    void HouseSlotUpdate()
+    {
+        string temp;
+        for (int i = 0; i < items.Count && i < HouseSlots.Length; i++)
+        {
+            slotText = HouseSlots[i].transform.GetComponentInChildren<TMP_Text>(); //slot의 text 가져오기
+
+            for (int j = 0; j < items.Count; j++)
+            {
+                switch (HouseSlots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
+                {
+                    case ("Rock"):
+                        temp = $"<color=#000000>{rock}</color>";
+                        //temp = $"<color=#ffffff>{rock}/{useHouse.useLevelUpItem[useHouse.houseLevel].rock}</color>";
+                        slotText.text = temp;
+                        break;
+                    case ("Wood"):
+                        temp = $"<color=#000000>{wood}</color>";
+                        //temp = $"<color=#ffffff>{wood}/{useHouse.useLevelUpItem[useHouse.houseLevel].wood}</color>";
+
+                        slotText.text = temp;
+                        break;
+                    case ("Leather"):
+                        temp = $"<color=#000000>{leather}</color>";
+                        //temp = $"<color=#ffffff>{leather}/{useHouse.useLevelUpItem[useHouse.houseLevel].leather}</color>";
+                        slotText.text = temp;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
 
 
 
     #region item slot 기능
     [SerializeField]
-    private Transform slotParent;
+    private Transform QuestSlotParent;
     [SerializeField]
-    private Slot[] slots;
+    private Transform HouseSlotParent;
+    [SerializeField]
+    private Slot[] QuestSlots;
+    [SerializeField]
+    private Slot[] HouseSlots;
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        slots = slotParent.GetComponentsInChildren<Slot>();
+        QuestSlots = QuestSlotParent.GetComponentsInChildren<Slot>();
+        HouseSlots = HouseSlotParent.GetComponentsInChildren<Slot>();
     }
 #endif
 
@@ -95,29 +135,52 @@ public class HouseInventory : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        FreshSlot();
-        slotUpdate();
+        QuestFreshSlot();
+        HouseFreshSlot();
+        QuestSlotUpdate();
+        HouseSlotUpdate();
     }
 
-    public void FreshSlot()
+    public void QuestFreshSlot()
     {
         int i = 0;
-        for (; i < items.Count && i < slots.Length; i++)
+        for (; i < items.Count && i < QuestSlots.Length; i++)
         {
-            slots[i].item = items[i];
+            QuestSlots[i].item = items[i];
         }
-        for (; i < slots.Length; i++)
+        for (; i < QuestSlots.Length; i++)
         {
-            slots[i].item = null;
+            QuestSlots[i].item = null;
+        }
+    }
+    public void HouseFreshSlot()
+    {
+        int i = 0;
+        for (; i < items.Count && i < HouseSlots.Length; i++)
+        {
+            HouseSlots[i].item = items[i];
+        }
+        for (; i < HouseSlots.Length; i++)
+        {
+            HouseSlots[i].item = null;
         }
     }
 
     public void AddItem(Item _item)
     {
-        if (items.Count < slots.Length)
+        if (items.Count < HouseSlots.Length)
         {
             items.Add(_item);
-            FreshSlot();
+            QuestFreshSlot();
+        }
+        else
+        {
+            print("슬롯이 가득 차 있습니다.");
+        }
+        if (items.Count < HouseSlots.Length)
+        {
+            items.Add(_item);
+            HouseFreshSlot();
         }
         else
         {

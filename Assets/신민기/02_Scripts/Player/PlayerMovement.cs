@@ -255,29 +255,33 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3 directionToLook = rayHit.point - transform.position;
                 directionToLook.y = 0;
-              
+
                 if (directionToLook != Vector3.zero)
                 {
-                     Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
-                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
                 }
             }
         }
 
-        //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
 
-        //if (Physics.Raycast(ray, out hit, 100))
-        //{
-        //    Vector3 directionLookPos = hit.point - transform.position;
-        //    directionLookPos.y = 0;
+        if (Input.GetMouseButtonDown(0))
+        {
 
-        //    if(directionLookPos != Vector3.zero)
-        //    {
-        //        Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
-        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-        //    }
-        //}
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Vector3 directionLookPos = hit.point - transform.position;
+                directionLookPos.y = 0;
+
+                if (directionLookPos != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
+                }
+            }
+        }
 
     }
     public void OnDamage(int _atkDamage)

@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using Mono.Cecil.Cil;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
@@ -93,6 +92,24 @@ public class UseHouse : MonoBehaviour
 
 
        });
+        ItemSaveButton.onClick.AddListener(() => // 거점 아이템 저장 버튼
+        {
+            try
+            {
+                // Debug.Log($"체크{playerState.wood} ,{useLevelUpItem[houseLevel].wood}");
+                if (playerState.rock > 0 || playerState.wood > 0 || playerState.leather > 0)
+                {
+                    Debug.Log("저장");
+                    HouseSaveItem();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+
+
+        });
     }
     void HousePartsActive()
     {
@@ -215,5 +232,15 @@ public class UseHouse : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void HouseSaveItem()
+    {
+        houseInventory.rock += playerState.rock;
+        houseInventory.wood += playerState.wood;
+        houseInventory.leather += playerState.leather;
+        playerState.rock = 0;
+        playerState.wood = 0;
+        playerState.leather = 0;
     }
 }
