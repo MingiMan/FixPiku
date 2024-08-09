@@ -76,7 +76,7 @@ public class Monsters : Enemys
             if (!IsAttack && distanceToPlayer <= nav.stoppingDistance)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(playerTr.transform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
                 StartCoroutine(CoroutineAttack());
             }
             else if (distanceToPlayer > 15f)
@@ -85,7 +85,15 @@ public class Monsters : Enemys
             }
         }
     }
-    
+    public override void Damage(int _dmg, Vector3 _tarGetPos)
+    {
+        if (!IsDead)
+        {
+            base.Damage(_dmg, _tarGetPos);
+            IsPlayerTarget = true;
+        }
+    }
+
     protected void PlayerDetection()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("PLAYER"));
@@ -131,4 +139,5 @@ public class Monsters : Enemys
         animator.SetBool("IsAttack", IsAttack);
         animator.SetBool("IsRunning", IsRunning);
     }
+
 }
