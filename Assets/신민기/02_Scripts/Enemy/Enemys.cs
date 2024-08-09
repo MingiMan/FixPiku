@@ -17,7 +17,7 @@ public class Enemys : MonoBehaviour
     protected Transform playerTr;
     protected Material mat;
     protected SkinnedMeshRenderer skinnedMesh;
-    [SerializeField] ParticleSystem deadDustParticle;
+    [SerializeField] protected ParticleSystem deadDustParticle;
 
     public EnemyType enemyType;
 
@@ -194,6 +194,7 @@ public class Enemys : MonoBehaviour
 
     public virtual void Damage(int _dmg, Vector3 _tarGetPos)
     {
+
         if (!IsDead && !Invisible)
         {
             Invisible = true;
@@ -239,10 +240,12 @@ public class Enemys : MonoBehaviour
 
     protected virtual void Dead()
     {
+        StopAllCoroutines();
         mat.color = Color.red;
         IsWalking = false;
         IsRunning = false;
         IsDead = true;
+
         if (dead_Sound != null)
             PlaySE(dead_Sound);
         gameObject.layer = 6;
@@ -255,6 +258,7 @@ public class Enemys : MonoBehaviour
                 StartCoroutine(AnimalDeath());
                 break;
             case EnemyType.Monster:
+                StartCoroutine(MonsterDeath());
                 break;
         }
     }
@@ -277,6 +281,12 @@ public class Enemys : MonoBehaviour
         Damage(damage, reactVec);
     }
 
+    IEnumerator MonsterDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        Instantiate(deadDustParticle, transform.position, transform.rotation);
+        GameManager.Instance.monsterSpanwner.OnMonsterDeath(this.gameObject);
+    }
 
     IEnumerator AnimalDeath()
     {

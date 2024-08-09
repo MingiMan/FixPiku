@@ -264,21 +264,23 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
+        if (Input.GetMouseButtonDown(0)) // Left-click to look at the point
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        //if (Physics.Raycast(ray, out hit, 100))
-        //{
-        //    Vector3 directionLookPos = hit.point - transform.position;
-        //    directionLookPos.y = 0;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                Vector3 directionLookPos = hit.point - transform.position;
+                directionLookPos.y = 0;
 
-        //    if(directionLookPos != Vector3.zero)
-        //    {
-        //        Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
-        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-        //    }
-        //}
-
+                if (directionLookPos != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
+                }
+            }
+        }
     }
     public void OnDamage(int _atkDamage)
     {

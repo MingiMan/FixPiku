@@ -7,11 +7,17 @@ public class Snake : Animals
     bool IsTracking;
     bool IsAttack;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
         rigid.isKinematic = false;
         meleeArea.enabled = false;
+        nav.speed = Stats.runSpeed;
     }
 
     protected override void Update()
@@ -100,50 +106,45 @@ public class Snake : Animals
     {
         if (IsTracking)
         {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTr.transform.position);
             nav.SetDestination(playerTr.transform.position);
-            float targetRadius = 0.5f;
-            float targetRange = 1f;
 
-            RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("PLAYER"));
-
-            if (rayHits.Length > 0 && !IsAttack)
-                StartCoroutine(Attack());
-
-            else if (Vector3.Distance(transform.position, playerTr.transform.position) > 15f)
+            if (!IsAttack && distanceToPlayer <= nav.stoppingDistance)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(playerTr.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20f);
+                StartCoroutine(CoroutineAttack());
+            }
+            else if (distanceToPlayer > 15f) 
             {
                 Initialize();
             }
         }
-
         else if (IsRunning)
         {
             nav.SetDestination(destination);
         }
     }
 
-    IEnumerator Attack() // 순서 바꾸지 마세요
+    IEnumerator CoroutineAttack()
     {
+        nav.velocity = Vector3.zero;
         IsAttack = true;
+        IsRunning = false;
         nav.isStopped = true;
+        yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("OnAttack");
         yield return new WaitForSeconds(1f);
-        rigid.isKinematic = true;
-        yield return new WaitForSeconds(1f);
         nav.isStopped = false;
+        meleeArea.enabled = false;
+        IsRunning = true;
         IsAttack = false;
-        rigid.isKinematic = false;
     }
 
 
     public void EnableCollider()
     {
         meleeArea.enabled = true;      
-    }
-
-    public void DisableCollider()
-    {
-        meleeArea.enabled = false;
-        rigid.isKinematic = false;
     }
 
     void PlayerTracking()
@@ -155,6 +156,28 @@ public class Snake : Animals
             IsRunning = true;
             nav.speed = Stats.runSpeed;
         }
+    }
+    protected override void Dead()
+    {
+        mat.color = Color.red;
+        IsWalking = false;
+        IsRunning = false;
+        IsDead = true;
+
+        if (dead_Sound != null)
+            PlaySE(dead_Sound);
+        gameObject.layer = 6;
+        gameObject.tag = "Untagged";
+        animator.SetTrigger("OnDie");
+        rigid.isKinematic = false;
+        StartCoroutine(SnakeDeath());
+    }
+
+    IEnumerator SnakeDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        Instantiate(deadDustParticle, transform.position, transform.rotation);
+        GameManager.Instance.wildMonsterSpawner.SnakeDeath(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public AnimalSpawner animalSpawner;
+    public WildMonsterSpawner wildMonsterSpawner;
+    public MonsterSpawner monsterSpanwner;
 
     private void Awake()
     {
@@ -21,6 +23,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        animalSpawner = FindObjectOfType<AnimalSpawner>();
+        // animalSpawner = FindObjectOfType<AnimalSpawner>();
+        // wildMonsterSpawner = FindObjectOfType<WildMonsterSpawner>();
+        if(monsterSpanwner == null)
+            monsterSpanwner = FindObjectOfType<MonsterSpawner>();
     }
 }
