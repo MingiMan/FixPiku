@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using Mono.Cecil.Cil;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
@@ -10,10 +9,9 @@ public class UseHouse : MonoBehaviour
 {
 
     public GameObject player;
+    public PlayerState playerState;
     public GameObject inventory;
     public List<Item> items;
-    [SerializeField] private Transform slotParent;
-    [SerializeField] private Slot[] slots;
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
@@ -35,7 +33,7 @@ public class UseHouse : MonoBehaviour
     public int houseLevel = 0;
     [SerializeField] private GameObject[] houseParts;
     public levelUpItem[] useLevelUpItem;
-    public PlayerState playerState;
+
 
     void Start()
     {
@@ -93,6 +91,24 @@ public class UseHouse : MonoBehaviour
 
 
        });
+        ItemSaveButton.onClick.AddListener(() => // 거점 아이템 저장 버튼
+        {
+            try
+            {
+                // Debug.Log($"체크{playerState.wood} ,{useLevelUpItem[houseLevel].wood}");
+                if (playerState.rock > 0 || playerState.wood > 0 || playerState.leather > 0)
+                {
+                    Debug.Log("저장");
+                    HouseSaveItem();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+
+
+        });
     }
     void HousePartsActive()
     {
@@ -215,5 +231,15 @@ public class UseHouse : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void HouseSaveItem()
+    {
+        houseInventory.rock += playerState.rock;
+        houseInventory.wood += playerState.wood;
+        houseInventory.leather += playerState.leather;
+        playerState.rock = 0;
+        playerState.wood = 0;
+        playerState.leather = 0;
     }
 }
