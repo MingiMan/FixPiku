@@ -16,7 +16,6 @@ public class MonsterSpawner : MonoBehaviour
     Dictionary<GameObject, Transform> monsterQueue = new Dictionary<GameObject, Transform>();
 
     int currentMonster;
-    int totalMonster;
 
     private void Awake()
     {
@@ -35,7 +34,7 @@ public class MonsterSpawner : MonoBehaviour
             availableRightPoints.Enqueue(point);
     }
 
-    public void GameStart()
+    public void OnMonsterSpawn(int totalMonster)
     {
         currentMonster = totalMonster;
         StartCoroutine(SpawnMonsters());

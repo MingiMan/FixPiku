@@ -1,18 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using Mono.Cecil.Cil;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class UseHouse : MonoBehaviour
 {
 
     public GameObject player;
+    public PlayerState playerState;
     public GameObject inventory;
     public List<Item> items;
-    [SerializeField] private Transform slotParent;
-    [SerializeField] private Slot[] slots;
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
@@ -35,11 +34,14 @@ public class UseHouse : MonoBehaviour
     [SerializeField] private GameObject[] houseParts;
     public levelUpItem[] useLevelUpItem;
 
+
     void Start()
     {
 
         houseUI.enabled = false;
         player = GameObject.FindWithTag("Player");
+
+        playerState = player.gameObject.GetComponent<PlayerState>();
 
     }
 
@@ -75,7 +77,7 @@ public class UseHouse : MonoBehaviour
        {
            try
            {
-               Debug.Log($"체크{player.gameObject.GetComponent<PlayerState>().wood} ,{useLevelUpItem[houseLevel].wood}");
+               // Debug.Log($"체크{playerState.wood} ,{useLevelUpItem[houseLevel].wood}");
                if (LevelUpItemCheck())
                {
                    Debug.Log("레벨업");
@@ -89,6 +91,24 @@ public class UseHouse : MonoBehaviour
 
 
        });
+        ItemSaveButton.onClick.AddListener(() => // 거점 아이템 저장 버튼
+        {
+            try
+            {
+                // Debug.Log($"체크{playerState.wood} ,{useLevelUpItem[houseLevel].wood}");
+                if (playerState.rock > 0 || playerState.wood > 0 || playerState.leather > 0)
+                {
+                    Debug.Log("저장");
+                    HouseSaveItem();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+
+
+        });
     }
     void HousePartsActive()
     {
@@ -101,6 +121,7 @@ public class UseHouse : MonoBehaviour
             houseParts[4].gameObject.SetActive(false);
             houseParts[5].gameObject.SetActive(false);
             houseParts[6].gameObject.SetActive(false);
+            houseParts[1].gameObject.transform.localPosition = new Vector3(0, 0, 0);
         }
         else if (houseLevel == 2)// 집레벨 2
         {
@@ -155,29 +176,70 @@ public class UseHouse : MonoBehaviour
         else // 집레벨 0
         {
             houseParts[0].gameObject.SetActive(true);
-            houseParts[1].gameObject.SetActive(false);
+            houseParts[1].gameObject.SetActive(true);
             houseParts[2].gameObject.SetActive(false);
             houseParts[3].gameObject.SetActive(false);
             houseParts[4].gameObject.SetActive(false);
             houseParts[5].gameObject.SetActive(false);
             houseParts[6].gameObject.SetActive(false);
-
+            houseParts[1].gameObject.transform.localPosition = new Vector3(0, -1.5f, 0);
         }
     }
     public void HouseLevelUpClick()
     {
         if (houseLevel < houseLevelLimit - 1)
         {
+            // houseInventory.rock -= useLevelUpItem[houseLevel].rock;
+            // houseInventory.wood -= useLevelUpItem[houseLevel].wood;
+            // houseInventory.leather -= useLevelUpItem[houseLevel].leather;
+            if (playerState.rock > useLevelUpItem[houseLevel].rock)
+            {
+                playerState.rock -= useLevelUpItem[houseLevel].rock;
+            }
+            else
+            {
+                houseInventory.rock = houseInventory.rock + playerState.rock - useLevelUpItem[houseLevel].rock;
+                playerState.rock = 0;
+            }
+            if (playerState.wood > useLevelUpItem[houseLevel].wood)
+            {
+                playerState.wood -= useLevelUpItem[houseLevel].wood;
+            }
+            else
+            {
+                houseInventory.wood = houseInventory.wood + playerState.wood - useLevelUpItem[houseLevel].wood;
+                playerState.wood = 0;
+            }
+            if (playerState.leather > useLevelUpItem[houseLevel].leather)
+            {
+                playerState.leather -= useLevelUpItem[houseLevel].leather;
+            }
+            else
+            {
+                houseInventory.leather = houseInventory.leather + playerState.leather - useLevelUpItem[houseLevel].leather;
+                playerState.leather = 0;
+            }
+
             houseLevel += 1;
         }
     }
     public bool LevelUpItemCheck()
     {
-        if (player.gameObject.GetComponent<PlayerState>().wood >= useLevelUpItem[houseLevel].wood)
+        if (playerState.rock + houseInventory.rock >= useLevelUpItem[houseLevel].rock && playerState.wood + houseInventory.wood >= useLevelUpItem[houseLevel].wood && playerState.leather + houseInventory.leather >= useLevelUpItem[houseLevel].leather)
         {
             return true;
         }
 
         return false;
+    }
+
+    public void HouseSaveItem()
+    {
+        houseInventory.rock += playerState.rock;
+        houseInventory.wood += playerState.wood;
+        houseInventory.leather += playerState.leather;
+        playerState.rock = 0;
+        playerState.wood = 0;
+        playerState.leather = 0;
     }
 }

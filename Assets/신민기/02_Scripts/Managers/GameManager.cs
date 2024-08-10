@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        OnMonsterSpawnForLevel(level);
+        OnMonsterSpawnForLevel();
     }
 
     public void LevelUp()
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         level++;
     }
 
-    private void OnMonsterSpawnForLevel(int level)
+    private void OnMonsterSpawnForLevel()
     {
         switch (level)
         {
