@@ -25,8 +25,8 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubtractiveShadowColor: {r: 0.16919819, g: 0.17293169, b: 0.18238991, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 430996ec7a0c80840a7c9fe159913a75, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -420,6 +420,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   radius: 0.2
+--- !u!1001 &222211631
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492870252910296979, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620925143733225347, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: timer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620925143733225347, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: globalLight
+      value: 
+      objectReference: {fileID: 410087040}
+    - target: {fileID: 6543328713537038874, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
+      propertyPath: m_Name
+      value: TimeManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c404acd914ac1ce49a9ea3648422069d, type: 3}
 --- !u!1 &222558899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,8 +2064,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalSpawner: {fileID: 1198341842}
   wildMonsterSpawner: {fileID: 0}
-  monsterSpanwner: {fileID: 0}
-  gameLevel: 1
+  monsterSpawner: {fileID: 0}
+  level: 1
+  monstersPerLevel1: 24
+  monstersPerLevel2: 40
+  monstersPerLevel3: 30
+  monstersPerLevel4: 50
+  monstersPerLevel5: 60
 --- !u!1 &984172997
 GameObject:
   m_ObjectHideFlags: 0
@@ -14990,3 +15060,4 @@ SceneRoots:
   - {fileID: 222558900}
   - {fileID: 1198341841}
   - {fileID: 1721531467}
+  - {fileID: 222211631}

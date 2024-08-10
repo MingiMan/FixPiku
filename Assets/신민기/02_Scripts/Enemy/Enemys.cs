@@ -285,7 +285,7 @@ public class Enemys : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         Instantiate(deadDustParticle, transform.position, transform.rotation);
-        GameManager.Instance.monsterSpanwner.OnMonsterDeath(this.gameObject);
+        GameManager.Instance.monsterSpawner.OnMonsterDeath(this.gameObject);
     }
 
     IEnumerator AnimalDeath()

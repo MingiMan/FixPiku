@@ -15,12 +15,15 @@ public class MonsterSpawner : MonoBehaviour
     Queue<Transform> availableRightPoints = new Queue<Transform>();
     Dictionary<GameObject, Transform> monsterQueue = new Dictionary<GameObject, Transform>();
 
+    int currentMonster;
+    int totalMonster;
+
     private void Awake()
     {
         GameObject.Find("FrontPoint").GetComponentsInChildren<Transform>(frontPoints);
         GameObject.Find("RightPoint").GetComponentsInChildren<Transform>(rightPoints);
-        frontPoints.RemoveAt(0);
-        rightPoints.RemoveAt(0);
+        frontPoints.RemoveAt(0); // 부모 객체를 제거
+        rightPoints.RemoveAt(0); // 부모 객체를 제거
         Initalize();
     }
 
@@ -32,29 +35,29 @@ public class MonsterSpawner : MonoBehaviour
             availableRightPoints.Enqueue(point);
     }
 
-    private void Start()
+    public void GameStart()
     {
+        currentMonster = totalMonster;
         StartCoroutine(SpawnMonsters());
     }
 
     IEnumerator SpawnMonsters()
     {
-
-        if (availableFrontPoints.Count > 0)
+        while (currentMonster > 0) // 몬스터가 남아 있는 동안에만 스폰
         {
-            SpawnMonsterAtPoint(availableFrontPoints, frontSpawn);
-        }
-        if (availableRightPoints.Count > 0)
-        {
-            SpawnMonsterAtPoint(availableRightPoints, rightSpawn);
-        }
-        yield return new WaitForSeconds(1f);
+            if (availableFrontPoints.Count > 0)
+                SpawnMonsterAtPoint(availableFrontPoints, frontSpawn);
 
+            if (availableRightPoints.Count > 0)
+                SpawnMonsterAtPoint(availableRightPoints, rightSpawn);
+
+            yield return new WaitForSeconds(1.5f);
+        }
     }
 
     void SpawnMonsterAtPoint(Queue<Transform> pointsQueue, Transform spawnPoint)
     {
-        if (pointsQueue.Count == 0) return;
+        if (pointsQueue.Count == 0 || currentMonster <= 0) return; // 몬스터가 다 소환되면 스폰 중지
 
         GameObject monster = PoolManager.Instance.MonsterGet(0);
         monster.transform.position = spawnPoint.position;
@@ -64,8 +67,8 @@ public class MonsterSpawner : MonoBehaviour
         monster.SetActive(true);
 
         monsterQueue[monster] = targetPoint;
+        currentMonster--;
     }
-
 
     public void OnMonsterDeath(GameObject monster)
     {
@@ -83,14 +86,21 @@ public class MonsterSpawner : MonoBehaviour
             {
                 availableRightPoints.Enqueue(point);
             }
+
             monsterQueue.Remove(monster);
         }
+
+        if (currentMonster <= 0) return; // 더 이상 몬스터가 남아 있지 않으면 스폰 중지
+
+        // 몬스터 다시 스폰
         StartCoroutine(RespawnMonster(monster));
     }
 
     IEnumerator RespawnMonster(GameObject monster)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
+
+        if (currentMonster <= 0) yield break; // 남은 몬스터가 없으면 스폰 중지
 
         if (availableFrontPoints.Count > 0)
         {
