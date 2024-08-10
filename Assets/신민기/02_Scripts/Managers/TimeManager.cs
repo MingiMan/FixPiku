@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
     public int Minutes
     { get { return minutes; } set { minutes = value; OnMinutesChange(value); } }
 
-    private int hours = 8;
+    private int hours = 20;
 
     public int Hours
     { get { return hours; } set { hours = value; OnHoursChange(value); } }
@@ -88,7 +88,6 @@ public class TimeManager : MonoBehaviour
         }
         else if (value == 18)  // 푸른하늘에서 서서히 노을이진다.
         {
-            Debug.Log("낮입니다.");
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
             StartCoroutine(LerpLight(graddientDayToSunset, 10f));
         }
