@@ -5,7 +5,7 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance;
 
-    [Header("0 : 울프 1: 웨어울프")]
+    [Header("0 : 울프 1: 웨어울프 2 : 폭탄맨")]
     public GameObject[] monstersPrefab;
     List<GameObject>[] monstersPool;
 

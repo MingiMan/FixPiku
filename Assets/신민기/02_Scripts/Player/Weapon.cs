@@ -39,7 +39,7 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         meleeArea = GetComponent<BoxCollider>();
-        player = GetComponentInParent<PlayerMovement>();    
+        player = GetComponentInParent<PlayerMovement>();
         meleeArea.enabled = false;
     }
 
