@@ -3026,7 +3026,7 @@ GameObject:
   - component: {fileID: 3853190905561197062}
   - component: {fileID: 2943809129405392538}
   - component: {fileID: 1981986585312762528}
-  - component: {fileID: 3172174434569538853}
+  - component: {fileID: 3436714744891094845}
   m_Layer: 5
   m_Name: WeaponeSlot
   m_TagString: Untagged
@@ -3095,7 +3095,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3172174434569538853
+--- !u!114 &3436714744891094845
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3104,7 +3104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9097265907058451770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6531f9540f09e304f9321a28b9847275, type: 3}
+  m_Script: {fileID: 11500000, guid: cc5b7c2796cd7474396fbc2d5c46e4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:

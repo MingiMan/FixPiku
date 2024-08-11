@@ -3,86 +3,146 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
-public class WeaponInventoryBMH : MonoBehaviour
+using System;
+using Unity.VisualScripting;
+public class WeaponInventory : MonoBehaviour
 {
     public List<Item> items;
     public TextMeshProUGUI slotText;
 
     public GameObject player;
 
+    [SerializeField] private Button[] weaponeActiveButton; // 무기 제작 버튼
+    private bool weaponeWindowOff;
+    private bool waeponeClearOff;
+    [SerializeField] private GameObject weaponeWindow;
+
+    [SerializeField] private Button weaponeWindowButton; // 무기 제작 버튼
+    [SerializeField] private GameObject waeponeClear; // 무기 전부 제작
+
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        weaponeWindow.SetActive(false);
+        weaponeWindowOff = true;
+        waeponeClearOff = true;
         FreshSlot();
+    }
+
+    void OnEnable()
+    {
+        weaponeWindowButton.onClick.AddListener(() => // 거점 레벨업 버튼
+       {
+           try
+           {
+               // Debug.Log($"체크{playerState.wood} ,{useLevelUpItem[houseLevel].wood}");
+               if (weaponeWindowOff)
+               {
+                   weaponeWindow.SetActive(true);
+                   waeponeClear.SetActive(true);
+                   weaponeWindowOff = false;
+                   waeponeClearOff = false;
+               }
+               else
+               {
+                   weaponeWindow.SetActive(false);
+                   waeponeClear.SetActive(false);
+                   weaponeWindowOff = true;
+                   waeponeClearOff = true;
+               }
+           }
+           catch (Exception e)
+           {
+               Debug.Log(e.Message);
+           }
+
+
+       });
+
+        weaponeActiveButton[0].onClick.AddListener(() => // 무기1
+        {
+            try
+            {
+                if (player.GetComponent<WeaponControllerBMH>().hasWeapon[0] == false)
+                    player.GetComponent<WeaponControllerBMH>().hasWeapon[0] = true;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+
+
+        });
+        weaponeActiveButton[1].onClick.AddListener(() => // 무기1
+       {
+           try
+           {
+               if (player.GetComponent<WeaponControllerBMH>().hasWeapon[1] == false)
+                   player.GetComponent<WeaponControllerBMH>().hasWeapon[1] = true;
+           }
+           catch (Exception e)
+           {
+               Debug.Log(e.Message);
+           }
+
+
+       });
+        weaponeActiveButton[2].onClick.AddListener(() => // 무기1
+        {
+            try
+            {
+                if (player.GetComponent<WeaponControllerBMH>().hasWeapon[2] == false)
+                    player.GetComponent<WeaponControllerBMH>().hasWeapon[2] = true;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+
+
+        });
+        weaponeActiveButton[3].onClick.AddListener(() => // 무기1
+       {
+           try
+           {
+               if (player.GetComponent<WeaponControllerBMH>().hasWeapon[3] == false)
+                   player.GetComponent<WeaponControllerBMH>().hasWeapon[3] = true;
+           }
+           catch (Exception e)
+           {
+               Debug.Log(e.Message);
+           }
+
+
+       });
+
+
     }
     void Update()
     {
 
-        for (int i = 0; i < items.Count && i < slots.Length; i++)
-        {
-            slotText = slots[i].transform.GetComponentInChildren<TextMeshProUGUI>(); //slot의 text 가져오기
-            for (int j = 0; j < items.Count; j++)
-            {
-                switch (slots[i].item.name) // 착용중인 무기 테두리표시
-                {
-                    case ("Axe"):
-                        if (player.GetComponent<WeaponControllerBMH>().acticeWeaponIndex == 0)
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = true;
-                        }
-                        else
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = false;
-                        }
-                        break;
-                    case ("PickAxe"):
-                        if (player.GetComponent<WeaponControllerBMH>().acticeWeaponIndex == 1)
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = true;
-                        }
-                        else
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = false;
-                        }
-                        break;
-                    case ("Sword"):
-                        if (player.GetComponent<WeaponControllerBMH>().acticeWeaponIndex == 2)
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = true;
-                        }
-                        else
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = false;
-                        }
-                        break;
-                    case ("Cannon"):
-
-                        if (player.GetComponent<WeaponControllerBMH>().acticeWeaponIndex == 3)
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = true;
-                        }
-                        else
-                        {
-                            slots[i].transform.GetComponent<Outline>().enabled = false;
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        }
-        for (int i = 0; i < player.GetComponent<WeaponControllerBMH>().hasWeapon.Count(); i++)///추가
+        for (int i = 0; i < player.GetComponent<WeaponControllerBMH>().hasWeapon.Count(); i++)///추가////////////////////////////////
         {
             if (player.GetComponent<WeaponControllerBMH>().hasWeapon[i])
             {
-                slots[i].transform.GetChild(1).GetComponent<Image>().enabled = false;
+                slots[i].transform.GetChild(3).GetComponent<Image>().enabled = true;
+                weaponeActiveButton[i].GetComponent<Button>().enabled = false;
             }
             else
             {
-                slots[i].transform.GetChild(1).GetComponent<Image>().enabled = true;
+                slots[i].transform.GetChild(3).GetComponent<Image>().enabled = false;
+                weaponeActiveButton[i].GetComponent<Button>().enabled = true;
             }
         }
+        if (!waeponeClearOff && !weaponeActiveButton[0].GetComponent<Button>().enabled && !weaponeActiveButton[1].GetComponent<Button>().enabled && !weaponeActiveButton[2].GetComponent<Button>().enabled && !weaponeActiveButton[3].GetComponent<Button>().enabled)
+        {
+            waeponeClear.SetActive(true);
+        }
+        else
+        {
+            waeponeClear.SetActive(false);
+        }
+
 
     }
 

@@ -6,7 +6,7 @@ public class WeaponControllerBMH : MonoBehaviour
     [Header("0 : 도끼  1 : 곡괭이  2 : 검 3 : 캐논")]
     public GameObject[] weapons;
     public bool[] hasWeapon;
-    public int acticeWeaponIndex = -1;
+    public int activeWeaponIndex = -1;/////////////////////////////////////////
     Weapon equipWeapon;
     Animator animator;
     bool IsSwap;
@@ -27,8 +27,8 @@ public class WeaponControllerBMH : MonoBehaviour
 
         foreach (var weapon in weapons)
             weapon.gameObject.SetActive(false);
-        WeaponLock();// 잠금추가
-        hasWeapon[0] = true; // 도끼만 잠금해제
+        WeaponLock();// 잠금추가/////////////////////////////////////////
+        hasWeapon[0] = true; // 도끼만 잠금해제/////////////////////////////////////////
     }
 
     private void Update()
@@ -43,22 +43,23 @@ public class WeaponControllerBMH : MonoBehaviour
         if (Input.GetButtonDown("Swap1") && hasWeapon[0] && !IsSwap && !weapons[0].activeSelf && hasWeapon[0])  // 잠긴건 실행 안되도록 수정
         {
             weaponIndex = 0;
-            acticeWeaponIndex = 0;
+            activeWeaponIndex = 0;/////////////////////////////////////////
+
         }
         else if (Input.GetButtonDown("Swap2") && hasWeapon[1] && !IsSwap && !weapons[1].activeSelf && hasWeapon[1])
         {
             weaponIndex = 1;
-            acticeWeaponIndex = 1;
+            activeWeaponIndex = 1;/////////////////////////////////////////
         }
         else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf && hasWeapon[2])
         {
             weaponIndex = 2;
-            acticeWeaponIndex = 2;
+            activeWeaponIndex = 2;/////////////////////////////////////////
         }
         else if (Input.GetButtonDown("Swap4") && hasWeapon[3] && !IsSwap && !weapons[3].activeSelf && hasWeapon[3])
         {
             weaponIndex = 3;
-            acticeWeaponIndex = 3;
+            activeWeaponIndex = 3;/////////////////////////////////////////
         }
 
         if (weaponIndex >= 0 && weaponIndex < weapons.Length)
@@ -119,7 +120,7 @@ public class WeaponControllerBMH : MonoBehaviour
     }
 
 
-    public void WeaponLock() // 무기 해금 구현 부분
+    public void WeaponLock() // 무기 해금 구현 부분/////////////////////////////////////////
     {
         // Weapon weapon = GetComponent<Weapon>();
         // hasWeapon[weapon.weaponNum] = false;
