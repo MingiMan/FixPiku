@@ -56,7 +56,8 @@ public class UseHouse : MonoBehaviour
         if (coll.CompareTag("Player"))
         {
             //Debug.Log("stay");
-            houseUI.enabled = true;
+            if (!TimeManager.Instance.nightCheck) houseUI.enabled = true;
+            else houseUI.enabled = false;
         }
 
 
@@ -70,6 +71,16 @@ public class UseHouse : MonoBehaviour
         }
 
     }
+    void OnTriggerStay(Collider coll)
+    {
+        if (coll.CompareTag("Player") && TimeManager.Instance.nightCheck)
+        {
+            //Debug.Log("out");
+            houseUI.enabled = false;
+        }
+
+    }
+
 
     void OnEnable()
     {
