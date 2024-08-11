@@ -63,8 +63,8 @@ public class WeaponInventory : MonoBehaviour
         {
             try
             {
-                if (player.GetComponent<WeaponControllerBMH>().hasWeapon[0] == false)
-                    player.GetComponent<WeaponControllerBMH>().hasWeapon[0] = true;
+                if (player.GetComponent<WeaponController>().hasWeapon[0] == false)
+                    player.GetComponent<WeaponController>().hasWeapon[0] = true;
             }
             catch (Exception e)
             {
@@ -77,8 +77,8 @@ public class WeaponInventory : MonoBehaviour
        {
            try
            {
-               if (player.GetComponent<WeaponControllerBMH>().hasWeapon[1] == false)
-                   player.GetComponent<WeaponControllerBMH>().hasWeapon[1] = true;
+               if (player.GetComponent<WeaponController>().hasWeapon[1] == false)
+                   player.GetComponent<WeaponController>().hasWeapon[1] = true;
            }
            catch (Exception e)
            {
@@ -91,8 +91,8 @@ public class WeaponInventory : MonoBehaviour
         {
             try
             {
-                if (player.GetComponent<WeaponControllerBMH>().hasWeapon[2] == false)
-                    player.GetComponent<WeaponControllerBMH>().hasWeapon[2] = true;
+                if (player.GetComponent<WeaponController>().hasWeapon[2] == false)
+                    player.GetComponent<WeaponController>().hasWeapon[2] = true;
             }
             catch (Exception e)
             {
@@ -105,8 +105,8 @@ public class WeaponInventory : MonoBehaviour
        {
            try
            {
-               if (player.GetComponent<WeaponControllerBMH>().hasWeapon[3] == false)
-                   player.GetComponent<WeaponControllerBMH>().hasWeapon[3] = true;
+               if (player.GetComponent<WeaponController>().hasWeapon[3] == false)
+                   player.GetComponent<WeaponController>().hasWeapon[3] = true;
            }
            catch (Exception e)
            {
@@ -121,9 +121,9 @@ public class WeaponInventory : MonoBehaviour
     void Update()
     {
 
-        for (int i = 0; i < player.GetComponent<WeaponControllerBMH>().hasWeapon.Count(); i++)///추가////////////////////////////////
+        for (int i = 0; i < player.GetComponent<WeaponController>().hasWeapon.Count(); i++)///추가////////////////////////////////
         {
-            if (player.GetComponent<WeaponControllerBMH>().hasWeapon[i])
+            if (player.GetComponent<WeaponController>().hasWeapon[i])
             {
                 slots[i].transform.GetChild(3).GetComponent<Image>().enabled = true;
                 weaponeActiveButton[i].GetComponent<Button>().enabled = false;

@@ -29,7 +29,7 @@ public class WeaponSlotInventory : MonoBehaviour
                 switch (slots[i].item.name) // 착용중인 무기 테두리표시
                 {
                     case ("Axe"):
-                        if (player.GetComponent<WeaponControllerBMH>().activeWeaponIndex == 0)
+                        if (player.GetComponent<WeaponController>().activeWeaponIndex == 0)
                         {
                             slots[i].transform.GetComponent<Outline>().enabled = true;
                         }
@@ -39,7 +39,7 @@ public class WeaponSlotInventory : MonoBehaviour
                         }
                         break;
                     case ("PickAxe"):
-                        if (player.GetComponent<WeaponControllerBMH>().activeWeaponIndex == 1)
+                        if (player.GetComponent<WeaponController>().activeWeaponIndex == 1)
                         {
                             slots[i].transform.GetComponent<Outline>().enabled = true;
                         }
@@ -49,7 +49,7 @@ public class WeaponSlotInventory : MonoBehaviour
                         }
                         break;
                     case ("Sword"):
-                        if (player.GetComponent<WeaponControllerBMH>().activeWeaponIndex == 2)
+                        if (player.GetComponent<WeaponController>().activeWeaponIndex == 2)
                         {
                             slots[i].transform.GetComponent<Outline>().enabled = true;
                         }
@@ -60,7 +60,7 @@ public class WeaponSlotInventory : MonoBehaviour
                         break;
                     case ("Cannon"):
 
-                        if (player.GetComponent<WeaponControllerBMH>().activeWeaponIndex == 3)
+                        if (player.GetComponent<WeaponController>().activeWeaponIndex == 3)
                         {
                             slots[i].transform.GetComponent<Outline>().enabled = true;
                         }
@@ -75,9 +75,9 @@ public class WeaponSlotInventory : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < player.GetComponent<WeaponControllerBMH>().hasWeapon.Count(); i++)///추가
+        for (int i = 0; i < player.GetComponent<WeaponController>().hasWeapon.Count(); i++)///추가
         {
-            if (player.GetComponent<WeaponControllerBMH>().hasWeapon[i])
+            if (player.GetComponent<WeaponController>().hasWeapon[i])
             {
                 slots[i].transform.GetChild(1).GetComponent<Image>().enabled = false;
             }
