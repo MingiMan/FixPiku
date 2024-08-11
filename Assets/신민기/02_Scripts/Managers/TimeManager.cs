@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance;
-    [SerializeField] private Texture2D skyboxNight; // ¹ã
-    [SerializeField] private Texture2D skyboxSunrise; // ÅÂ¾çÀÌ ¶°¿À¸¥´Ù.
-    [SerializeField] private Texture2D skyboxDay; 
-    [SerializeField] private Texture2D skyboxSunset; // ³ëÀ»
+    [SerializeField] private Texture2D skyboxNight; // ï¿½ï¿½
+    [SerializeField] private Texture2D skyboxSunrise; // ï¿½Â¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+    [SerializeField] private Texture2D skyboxDay;
+    [SerializeField] private Texture2D skyboxSunset; // ï¿½ï¿½ï¿½ï¿½
 
     [SerializeField] private Gradient graddientNightToSunrise;
     [SerializeField] private Gradient graddientSunriseToDay;
@@ -36,9 +36,11 @@ public class TimeManager : MonoBehaviour
 
     public int timer;
 
+    public bool nightCheck = false;//ë°¤ë‚® í™•ì¸////////////////////
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -75,18 +77,19 @@ public class TimeManager : MonoBehaviour
 
     private void OnHoursChange(int value)
     {
-        if (value == 6) // ¹ã -> ¼­¼­È÷ ÅÂ¾çÀÌ ¶°¿À¸¥´Ù.
+        if (value == 6) // ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
             StartCoroutine(LerpLight(graddientNightToSunrise, 10f));
             GameManager.Instance.monsterSpawner.AllMonsterDeath();
+            nightCheck = false;
         }
-        else if (value == 8) // ¿ÏÀüÈ÷ Çª¸¥ÇÏ´Ã·Î º¯ÇÑ´Ù.
+        else if (value == 8) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Çªï¿½ï¿½ï¿½Ï´Ã·ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
         {
             StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));
             StartCoroutine(LerpLight(graddientSunriseToDay, 10f));
         }
-        else if (value == 18)  // Çª¸¥ÇÏ´Ã¿¡¼­ ¼­¼­È÷ ³ëÀ»ÀÌÁø´Ù.
+        else if (value == 18)  // Çªï¿½ï¿½ï¿½Ï´Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         {
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
             StartCoroutine(LerpLight(graddientDayToSunset, 10f));
@@ -97,11 +100,12 @@ public class TimeManager : MonoBehaviour
             GameManager.Instance.WaringUISetAcitve();
         }
 
-        else if (value == 22) // ³ëÀ»¿¡¼­ ¹ãÀ¸·Î º¯ÇÑ´Ù.
+        else if (value == 22) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
             StartCoroutine(LerpLight(graddientSunsetToNight, 10f));
             GameManager.Instance.OnMonsterSpawnForLevel();
+            nightCheck = true;
         }
     }
 
