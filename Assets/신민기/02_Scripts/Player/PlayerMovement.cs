@@ -264,10 +264,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
         if (Input.GetMouseButtonDown(0))
         {
-
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100))
@@ -328,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator BackHpCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         backHpHit = true;
         yield return new WaitForSeconds(0.5f);
         IsInvincible = false;
