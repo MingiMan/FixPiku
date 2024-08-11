@@ -1,6 +1,4 @@
-using NUnit.Framework;
 using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +22,7 @@ public class TimeManager : MonoBehaviour
     public int Minutes
     { get { return minutes; } set { minutes = value; OnMinutesChange(value); } }
 
-    private int hours = 19;
+    private int hours = 8;
 
     public int Hours
     { get { return hours; } set { hours = value; OnHoursChange(value); } }

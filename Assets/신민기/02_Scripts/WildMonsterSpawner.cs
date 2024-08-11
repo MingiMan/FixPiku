@@ -22,16 +22,16 @@ public class WildMonsterSpawner : MonoBehaviour
 
     void Awake()
     {
-        // GameObject.Find("SnakeSpawn").GetComponentsInChildren<Transform>(snakePoint);
-        GameObject.Find("SpikeSpawn").GetComponentsInChildren<Transform>(spikePoint);
-        // snakePoint.RemoveAt(0);
-        spikePoint.RemoveAt(0);
+        GameObject.Find("SnakeSpawn").GetComponentsInChildren<Transform>(snakePoint);
+       // GameObject.Find("SpikeSpawn").GetComponentsInChildren<Transform>(spikePoint);
+         snakePoint.RemoveAt(0);
+       // spikePoint.RemoveAt(0);
     }
 
     private void Update()
     {
-        CreateSpike();
-        // CreateSnake();
+       //   CreateSpike();
+        CreateSnake();
     }
 
     private void CreateSpike()
@@ -50,7 +50,7 @@ public class WildMonsterSpawner : MonoBehaviour
     {
         snakeTimer += Time.deltaTime;
 
-        if (snakeTimer > 3f && snakeCurrentCount <= snakeMaxCount)
+        if (snakeTimer > 10f && snakeCurrentCount <= snakeMaxCount)
         {
             snakeTimer = 0f;
             SnakeSpawn();

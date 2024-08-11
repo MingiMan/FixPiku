@@ -100,7 +100,6 @@ public class WeaponController : MonoBehaviour
             animator.SetBool("IsPickAxe", false);
             animator.SetBool("IsSword", false);
             animator.SetBool("IsCannon", false);
-            Debug.Log("공격");
             string weaponBool = weaponType switch
             {
                 WeaponType.Axe => "IsAxe",

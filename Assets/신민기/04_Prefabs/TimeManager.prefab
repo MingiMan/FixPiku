@@ -169,4 +169,4 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   globalLight: {fileID: 0}
-  timer: 30
+  timer: 20

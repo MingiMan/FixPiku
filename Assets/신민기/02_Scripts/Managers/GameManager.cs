@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         animalSpawner = FindObjectOfType<AnimalSpawner>();
-        // wildMonsterSpawner = FindObjectOfType<WildMonsterSpawner>();
+        wildMonsterSpawner = FindObjectOfType<WildMonsterSpawner>();
         if(monsterSpawner == null)
             monsterSpawner = FindObjectOfType<MonsterSpawner>();
 

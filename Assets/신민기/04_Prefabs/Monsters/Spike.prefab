@@ -999,7 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadDustParticle: {fileID: 132836380312461158, guid: 3d62bfbb169a40c428b652efb36ed79b, type: 3}
-  enemyType: 0
+  enemyType: 1
   Stats:
     health: 150
     atkDamage: 20
