@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,11 +16,15 @@ public class GameManager : MonoBehaviour
     public int level = 1;
 
     [Header("Monsters Per Level")]
-    public int monstersPerLevel1 = 24;
-    public int monstersPerLevel2 = 40;
-    public int monstersPerLevel3 = 30;
-    public int monstersPerLevel4 = 50;
-    public int monstersPerLevel5 = 60;
+    public int monstersPerLevel1 = 24; // 울프 
+    public int monstersPerLevel2 = 12; // 웨어 울프
+    public int monstersPerLevel3 = 30; // 폭탄맨
+    public int monstersPerLevel4 = 50; // 울프 웨어 울프
+    public int monstersPerLevel5 = 60; // 울프 웨어울프 폭탄맨
+
+    [Space(10)]
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI waringUI;
 
     private void Awake()
     {
@@ -36,6 +43,10 @@ public class GameManager : MonoBehaviour
         // wildMonsterSpawner = FindObjectOfType<WildMonsterSpawner>();
         if(monsterSpawner == null)
             monsterSpawner = FindObjectOfType<MonsterSpawner>();
+
+        waringUI.gameObject.SetActive(false);
+
+        // dayText.gameObject.SetActive(true);
     }
 
     public void GameStart()
@@ -48,7 +59,7 @@ public class GameManager : MonoBehaviour
         level++;
     }
 
-    private void OnMonsterSpawnForLevel()
+    public void OnMonsterSpawnForLevel()
     {
         switch (level)
         {
@@ -71,5 +82,17 @@ public class GameManager : MonoBehaviour
                 Debug.Log("게임 종료"); // 모든 레벨 완료 시
                 break;
         }
+    }
+
+    public void WaringUISetAcitve()
+    {
+        StartCoroutine(WaringUICoroutine());
+    }
+
+    IEnumerator WaringUICoroutine()
+    {
+        waringUI.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        waringUI.gameObject.SetActive(false);
     }
 }

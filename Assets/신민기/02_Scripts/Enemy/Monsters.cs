@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 
 // 밤에만 나오는 몬스터들은 이 스크립트를 적용시켜준다.
+
 public class Monsters : Enemys
 {
     [SerializeField] protected BoxCollider meleeArea;
@@ -13,7 +14,7 @@ public class Monsters : Enemys
     protected Transform targetPoint;
     bool IsAttack;
     bool IsTargeting;
-    bool IsPlayerTarget;
+    protected bool IsPlayerTarget;
     public bool OnGizmos;
 
     protected override void Awake()
@@ -85,12 +86,15 @@ public class Monsters : Enemys
             }
         }
     }
+
     public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
         if (!IsDead)
         {
             base.Damage(_dmg, _tarGetPos);
-            IsPlayerTarget = true;
+
+            if (IsTargeting)
+                IsTargeting = false;
         }
     }
 

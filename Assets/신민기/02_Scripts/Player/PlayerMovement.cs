@@ -326,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator BackHpCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         backHpHit = true;
         yield return new WaitForSeconds(0.5f);
         IsInvincible = false;

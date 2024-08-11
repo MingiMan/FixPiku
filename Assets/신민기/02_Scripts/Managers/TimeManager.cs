@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class TimeManager : MonoBehaviour
     public int Minutes
     { get { return minutes; } set { minutes = value; OnMinutesChange(value); } }
 
-    private int hours = 20;
+    private int hours = 19;
 
     public int Hours
     { get { return hours; } set { hours = value; OnHoursChange(value); } }
@@ -80,6 +81,7 @@ public class TimeManager : MonoBehaviour
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
             StartCoroutine(LerpLight(graddientNightToSunrise, 10f));
+            GameManager.Instance.monsterSpawner.AllMonsterDeath();
         }
         else if (value == 8) // 완전히 푸른하늘로 변한다.
         {
@@ -91,10 +93,17 @@ public class TimeManager : MonoBehaviour
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
             StartCoroutine(LerpLight(graddientDayToSunset, 10f));
         }
+
+        else if (value == 20)
+        {
+            GameManager.Instance.WaringUISetAcitve();
+        }
+
         else if (value == 22) // 노을에서 밤으로 변한다.
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
             StartCoroutine(LerpLight(graddientSunsetToNight, 10f));
+            GameManager.Instance.OnMonsterSpawnForLevel();
         }
     }
 

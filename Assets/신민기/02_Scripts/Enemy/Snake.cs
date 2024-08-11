@@ -157,7 +157,7 @@ public class Snake : Animals
             nav.speed = Stats.runSpeed;
         }
     }
-    protected override void Dead()
+    public override void Dead()
     {
         mat.color = Color.red;
         IsWalking = false;

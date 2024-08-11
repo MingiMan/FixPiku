@@ -110,7 +110,7 @@ public class Spike : Animals
         }
 
     }
-    protected override void Dead()
+    public override void Dead()
     {
         StopAllCoroutines();
         mat.color = Color.red;

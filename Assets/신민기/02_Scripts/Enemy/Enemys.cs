@@ -238,13 +238,13 @@ public class Enemys : MonoBehaviour
         mat.color = originalColor;
     }
 
-    protected virtual void Dead()
+    public virtual void Dead()
     {
         StopAllCoroutines();
         mat.color = Color.red;
         IsWalking = false;
         IsRunning = false;
-        IsDead = true;
+        nav.isStopped = true;
 
         if (dead_Sound != null)
             PlaySE(dead_Sound);
@@ -252,6 +252,13 @@ public class Enemys : MonoBehaviour
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
         rigid.isKinematic = false;
+        OnEnemyDeath();
+    }
+
+
+    protected void OnEnemyDeath()
+    {
+        IsDead = true;
         switch (enemyType)
         {
             case EnemyType.Animal:
@@ -294,6 +301,15 @@ public class Enemys : MonoBehaviour
         Instantiate(deadDustParticle, transform.position, transform.rotation);
         GameManager.Instance.animalSpawner.AnimalDeath(this.gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
+        }
+    }
+
 
     protected virtual void OnAnimatorMove()
     {
