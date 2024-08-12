@@ -17,7 +17,7 @@ public class Enemys : MonoBehaviour
     protected Transform playerTr;
     protected Material mat;
     protected SkinnedMeshRenderer skinnedMesh;
-    [SerializeField] ParticleSystem deadDustParticle;
+    [SerializeField] protected ParticleSystem deadDustParticle;
 
     public EnemyType enemyType;
 
@@ -194,6 +194,7 @@ public class Enemys : MonoBehaviour
 
     public virtual void Damage(int _dmg, Vector3 _tarGetPos)
     {
+
         if (!IsDead && !Invisible)
         {
             Invisible = true;
@@ -237,24 +238,34 @@ public class Enemys : MonoBehaviour
         mat.color = originalColor;
     }
 
-    protected virtual void Dead()
+    public virtual void Dead()
     {
+        StopAllCoroutines();
         mat.color = Color.red;
         IsWalking = false;
         IsRunning = false;
-        IsDead = true;
+        nav.isStopped = true;
+
         if (dead_Sound != null)
             PlaySE(dead_Sound);
         gameObject.layer = 6;
         gameObject.tag = "Untagged";
         animator.SetTrigger("OnDie");
         rigid.isKinematic = false;
+        OnEnemyDeath();
+    }
+
+
+    protected void OnEnemyDeath()
+    {
+        IsDead = true;
         switch (enemyType)
         {
             case EnemyType.Animal:
                 StartCoroutine(AnimalDeath());
                 break;
             case EnemyType.Monster:
+                StartCoroutine(MonsterDeath());
                 break;
         }
     }
@@ -277,6 +288,12 @@ public class Enemys : MonoBehaviour
         Damage(damage, reactVec);
     }
 
+    IEnumerator MonsterDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        Instantiate(deadDustParticle, transform.position, transform.rotation);
+        GameManager.Instance.monsterSpawner.OnMonsterDeath(this.gameObject);
+    }
 
     IEnumerator AnimalDeath()
     {
@@ -284,6 +301,15 @@ public class Enemys : MonoBehaviour
         Instantiate(deadDustParticle, transform.position, transform.rotation);
         GameManager.Instance.animalSpawner.AnimalDeath(this.gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
+        }
+    }
+
 
     protected virtual void OnAnimatorMove()
     {

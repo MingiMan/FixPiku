@@ -34,7 +34,6 @@ public class PlayerState : MonoBehaviour
                 Destroy(coll.gameObject);
                 break;
 
-
             default:
                 break;
 

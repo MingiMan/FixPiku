@@ -880,7 +880,7 @@ MonoBehaviour:
     monsterType: 3
   dead_Sound: {fileID: 8300000, guid: f601347a5e242d0449fa06acb56f0006, type: 3}
   hurt_Sound: {fileID: 8300000, guid: d96d030f6007ea14bab575d945bb8130, type: 3}
-  idle_Sound: {fileID: 8300000, guid: 0079046804a1883488fb5ea67bc0c267, type: 3}
+  idle_Sound: {fileID: 0}
 --- !u!114 &5867625534141543768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,7 +920,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 1.01
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0

@@ -156,6 +156,8 @@ MonoBehaviour:
   - {fileID: 3040318725560950872}
   - {fileID: 4956292346460134050}
   - {fileID: 236434034633922977}
+  hasWeapon: 
+  activeWeaponIndex: -1
 --- !u!1 &885868696368646623
 GameObject:
   m_ObjectHideFlags: 0

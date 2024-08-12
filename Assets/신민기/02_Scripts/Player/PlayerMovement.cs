@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using UnityEditor.Rendering.LookDev;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -264,24 +263,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit, 100))
+        //    {
+        //        Vector3 directionLookPos = hit.point - transform.position;
+        //        directionLookPos.y = 0;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100))
-            {
-                Vector3 directionLookPos = hit.point - transform.position;
-                directionLookPos.y = 0;
-
-                if (directionLookPos != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
-                }
-            }
-        }
+        //        if (directionLookPos != Vector3.zero)
+        //        {
+        //            Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+        //            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
+        //        }
+        //    }
+        //}
 
     }
     public void OnDamage(int _atkDamage)
@@ -328,7 +325,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator BackHpCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         backHpHit = true;
         yield return new WaitForSeconds(0.5f);
         IsInvincible = false;

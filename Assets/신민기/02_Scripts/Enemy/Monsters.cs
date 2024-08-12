@@ -5,195 +5,143 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 
 // 밤에만 나오는 몬스터들은 이 스크립트를 적용시켜준다.
+
 public class Monsters : Enemys
 {
     [SerializeField] protected BoxCollider meleeArea;
-
-    public float targetRadius = 0.5f;
-
-    public float targetRange = 1f;
-
-    private RaycastHit[] sphereCastHits;
-
-    public Transform point;
-
+    [SerializeField] protected float targetRadius;
+    protected Transform houseTr;
+    protected Transform targetPoint;
     bool IsAttack;
+    bool IsTargeting;
+    protected bool IsPlayerTarget;
+    public bool OnGizmos;
 
-    bool IsTest;
+    protected override void Awake()
+    {
+        base.Awake();
+        houseTr = GameObject.FindGameObjectWithTag("HOUSE").transform;
+    }
 
-
-    public float checkDistance;
     protected override void OnEnable()
     {
-        base.OnEnable();
-        nav.ResetPath();
+        currentHp = Stats.health;
         nav.speed = Stats.runSpeed;
-        IsRunning = true;
+        IsRunning = false;
+        IsAction = true;
+        nav.autoTraverseOffMeshLink = false;
+        mat.color = Color.white;
+        Invisible = false;
+        IsDead = false;
+        rigid.isKinematic = false;
+        IsPlayerTarget = false;
+        IsTargeting = false;
+        gameObject.layer = 8;
+        gameObject.tag = "ENEMY";
+        StartCoroutine(CheckOffMeshLink());
     }
-
-
-    void RadomPointHouse()
-    {
-        Transform[] childTransforms = GameObject.Find("HouseCheck").GetComponentsInChildren<Transform>();
-        int randomIndex = Random.Range(0,childTransforms.Length);
-        point = childTransforms[randomIndex];
-        destination = point.position;   
-    }
-
-    protected override void Move()
-    {
-        if (IsRunning)
-        {
-            nav.SetDestination(destination);
-
-            if (Vector3.Distance(transform.position, destination) <= nav.stoppingDistance)
-            {
-                IsRunning = false;
-                nav.isStopped = true;
-                IsTest = true;
-                //if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit hit, checkDistance, LayerMask.GetMask("HOUSE")))
-                //{
-                //    if(hit.collider.gameObject.layer == LayerMask.NameToLayer("HOUSE"))
-                //    {
-                //        IsTest = true;
-                //    }
-                //}
-                //else
-                //{
-                //    destination = point.position;
-                //    IsRunning = true;
-                //    nav.isStopped = false;
-                //}
-            }
-        }
-    }
-
 
     protected override void Update()
     {
-        if (!IsDead)
+        if (!IsDead && targetPoint != null)
         {
-            Move();
-            Test();
-            // PlayerDetaticon();
-        }
-    }
-
-    void Test()
-    {
-        if(IsTest &&  !IsAttack)
-        {
-            StartCoroutine(Attack());
+            FreezeRotation();
+            PlayerDetection();
         }
     }
 
     protected override void FixedUpdate()
     {
-
+        if (!IsDead)
+            Move();
     }
 
-    public override void Run(Vector3 _targetPos)
+    protected override void Move()
     {
-
-    }
-
-
-    protected virtual void AvoidOtherEnemie()
-    {
-        float minimumDistance = 1.0f; // 최소 허용 거리
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, minimumDistance);
-
-        foreach (var hitCollider in hitColliders)
+        if (!IsPlayerTarget && IsRunning)
         {
-            if (hitCollider.CompareTag("ENEMY") && hitCollider.transform != transform)
+            nav.SetDestination(targetPoint.position);
+            float distanceToHouse= Vector3.Distance(transform.position, targetPoint.transform.position);
+            if(distanceToHouse <= nav.stoppingDistance)
             {
-                Vector3 directionAway = (transform.position - hitCollider.transform.position).normalized;
-                transform.position += directionAway * Time.deltaTime;
+                IsTargeting = true;
+                Quaternion targetRotation = Quaternion.LookRotation(houseTr.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20f);
+                StartCoroutine(CoroutineAttack());
+            }
+        }
+        if (IsPlayerTarget)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTr.transform.position);
+            nav.SetDestination(playerTr.transform.position);
+            if (!IsAttack && distanceToPlayer <= nav.stoppingDistance)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(playerTr.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
+                StartCoroutine(CoroutineAttack());
+            }
+            else if (distanceToPlayer > 15f)
+            {
+                IsPlayerTarget = false;
             }
         }
     }
 
-    IEnumerator Attack()
+    public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
-        IsAttack = true;
-        animator.SetTrigger("OnAttack");
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
-        IsAttack = false;
+        if (!IsDead)
+        {
+            base.Damage(_dmg, _tarGetPos);
+
+            if (IsTargeting)
+                IsTargeting = false;
+        }
     }
 
+    protected void PlayerDetection()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("PLAYER"));
+        if (colliders.Length > 0 && !IsTargeting)
+        {
+            IsPlayerTarget = true;
+        }
+    }
+
+    IEnumerator CoroutineAttack()
+    {
+        nav.velocity = Vector3.zero;
+        IsAttack = true;
+        IsRunning = false;
+        nav.isStopped = true;
+        yield return new WaitForSeconds(0.5f);
+        animator.SetTrigger("OnAttack");
+        yield return new WaitForSeconds(1f);
+        nav.isStopped = false;
+        IsRunning = true;
+        IsAttack = false;
+    }
 
     public void EnableCollider()
     {
         meleeArea.enabled = true;
     }
 
-    public void DisableCollider()
+    public void TargetSetDestination(Transform point)
     {
-        meleeArea.enabled = false;
+        targetPoint = point;
+        IsRunning = true;
     }
-
-    protected virtual void PlayerDetaticon()
-    {
-        sphereCastHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("HOUSE"));
-
-        foreach (var hit in sphereCastHits)
-        {
-            if (hit.collider.CompareTag("HOUSE"))
-            {
-                Vector3 directionToBase = (hit.transform.position - transform.position).normalized;
-                Quaternion targetRotation = Quaternion.LookRotation(directionToBase);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1.5f);        
-            }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("ENEMY"))
-            rigid.isKinematic = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("ENEMY"))
-            rigid.isKinematic = false;
-    }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
-    //    }
-    //}
 
     private void OnDrawGizmos()
     {
-        Debug.DrawRay(transform.position + Vector3.up, transform.forward * checkDistance, Color.green);
-        //if (sphereCastHits == null) return;
-
-        //Gizmos.color = Color.blue;
-        //Vector3 start = transform.position;
-        //Vector3 direction = transform.forward * targetRange;
-
-        //// 스피어캐스트의 시작과 끝을 원으로 시각화
-        //Gizmos.DrawWireSphere(start, targetRadius);
-        //Gizmos.DrawWireSphere(start + direction, targetRadius);
-
-        //// 스피어캐스트 경로를 선으로 시각화
-        //Gizmos.DrawLine(start, start + direction);
-
-        //// 스피어캐스트가 감지한 모든 충돌 지점을 시각화
-        //Gizmos.color = Color.red;
-        //foreach (var hit in sphereCastHits)
-        //{
-        //    Gizmos.DrawSphere(hit.point, 0.1f); // 충돌 지점에 작은 구체를 그립니다.
-        //}
+        if (OnGizmos)
+            Gizmos.DrawWireSphere(transform.position, targetRadius);
     }
 
     protected override void OnAnimatorMove()
     {
-        base.OnAnimatorMove();
         animator.SetBool("IsAttack", IsAttack);
+        animator.SetBool("IsRunning", IsRunning);
     }
+
 }
