@@ -16,7 +16,7 @@ public class PoolManager : MonoBehaviour
     [Header("0번 뱀  1번 스파이크")]
     public GameObject[] wildMonsterPrefab;
     List<GameObject>[] wildMonsterPool;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -43,7 +43,6 @@ public class PoolManager : MonoBehaviour
             wildMonsterPool[index] = new List<GameObject>();
 
     }
-
 
     public GameObject MonsterGet(int index)
     {

@@ -619,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 8760781613512712399}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.45, y: 0.5, z: -13.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -711,7 +711,6 @@ MonoBehaviour:
   OnGizmos: 1
   explosion: {fileID: 5550725559952971309, guid: 4420281912ddd8b4a8bc97db85a2f2b3, type: 3}
   explosionTime: 3
-  point: {fileID: 0}
 --- !u!65 &7127563074640078444
 BoxCollider:
   m_ObjectHideFlags: 0
