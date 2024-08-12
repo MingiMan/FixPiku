@@ -1,65 +1,98 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public List<Transform> points = new List<Transform>();
-    [Header("0번 돼지 1번 소 2번 양")]
-    public GameObject[] animalPrefab;
+    public AnimalSpawner animalSpawner;
+    public WildMonsterSpawner wildMonsterSpawner;
+    public MonsterSpawner monsterSpawner;
 
-    int animalCount;
-    [SerializeField] int maxAnimalCount = 10;
+    public int level = 1;
+
+    [Header("Monsters Per Level")]
+    public int monstersPerLevel1 = 24; // 울프 
+    public int monstersPerLevel2 = 12; // 웨어 울프
+    public int monstersPerLevel3 = 30; // 폭탄맨
+    public int monstersPerLevel4 = 50; // 울프 웨어 울프
+    public int monstersPerLevel5 = 60; // 울프 웨어울프 폭탄맨
+
+    [Space(10)]
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI waringUI;
+
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
         else
             Destroy(Instance);
-
-        DontDestroyOnLoad(Instance);
-
     }
 
     private void Start()
     {
-        GameObject.Find("AnimalPointGroup").GetComponentsInChildren<Transform>(points);
-        points.RemoveAt(0);
-        if (animalCount < maxAnimalCount)
-        {
-            InvokeRepeating(nameof(CreateAnimals), 2f, 3f);
-        }
+        animalSpawner = FindObjectOfType<AnimalSpawner>();
+        wildMonsterSpawner = FindObjectOfType<WildMonsterSpawner>();
+        if(monsterSpawner == null)
+            monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
+        waringUI.gameObject.SetActive(false);
+
+        // dayText.gameObject.SetActive(true);
     }
 
-    public void OnAnimalDeath()
+    public void GameStart()
     {
-        animalCount--;
-        if (animalCount < maxAnimalCount)
+        OnMonsterSpawnForLevel();
+    }
+
+    public void LevelUp()
+    {
+        level++;
+    }
+
+    public void OnMonsterSpawnForLevel()
+    {
+        switch (level)
         {
-            InvokeRepeating(nameof(CreateAnimals), 2f, 3f);
+            case 1:
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel1);
+                break;
+            case 2:
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel2);
+                break;
+            case 3:
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel3);
+                break;
+            case 4:
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel4);
+                break;
+            case 5:
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel5);
+                break;
+            default:
+                Debug.Log("게임 종료"); // 모든 레벨 완료 시
+                break;
         }
     }
 
-    void CreateAnimals()
+    public void WaringUISetAcitve()
     {
-        if (animalCount >= maxAnimalCount)
-        {
-            CancelInvoke(nameof(CreateAnimals));
-            return;
-        }
+        StartCoroutine(WaringUICoroutine());
+    }
 
-        int index = Random.Range(0, points.Count);
-        int animalIndex = Random.Range(0, animalPrefab.Length);
-
-        Instantiate(animalPrefab[animalIndex], points[index].position, Quaternion.identity);
-        animalCount++;
-
-        if (animalCount >= maxAnimalCount)
-        {
-            CancelInvoke(nameof(CreateAnimals));
-        }
+    IEnumerator WaringUICoroutine()
+    {
+        waringUI.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        waringUI.gameObject.SetActive(false);
     }
 }

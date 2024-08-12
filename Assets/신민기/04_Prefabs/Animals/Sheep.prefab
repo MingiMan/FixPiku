@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 1152419555379129068}
   - component: {fileID: 5867625534141543768}
   - component: {fileID: 3116224264611136436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sheep
   m_TagString: ENEMY
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ Transform:
   m_GameObject: {fileID: 4345852661451633032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3283763, y: 1.62, z: 3.9579878}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -867,6 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadDustParticle: {fileID: 132836380312461158, guid: 3d62bfbb169a40c428b652efb36ed79b, type: 3}
+  enemyType: 0
   Stats:
     health: 120
     atkDamage: 0
@@ -879,7 +880,7 @@ MonoBehaviour:
     monsterType: 3
   dead_Sound: {fileID: 8300000, guid: f601347a5e242d0449fa06acb56f0006, type: 3}
   hurt_Sound: {fileID: 8300000, guid: d96d030f6007ea14bab575d945bb8130, type: 3}
-  idle_Sound: {fileID: 8300000, guid: 0079046804a1883488fb5ea67bc0c267, type: 3}
+  idle_Sound: {fileID: 0}
 --- !u!114 &5867625534141543768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +920,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 1.01
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0

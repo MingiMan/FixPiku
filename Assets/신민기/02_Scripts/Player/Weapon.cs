@@ -16,6 +16,7 @@ public enum AtkType
 [RequireComponent(typeof(BoxCollider))]
 public class Weapon : MonoBehaviour
 {
+    PlayerMovement player;
     public WeaponType weaponType;
     public AtkType atkType;
     public int weaponNum;
@@ -38,6 +39,7 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         meleeArea = GetComponent<BoxCollider>();
+        player = GetComponentInParent<PlayerMovement>();
         meleeArea.enabled = false;
     }
 
@@ -75,9 +77,12 @@ public class Weapon : MonoBehaviour
 
     IEnumerator RangeAttack()
     {
+        player.IsActive = false;
         yield return new WaitForSeconds(1f);
         GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position, Quaternion.identity);
         bullet.GetComponent<CannonBullet>().FireBullet(bulletPos.transform);
+        yield return new WaitForSeconds(0.5f);
+        player.IsActive = true;
     }
 
     private void OnTriggerEnter(Collider other)

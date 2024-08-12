@@ -38,10 +38,21 @@ public class CannonBullet : MonoBehaviour
         if (other.gameObject.CompareTag("ENEMY"))
         {
             StopAllCoroutines();
-            other.GetComponent<Enemys>().Damage(damage, transform.position);
-            rigid.isKinematic = true;
-            Instantiate(explosionParticle,transform.position,transform.rotation);
-            Destroy(this.gameObject);
+            StartCoroutine(Explosion());
+            // other.GetComponent<Enemys>().Damage(damage, transform.position);
         }
+    }
+
+    IEnumerator Explosion()
+    {
+        rigid.isKinematic = true;
+        Instantiate(explosionParticle,transform.position,transform.rotation);
+        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, 4f, Vector3.up, 0f, LayerMask.GetMask("ENEMY"));
+        foreach(RaycastHit hitObj in rayHits)
+        {
+            hitObj.transform.GetComponent<Enemys>().HitByCannon(damage,transform.position);
+        }
+        yield return new WaitForSeconds(0.3f);
+        Destroy(this.gameObject);
     }
 }

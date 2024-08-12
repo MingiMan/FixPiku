@@ -36,7 +36,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: OnDamaged
+    m_ConditionEvent: OnDamage
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9170306451140508790}
@@ -101,7 +101,7 @@ AnimatorStateMachine:
     m_Position: {x: -320, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6540994778393052916}
-    m_Position: {x: -320, y: 190, z: 0}
+    m_Position: {x: -320, y: 210, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -7480360585880411868}
@@ -188,7 +188,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: OnDamaged
+  - m_Name: OnDamage
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

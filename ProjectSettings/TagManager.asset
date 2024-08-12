@@ -20,6 +20,8 @@ TagManager:
   - INVENTORY
   - HOUSE
   - BLOCK
+  - BROCK
+  - MAKER
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - UI
   - DEAD
   - HOUSE
-  - 
+  - ENEMY
   - 
   - 
   - 

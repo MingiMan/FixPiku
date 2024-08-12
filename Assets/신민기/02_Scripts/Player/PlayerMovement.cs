@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -18,13 +19,15 @@ public class PlayerMovement : MonoBehaviour
     float dempTime;
     float ySpeed;
 
+    public bool IsActive; // 외부스트립트에서도 적용시킬거임
     bool IsRun;
     bool IsFalling;
     bool IsGrounded;
     bool BlockRotationPlayer;
     bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
-    bool IsActive;
+    bool IsInvincible;
+    bool backHpHit;
 
     [Header("Player Stats")]
     [SerializeField] float moveSpeed;
@@ -102,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
         GroundCheck();
         UpdateStamina();
-        UpdateHpUI();
+        UpdateHP();
     }
 
     void MoveInput()
@@ -255,12 +258,45 @@ public class PlayerMovement : MonoBehaviour
                 if (directionToLook != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
                 }
             }
         }
-    }
 
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit, 100))
+        //    {
+        //        Vector3 directionLookPos = hit.point - transform.position;
+        //        directionLookPos.y = 0;
+
+        //        if (directionLookPos != Vector3.zero)
+        //        {
+        //            Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+        //            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
+        //        }
+        //    }
+        //}
+
+    }
+    public void OnDamage(int _atkDamage)
+    {
+        if (IsInvincible || currentHp <= 0) return;
+
+        IsInvincible = true;
+        animator.SetTrigger("OnDamage");
+
+        currentHp -= _atkDamage;
+        UpdateHpUI();
+
+        if (!backHpHit)
+        {
+            StartCoroutine(BackHpCoroutine());
+        }
+
+    }
     public void UnActive()
     {
         IsActive = false;
@@ -271,11 +307,30 @@ public class PlayerMovement : MonoBehaviour
         IsActive = true;
     }
 
-    void UpdateHpUI()
+    private void UpdateHP()
+    {
+        backHpBar.value = Mathf.Lerp(backHpBar.value, hpBar.value, Time.deltaTime * 10f);
+
+        if (Mathf.Abs(hpBar.value - backHpBar.value) < 0.01f)
+        {
+            backHpHit = false;
+            backHpBar.value = hpBar.value;
+        }
+    }
+    private void UpdateHpUI()
     {
         hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
         currentHpText.text = $"{currentHp}";
     }
+
+    private IEnumerator BackHpCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        backHpHit = true;
+        yield return new WaitForSeconds(0.5f);
+        IsInvincible = false;
+    }
+
 
     private void OnAnimatorMove()
     {

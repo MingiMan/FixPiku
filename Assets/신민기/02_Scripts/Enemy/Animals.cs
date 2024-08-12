@@ -84,4 +84,9 @@ public class Animals : Enemys
         animator.SetBool("IsRunning", IsRunning);
         animator.SetBool("IsHappy", IsHappy);
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
 }

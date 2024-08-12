@@ -6,17 +6,27 @@ public class Snake : Animals
     [SerializeField] BoxCollider meleeArea;
     bool IsTracking;
     bool IsAttack;
-    protected override void Start()
+
+    protected override void Awake()
     {
-        base.Start();
-        meleeArea.enabled = false;
+        base.Awake();
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        rigid.isKinematic = false;
+        meleeArea.enabled = false;
+        nav.speed = Stats.runSpeed;
+    }
+
     protected override void Update()
     {
         if (!IsDead)
         {
             ElapseTime();
             PlayerTracking();
+            FreezeRotation();
         }
     }
 
@@ -84,8 +94,7 @@ public class Snake : Animals
             PlaySE(idle_Sound);
     }
 
-
-    protected void Patrol() // ����
+    protected void Patrol()
     {
         currentTime = Stats.walkTime;
         nav.speed = Stats.walkSpeed;
@@ -93,76 +102,89 @@ public class Snake : Animals
     }
 
 
-
     protected override void Move()
     {
         if (IsTracking)
         {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTr.transform.position);
             nav.SetDestination(playerTr.transform.position);
-            float targetRadius = 0.5f;
-            float targetRange = 1f;
 
-            RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("PLAYER"));
-
-            if (rayHits.Length > 0 && !IsAttack)
-                StartCoroutine(Attack());
-
-            else if (Vector3.Distance(transform.position, playerTr.transform.position) > 15f)
+            if (!IsAttack && distanceToPlayer <= nav.stoppingDistance)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(playerTr.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20f);
+                StartCoroutine(CoroutineAttack());
+            }
+            else if (distanceToPlayer > 15f) 
             {
                 Initialize();
             }
         }
-
         else if (IsRunning)
         {
             nav.SetDestination(destination);
         }
     }
 
-    IEnumerator Attack()
+    IEnumerator CoroutineAttack()
     {
-        nav.isStopped = true;
-        IsRunning = false;
-        IsTracking = false;
+        nav.velocity = Vector3.zero;
         IsAttack = true;
+        IsRunning = false;
+        nav.isStopped = true;
+        yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("OnAttack");
-        yield return new WaitForSeconds(0.6f);
-        rigid.isKinematic = true;
         yield return new WaitForSeconds(1f);
-        rigid.isKinematic = false;
-        yield return new WaitForSeconds(0.1f);
-        IsAttack = false;
-        IsTracking = true;
         nav.isStopped = false;
+        meleeArea.enabled = false;
+        IsRunning = true;
+        IsAttack = false;
     }
 
 
     public void EnableCollider()
     {
-        meleeArea.enabled = true;
-    }
-
-    public void DisableCollider()
-    {
-        meleeArea.enabled = false;
+        meleeArea.enabled = true;      
     }
 
     void PlayerTracking()
     {
         if (IsTracking)
         {
-            IsAction = false; // ���� Ȱ���� ��� �ߴ��ϰ� �÷��̾ �Ѿư������Ѵ�.
+            IsAction = false;
             IsHappy = false;
             IsRunning = true;
             nav.speed = Stats.runSpeed;
         }
+    }
+    public override void Dead()
+    {
+        mat.color = Color.red;
+        IsWalking = false;
+        IsRunning = false;
+        IsDead = true;
+
+        if (dead_Sound != null)
+            PlaySE(dead_Sound);
+        gameObject.layer = 6;
+        gameObject.tag = "Untagged";
+        animator.SetTrigger("OnDie");
+        rigid.isKinematic = false;
+        StartCoroutine(SnakeDeath());
+    }
+
+    IEnumerator SnakeDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        Instantiate(deadDustParticle, transform.position, transform.rotation);
+        GameManager.Instance.wildMonsterSpawner.SnakeDeath(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
+            other.GetComponent<PlayerMovement>().OnDamage(Stats.atkDamage);
         }
     }
 
