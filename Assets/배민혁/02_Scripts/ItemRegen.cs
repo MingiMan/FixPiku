@@ -20,6 +20,23 @@ public class ItemRegen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (!checkObject && TimeManager.Instance.nightCheck)
+        // {
+        //     childList = gameObject.GetComponentsInChildren<Transform>();
+        //     Debug.Log("regen");
+        //     if (childList != null)
+        //     {
+        //         for (int i = 0; i < parentObject.transform.childCount; i++)
+        //         {
+        //             Destroy(parentObject.transform.GetChild(i).gameObject);
+        //         }
+
+        //     }
+        //     //Instantiate(regenPrefab, itemPosition, itemRotation);
+        //     GameObject regenObject = Instantiate(regenPrefab) as GameObject;
+        //     regenObject.transform.SetParent(parentObject.gameObject.transform, false);
+        //     checkObject = true;
+        // }
         if (!checkObject)
         {
             childList = gameObject.GetComponentsInChildren<Transform>();

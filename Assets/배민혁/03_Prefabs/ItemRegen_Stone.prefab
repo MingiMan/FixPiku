@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObject: {fileID: 7905093418060855310}
-  regenPrefab: {fileID: 8879705187690626018, guid: 44024d6c75ae9fd43a50dc091e36a6e2, type: 3}
+  regenPrefab: {fileID: 8908236069357886598, guid: d819beb9cd732b14d997c4afa4edbcce, type: 3}
   checkObject: 0
