@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public AnimalSpawner animalSpawner;
-    public WildMonsterSpawner wildMonsterSpawner;
+    public SnakeSpawner wildMonsterSpawner;
     public MonsterSpawner monsterSpawner;
 
     public int level = 1;
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         animalSpawner = FindObjectOfType<AnimalSpawner>();
-        wildMonsterSpawner = FindObjectOfType<WildMonsterSpawner>();
+        wildMonsterSpawner = FindObjectOfType<SnakeSpawner>();
         if(monsterSpawner == null)
             monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
@@ -94,5 +94,16 @@ public class GameManager : MonoBehaviour
         waringUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         waringUI.gameObject.SetActive(false);
+    }
+
+    public void ReactivateSpike(GameObject spike, float delay)
+    {
+        StartCoroutine(ReactivateAfterDelay(spike, delay));
+    }
+
+    private IEnumerator ReactivateAfterDelay(GameObject spike, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        spike.SetActive(true);
     }
 }

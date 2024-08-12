@@ -22,6 +22,7 @@ TagManager:
   - BLOCK
   - BROCK
   - MAKER
+  - BOMB
   - CHILDSTONE
   layers:
   - Default

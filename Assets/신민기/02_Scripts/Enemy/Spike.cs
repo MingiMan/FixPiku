@@ -4,6 +4,7 @@ using UnityEngine;
 public class Spike : Animals
 {
     [SerializeField] BoxCollider meleeArea;
+    [SerializeField] Transform point;
     [SerializeField] float targetRadius = 0.5f;
     bool IsAttack;
     bool IsActive;
@@ -17,10 +18,11 @@ public class Spike : Animals
     protected override void OnEnable()
     {
         base.OnEnable();
+        transform.position = point.position;
         nav.speed = Stats.runSpeed;
         rigid.isKinematic = false;
         meleeArea.enabled = false;
-        nav.isStopped = true;
+        Initialize();
     }
 
     protected override void Initialize()
@@ -47,7 +49,7 @@ public class Spike : Animals
 
     protected override void Move()
     {
-        if (IsActive && !IsRunning)
+        if (IsActive && IsRunning)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, playerTr.transform.position);
             nav.SetDestination(playerTr.transform.position);
@@ -132,7 +134,8 @@ public class Spike : Animals
     {
         yield return new WaitForSeconds(3f);
         Instantiate(deadDustParticle, transform.position, transform.rotation);
-        GameManager.Instance.wildMonsterSpawner.SpikeDeath(this.gameObject);
+        gameObject.SetActive(false);
+        GameManager.Instance.ReactivateSpike(gameObject, 10f);
     }
 
     protected override void OnAnimatorMove()
