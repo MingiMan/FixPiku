@@ -23,7 +23,10 @@ TagManager:
   - BROCK
   - MAKER
   - BOMB
+<<<<<<< HEAD
   - CHILDSTONE
+=======
+>>>>>>> origin/subDevelop
   layers:
   - Default
   - TransparentFX
