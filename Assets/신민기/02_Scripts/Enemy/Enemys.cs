@@ -34,7 +34,7 @@ public class Enemys : MonoBehaviour
     [Header("Monster Stats")]
     [SerializeField] public BasicMonsters.Base Stats;
 
-    [Header("SoundClip(���尡 ���� ���͵� ����)")]
+    [Header("SoundClip(사운드가 없는 몬스터도 있음)")]
     [SerializeField] protected AudioClip dead_Sound;
     [SerializeField] protected AudioClip hurt_Sound;
     [SerializeField] protected AudioClip idle_Sound;
@@ -130,7 +130,7 @@ public class Enemys : MonoBehaviour
     }
     protected virtual void RandomAction()
     {
-        // ��ӹ��� ��ũ��Ʈ���� �ۼ��Ͻñ�..
+        // 상속받은 스크립트에서 작성하시길..
     }
 
     protected bool FindRandomPoint(Vector3 center, float range, out Vector3 result)
