@@ -559,6 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba97d1b4916ae04185960a6d730f0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsActive: 0
   moveSpeed: 3
   runSpeed: 7
   jumpForce: 4
@@ -583,6 +584,8 @@ MonoBehaviour:
   weapons:
   - {fileID: 2219172009432738492}
   - {fileID: 6428844505490912730}
+  hasWeapon: 
+  activeWeaponIndex: -1
 --- !u!114 &27346107717096814
 MonoBehaviour:
   m_ObjectHideFlags: 0
