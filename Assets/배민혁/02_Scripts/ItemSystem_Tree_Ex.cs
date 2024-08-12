@@ -82,7 +82,7 @@ public class ItemSystemTreeEx : MonoBehaviour
         regenObject.transform.SetParent(this.gameObject.transform, false);
         for (int i = 0; i < Random.Range(item_count[0], item_count[1] + 1); i++)
         {
-            Instantiate(item_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
+            Instantiate(item_Prefabs, this.gameObject.transform.position + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
         }
         var stumpExp = this.gameObject.AddComponent<Rigidbody>();
         var objectPlaceRigid = this.gameObject.GetComponent<Rigidbody>();

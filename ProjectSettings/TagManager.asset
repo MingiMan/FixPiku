@@ -4,72 +4,57 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Combined Mesh
-  - Tile Mesh
-  - Rule Tile
-  - Grid
-  - MELEE
   - ENEMY
-  - Castle
-  - enemyBug
-  - LEATHER
-  - TREE
-  - PLAYER
-  - WOOD
-  - ROCK
   - INVENTORY
-  - HOUSE
-  - BLOCK
-  - BROCK
+  - ROCK
+  - WOOD
+  - LEATHER
+  - MELEE
   - MAKER
-  - BOMB
-<<<<<<< HEAD
   - CHILDSTONE
-=======
->>>>>>> origin/subDevelop
+  - TREE
+  - enemyBug
+  - Castle
+  - HOUSE
+  - Grid
+  - BROCK
+  - PLAYER
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - PLAYER
+  - 
   - Water
   - UI
-  - DEAD
-  - HOUSE
-  - ENEMY
-  - CHILDSTONE
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - ITEM
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
     locked: 0
   m_RenderingLayers:
   - Default
-  - Light Layer 1
-  - Light Layer 2
-  - Light Layer 3
-  - Light Layer 4
-  - Light Layer 5
-  - Light Layer 6
-  - Light Layer 7

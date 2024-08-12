@@ -83,12 +83,12 @@ public class ItemSystemStoneEx : MonoBehaviour
         {
             parentCol.enabled = false;
 
-            GameObject regenObject = Instantiate(childStone[i], this.gameObject.transform.up * 4.0f, this.gameObject.transform.rotation) as GameObject;
+            GameObject regenObject = Instantiate(childStone[i], this.gameObject.transform.up + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), this.gameObject.transform.rotation) as GameObject;
             regenObject.transform.SetParent(this.gameObject.transform, false);
             CreateChildStone[i] = regenObject;
             regenObject.GetComponent<CapsuleCollider>().enabled = true;
             regenObject.GetComponent<Rigidbody>().useGravity = true;
-            regenObject.GetComponent<Rigidbody>().AddForce(Random.Range(-force, force), 0f, Random.Range(-force, force));
+            regenObject.GetComponent<Rigidbody>().AddForce(Random.Range(-force, force), Random.Range(-force, force), Random.Range(-force, force));
         }
         StartCoroutine(LogCoroutine());
         StopCoroutine(LogCoroutine());
@@ -99,9 +99,9 @@ public class ItemSystemStoneEx : MonoBehaviour
     {
         GameObject regenObject = Instantiate(objectPlace) as GameObject;
         regenObject.transform.SetParent(this.gameObject.transform, false);
-        for (int i = 0; i < Random.Range(3, 10); i++)
+        for (int i = 0; i < Random.Range(item_count[0], item_count[1] + 1); i++)
         {
-            Instantiate(item_Prefabs, this.gameObject.transform.parent.position * Random.Range(0.9f, 1.1f), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
+            Instantiate(item_Prefabs, this.gameObject.transform.parent.position + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
         }
         var stumpExp = this.gameObject.AddComponent<Rigidbody>();
         var objectPlaceRigid = this.gameObject.GetComponent<Rigidbody>();
