@@ -34,7 +34,7 @@ public class Enemys : MonoBehaviour
     [Header("Monster Stats")]
     [SerializeField] public BasicMonsters.Base Stats;
 
-    [Header("SoundClip(»ç¿îµå°¡ ¾ø´Â ¸ó½ºÅÍµµ ÀÖÀ½)")]
+    [Header("SoundClip(ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½)")]
     [SerializeField] protected AudioClip dead_Sound;
     [SerializeField] protected AudioClip hurt_Sound;
     [SerializeField] protected AudioClip idle_Sound;
@@ -130,7 +130,7 @@ public class Enemys : MonoBehaviour
     }
     protected virtual void RandomAction()
     {
-        // »ó¼Ó¹ÞÀº ½ºÅ©¸³Æ®¿¡¼­ ÀÛ¼ºÇÏ½Ã±æ..
+        // ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ï½Ã±ï¿½..
     }
 
     protected bool FindRandomPoint(Vector3 center, float range, out Vector3 result)

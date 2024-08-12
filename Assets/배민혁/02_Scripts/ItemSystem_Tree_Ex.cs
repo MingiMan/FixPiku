@@ -101,7 +101,7 @@ public class ItemSystemTreeEx : MonoBehaviour
 
 
         Destroy(mainObject.gameObject);
-        this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+        //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
     }
 
 }

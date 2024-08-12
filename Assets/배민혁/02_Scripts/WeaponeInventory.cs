@@ -11,6 +11,7 @@ public class WeaponInventory : MonoBehaviour
     public TextMeshProUGUI slotText;
 
     public GameObject player;
+    public PlayerState playerState;
 
     [SerializeField] private Button[] weaponeActiveButton; // 무기 제작 버튼
     private bool weaponeWindowOff;
@@ -19,10 +20,21 @@ public class WeaponInventory : MonoBehaviour
 
     [SerializeField] private Button weaponeWindowButton; // 무기 제작 버튼
     [SerializeField] private GameObject waeponeClear; // 무기 전부 제작
+    [Serializable]
+    public struct weaponeActiveItem
+    {
+        public int rock;
+        public int wood;
+        public int leather;
+
+    }
+    public weaponeActiveItem[] useWeaponeActiveItem;
+    [SerializeField] HouseInventory houseInventory;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerState = player.gameObject.GetComponent<PlayerState>();
         weaponeWindow.SetActive(false);
         weaponeWindowOff = true;
         waeponeClearOff = true;
@@ -31,7 +43,7 @@ public class WeaponInventory : MonoBehaviour
 
     void OnEnable()
     {
-        weaponeWindowButton.onClick.AddListener(() => // 거점 레벨업 버튼
+        weaponeWindowButton.onClick.AddListener(() => // 무기 창 활성화 버튼
        {
            try
            {
@@ -59,12 +71,23 @@ public class WeaponInventory : MonoBehaviour
 
        });
 
-        weaponeActiveButton[0].onClick.AddListener(() => // 무기1
+        weaponeActiveButton[0].onClick.AddListener(() => // 무기0
         {
+            // try
+            // {
+            //     if (player.GetComponent<WeaponController>().hasWeapon[0] == false)
+            //         player.GetComponent<WeaponController>().hasWeapon[0] = true;
+            // }
             try
             {
                 if (player.GetComponent<WeaponController>().hasWeapon[0] == false)
-                    player.GetComponent<WeaponController>().hasWeapon[0] = true;
+                {
+                    if (weaponeActiveItemCheck(0))
+                    {
+                        weaponeActiveClick(0);
+                    }
+
+                }
             }
             catch (Exception e)
             {
@@ -75,10 +98,22 @@ public class WeaponInventory : MonoBehaviour
         });
         weaponeActiveButton[1].onClick.AddListener(() => // 무기1
        {
+           //    try
+           //    {
+           //        if (player.GetComponent<WeaponController>().hasWeapon[1] == false)
+           //            player.GetComponent<WeaponController>().hasWeapon[1] = true;
+           //    }
+           //    catch (Exception e)
            try
            {
                if (player.GetComponent<WeaponController>().hasWeapon[1] == false)
-                   player.GetComponent<WeaponController>().hasWeapon[1] = true;
+               {
+                   if (weaponeActiveItemCheck(1))
+                   {
+                       weaponeActiveClick(1);
+                   }
+
+               }
            }
            catch (Exception e)
            {
@@ -87,12 +122,23 @@ public class WeaponInventory : MonoBehaviour
 
 
        });
-        weaponeActiveButton[2].onClick.AddListener(() => // 무기1
+        weaponeActiveButton[2].onClick.AddListener(() => // 무기2
         {
+            // try
+            // {
+            //     if (player.GetComponent<WeaponController>().hasWeapon[2] == false)
+            //         player.GetComponent<WeaponController>().hasWeapon[2] = true;
+            // }
             try
             {
                 if (player.GetComponent<WeaponController>().hasWeapon[2] == false)
-                    player.GetComponent<WeaponController>().hasWeapon[2] = true;
+                {
+                    if (weaponeActiveItemCheck(2))
+                    {
+                        weaponeActiveClick(2);
+                    }
+
+                }
             }
             catch (Exception e)
             {
@@ -101,12 +147,23 @@ public class WeaponInventory : MonoBehaviour
 
 
         });
-        weaponeActiveButton[3].onClick.AddListener(() => // 무기1
+        weaponeActiveButton[3].onClick.AddListener(() => // 무기2=3
        {
+           //    try
+           //    {
+           //        if (player.GetComponent<WeaponController>().hasWeapon[3] == false)
+           //            player.GetComponent<WeaponController>().hasWeapon[3] = true;
+           //    }
            try
            {
                if (player.GetComponent<WeaponController>().hasWeapon[3] == false)
-                   player.GetComponent<WeaponController>().hasWeapon[3] = true;
+               {
+                   if (weaponeActiveItemCheck(3))
+                   {
+                       weaponeActiveClick(3);
+                   }
+
+               }
            }
            catch (Exception e)
            {
@@ -121,7 +178,7 @@ public class WeaponInventory : MonoBehaviour
     void Update()
     {
 
-        for (int i = 0; i < player.GetComponent<WeaponController>().hasWeapon.Count(); i++)///추가////////////////////////////////
+        for (int i = 0; i < player.GetComponent<WeaponController>().hasWeapon.Count(); i++)
         {
             if (player.GetComponent<WeaponController>().hasWeapon[i])
             {
@@ -188,4 +245,48 @@ public class WeaponInventory : MonoBehaviour
             print("슬롯이 가득 차 있습니다.");
         }
     }
+    #region 무기 해금 부분
+    public void weaponeActiveClick(int waponeNumber)
+    {
+
+        if (playerState.rock > useWeaponeActiveItem[waponeNumber].rock)
+        {
+            playerState.rock -= useWeaponeActiveItem[waponeNumber].rock;
+        }
+        else
+        {
+            houseInventory.rock = houseInventory.rock + playerState.rock - useWeaponeActiveItem[waponeNumber].rock;
+            playerState.rock = 0;
+        }
+        if (playerState.wood > useWeaponeActiveItem[waponeNumber].wood)
+        {
+            playerState.wood -= useWeaponeActiveItem[waponeNumber].wood;
+        }
+        else
+        {
+            houseInventory.wood = houseInventory.wood + playerState.wood - useWeaponeActiveItem[waponeNumber].wood;
+            playerState.wood = 0;
+        }
+        if (playerState.leather > useWeaponeActiveItem[waponeNumber].leather)
+        {
+            playerState.leather -= useWeaponeActiveItem[waponeNumber].leather;
+        }
+        else
+        {
+            houseInventory.leather = houseInventory.leather + playerState.leather - useWeaponeActiveItem[waponeNumber].leather;
+            playerState.leather = 0;
+        }
+        player.GetComponent<WeaponController>().hasWeapon[waponeNumber] = true;
+
+    }
+    public bool weaponeActiveItemCheck(int waponeNumber)
+    {
+        if (playerState.rock + houseInventory.rock >= useWeaponeActiveItem[waponeNumber].rock && playerState.wood + houseInventory.wood >= useWeaponeActiveItem[waponeNumber].wood && playerState.leather + houseInventory.leather >= useWeaponeActiveItem[waponeNumber].leather)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
 }

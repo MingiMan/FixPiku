@@ -126,7 +126,7 @@ public class ItemSystemStone : MonoBehaviour
             Destroy(childStone[i].gameObject);
         }
 
-        this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+        //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
     }
 
 }
