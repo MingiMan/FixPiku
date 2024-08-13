@@ -74,7 +74,7 @@ MonoBehaviour:
   item_Prefabs: {fileID: 5213030249055457159, guid: 4c962df598f0efa49a9b103106f2ae0f, type: 3}
   force: 10
   mainObject: {fileID: 7762455274335499268}
-  objectPlace: {fileID: 4574126691835230961, guid: 9dd341ce698485246b72770cc86059bd, type: 3}
+  objectPlace: {fileID: 7931792787900924843, guid: 1fe0097d8c750ae4792f5bfcc7fdcb11, type: 3}
   parentCol: {fileID: 7959175837061869762}
   childCol: {fileID: 8776810924207103436}
   childRigid: {fileID: 3853821634145996497}

@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Animals : Enemys
 {
+    //아이템 드롭용 구현//////////////////
+    [SerializeField] private float[] item_count;  // 아이템 생성 최소 최대 개수
+    [SerializeField] private GameObject item_Prefabs;  // 재료아이템. 오브젝트가 파괴된 이후 생성할 재료.
+
+    //아이템 드롭용 구현//////////////////
     protected bool IsHappy;
 
     public override void Run(Vector3 _tarGetPos)
@@ -17,8 +22,18 @@ public class Animals : Enemys
     {
         base.Damage(_dmg, _tarGetPos);
 
+
         if (!IsDead)
             Run(_tarGetPos);
+        else
+        {
+            ////////////////////죽으면 아이템 드롭///////////////////
+            for (int i = 0; i < Random.Range(item_count[0], item_count[1] + 1); i++)
+            {
+                Instantiate(item_Prefabs, this.gameObject.transform.position + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
+            }
+            ////////////////////죽으면 아이템 드롭///////////////////
+        }
     }
 
     protected override void Initialize()
@@ -61,7 +76,7 @@ public class Animals : Enemys
     protected virtual void Wait()
     {
         currentTime = Stats.waitTime;
-        if(idle_Sound != null)
+        if (idle_Sound != null)
             PlaySE(idle_Sound);
     }
 

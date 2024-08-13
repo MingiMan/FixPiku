@@ -1309,6 +1309,10 @@ MonoBehaviour:
   dead_Sound: {fileID: 8300000, guid: 2807581c520fda94084d007b0aeb28e0, type: 3}
   hurt_Sound: {fileID: 8300000, guid: afcdbffe718c24145adac1fd1300957f, type: 3}
   idle_Sound: {fileID: 0}
+  item_count:
+  - 3
+  - 10
+  item_Prefabs: {fileID: 8604270983622776101, guid: 73936c80aab6eba4e9ebf969d6cb5616, type: 3}
 --- !u!65 &354757286282591032
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1470,7 +1474,7 @@ MonoBehaviour:
   viewDistance: 10
   tarGetMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!1 &8574170151217985978
 GameObject:
   m_ObjectHideFlags: 0
