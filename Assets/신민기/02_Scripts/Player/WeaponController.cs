@@ -28,7 +28,7 @@ public class WeaponController : MonoBehaviour
         foreach (var weapon in weapons)
             weapon.gameObject.SetActive(false);
         WeaponLock();// 잠금추가/////////////////////////////////////////
-        hasWeapon[2] = true; // 도끼만 잠금해제/////////////////////////////////////////
+        hasWeapon[0] = true; // 도끼만 잠금해제/////////////////////////////////////////
     }
 
     private void Update()
