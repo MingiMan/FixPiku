@@ -1056,8 +1056,8 @@ MonoBehaviour:
   cannonBulletPrefab: {fileID: 2154287810665332540, guid: a1aaee1139a67464297e61285dcc73a0, type: 3}
   maxAmmo: 5
   curAmmo: 5
-  rifleBulletPos: {fileID: 0}
-  rifleBulletPrefab: {fileID: 0}
+  rifleBulletPos: {fileID: 4423145965076318115}
+  rifleBulletPrefab: {fileID: 6901894400936181154, guid: 4b35fe4289f491741a1e65888c62d27f, type: 3}
   rifleMaxAmmo: 0
   riflecurAmmo: 0
 --- !u!1 &5365136858139484880

@@ -2273,7 +2273,7 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: 1d1f8d7eafe1bd54999ebd570b1bdc94, type: 2}
   - {fileID: 11400000, guid: 15766025a0cb5be42beeac72a6e27145, type: 2}
-  - {fileID: 11400000, guid: ff675ca50cb2b91488cec41a66eb523d, type: 2}
+  - {fileID: 11400000, guid: a7792ca706491d9478d27b2654311861, type: 2}
   - {fileID: 11400000, guid: 5d422e222d798db49b5ca51bcf062b0f, type: 2}
   slotText: {fileID: 0}
   player: {fileID: 0}
@@ -14730,7 +14730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sword
+  m_text: Gun
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
