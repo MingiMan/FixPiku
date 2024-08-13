@@ -953,7 +953,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1009,12 +1009,13 @@ MonoBehaviour:
     walkTime: 0
     waitTime: 0
     runTime: 0
-    monsterType: 0
+    monsterType: 8
   dead_Sound: {fileID: 0}
   hurt_Sound: {fileID: 0}
   idle_Sound: {fileID: 0}
   meleeArea: {fileID: 3362161705648081670}
-  targetRadius: 3.38
+  point: {fileID: 0}
+  targetRadius: 4
   OnGizmos: 0
 --- !u!195 &1918963096365965248
 NavMeshAgent:

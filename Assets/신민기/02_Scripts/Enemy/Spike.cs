@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spike : Animals
+public class Spike : Enemys
 {
     [SerializeField] BoxCollider meleeArea;
     [SerializeField] Transform point;

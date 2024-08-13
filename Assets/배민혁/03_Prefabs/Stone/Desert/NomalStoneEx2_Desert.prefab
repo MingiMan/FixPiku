@@ -87,8 +87,8 @@ MonoBehaviour:
   - 10
   - 20
   destroyTime: 6
-  chop_sound: 
-  falldown_sound: 
+  chop_sound: StoneAttack
+  falldown_sound: StoneBreak
   logChange_sound: 
 --- !u!1001 &7316348542740951328
 PrefabInstance:

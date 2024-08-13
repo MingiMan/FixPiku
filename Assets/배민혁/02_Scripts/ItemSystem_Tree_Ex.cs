@@ -50,6 +50,7 @@ public class ItemSystemTreeEx : MonoBehaviour
             {
                 damagePoint = coll.gameObject.GetComponent<Weapon>().woodDamage;
                 woodHp -= damagePoint;
+                SoundManager.instance.PlaySFX(chop_sound);
                 Debug.Log(woodHp);
                 if (woodHp <= 0 && parentCol.enabled)
                 {
@@ -63,7 +64,7 @@ public class ItemSystemTreeEx : MonoBehaviour
 
     private void FallDownTree() //나무 파괴시
     {
-        //SoundManager.instance.PlaySE(falldown_sound);
+        SoundManager.instance.PlaySFX(falldown_sound);
 
         parentCol.enabled = false;
         childCol.enabled = true;

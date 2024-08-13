@@ -31,18 +31,31 @@ public class Weapon : MonoBehaviour
 
     [Space(10)]
     [Header("Range")]
-    public Transform bulletPos;
+    public Transform cannonBulletPos;
     public GameObject cannonBulletPrefab;
     public int maxAmmo;
     public int curAmmo;
 
+    [Space(10)]
+    [Header("Rifle")]
+    public Transform rifleBulletPos;
+    public GameObject rifleBulletPrefab;
+    public int rifleMaxAmmo;
+    public int riflecurAmmo;
+
     private void Awake()
     {
+        if(weaponType == WeaponType.Sword)
+            rifleBulletPos = GameObject.Find("RiflePos").transform;
+        
+        if(weaponType == WeaponType.Cannon)
+            cannonBulletPos = GameObject.Find("CannonBulletPos").transform;
+
         meleeArea = GetComponent<BoxCollider>();
         player = GetComponentInParent<PlayerMovement>();
         meleeArea.enabled = false;
     }
-
+    
     public void Use()
     {
         if (atkType == AtkType.Melee)
@@ -52,8 +65,16 @@ public class Weapon : MonoBehaviour
         }
         else if (atkType == AtkType.Range)
         {
-            curAmmo--;
-            StartCoroutine(RangeAttack());
+            if(weaponType == WeaponType.Cannon)
+            {
+                curAmmo--;
+                StartCoroutine(CannonAttack());
+            }
+            else
+            {
+                riflecurAmmo--;
+                StartCoroutine(RifleAttack());
+            }
         }
     }
 
@@ -75,12 +96,22 @@ public class Weapon : MonoBehaviour
         meleeArea.enabled = false;
     }
 
-    IEnumerator RangeAttack()
+    IEnumerator CannonAttack()
     {
         player.IsActive = false;
         yield return new WaitForSeconds(1f);
-        GameObject bullet = Instantiate(cannonBulletPrefab, bulletPos.position, Quaternion.identity);
-        bullet.GetComponent<CannonBullet>().FireBullet(bulletPos.transform);
+        GameObject bullet = Instantiate(cannonBulletPrefab, cannonBulletPos.position, Quaternion.identity);
+        bullet.GetComponent<CannonBullet>().FireBullet(cannonBulletPos.transform);
+        yield return new WaitForSeconds(0.5f);
+        player.IsActive = true;
+    }
+
+    IEnumerator RifleAttack()
+    {
+        player.IsActive = false;
+        yield return new WaitForSeconds(0.3f);
+        GameObject bullet = Instantiate(rifleBulletPrefab, rifleBulletPos.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().FireBullet(rifleBulletPos.transform);
         yield return new WaitForSeconds(0.5f);
         player.IsActive = true;
     }
