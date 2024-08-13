@@ -82,8 +82,8 @@ MonoBehaviour:
   item_count:
   - 3
   - 10
-  chop_sound: 
-  falldown_sound: 
+  chop_sound: TreeAttack
+  falldown_sound: TreeBreak
   logChange_sound: 
 --- !u!1001 &3869894283629703084
 PrefabInstance:

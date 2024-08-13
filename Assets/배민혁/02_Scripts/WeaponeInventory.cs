@@ -278,6 +278,7 @@ public class WeaponInventory : MonoBehaviour
             houseInventory.leather = houseInventory.leather + playerState.leather - useWeaponeActiveItem[waponeNumber].leather;
             playerState.leather = 0;
         }
+        SoundManager.instance.PlaySFX("HouseLevelUp");
         player.GetComponent<WeaponController>().hasWeapon[waponeNumber] = true;
 
     }
