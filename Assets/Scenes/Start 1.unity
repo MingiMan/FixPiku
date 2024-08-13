@@ -3308,6 +3308,7 @@ GameObject:
   - component: {fileID: 1128583443}
   - component: {fileID: 1128583445}
   - component: {fileID: 1128583446}
+  - component: {fileID: 1128583447}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -3354,7 +3355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49d3dd6c75e9bc047ac30bc5ab8b50a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 95236cb53740c324aa7473b46f0f9e7f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3384,8 +3385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5eef84f3684efc4686e2417e700aba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  distance: 10
 --- !u!225 &1128583446
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3398,6 +3397,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1128583447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128583441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6550e6510258943ae077a15a6340cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 5
+  frequency: 2
 --- !u!1001 &1137115932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4012,7 +4025,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1317826813}
-  - component: {fileID: 1317826812}
   - component: {fileID: 1317826814}
   m_Layer: 0
   m_Name: ButtonManeger
@@ -4021,20 +4033,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1317826812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317826811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfadeb62c18f40f478fdb93d34502615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonCanvasGroup: {fileID: 1737873894}
-  fadeDuration: 7
 --- !u!4 &1317826813
 Transform:
   m_ObjectHideFlags: 0
@@ -4059,11 +4057,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1317826811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b6550e6510258943ae077a15a6340cf, type: 3}
+  m_Script: {fileID: 11500000, guid: dfadeb62c18f40f478fdb93d34502615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageCanvasGroup: {fileID: 1128583446}
-  fadeDuration: 2
+  canvasGroup: {fileID: 1737873894}
+  fadeDuration: 1
+  delay: 2
 --- !u!1001 &1368493843
 PrefabInstance:
   m_ObjectHideFlags: 0
