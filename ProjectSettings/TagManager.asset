@@ -11,10 +11,6 @@ TagManager:
   - LEATHER
   - MELEE
   - MAKER
-<<<<<<< HEAD
-  - BOMB
-  - CHILDSTONE
-=======
   - CHILDSTONE
   - TREE
   - enemyBug
@@ -23,7 +19,6 @@ TagManager:
   - Grid
   - BROCK
   - PLAYER
->>>>>>> origin/subDevelop
   layers:
   - Default
   - TransparentFX
