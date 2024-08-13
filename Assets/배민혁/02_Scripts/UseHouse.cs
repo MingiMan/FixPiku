@@ -229,7 +229,7 @@ public class UseHouse : MonoBehaviour
                 houseInventory.leather = houseInventory.leather + playerState.leather - useLevelUpItem[houseLevel].leather;
                 playerState.leather = 0;
             }
-
+            SoundManager.instance.PlaySFX("HouseLevelUp");
             houseLevel += 1;
         }
     }
@@ -251,5 +251,6 @@ public class UseHouse : MonoBehaviour
         playerState.rock = 0;
         playerState.wood = 0;
         playerState.leather = 0;
+        SoundManager.instance.PlaySFX("SaveItem");
     }
 }

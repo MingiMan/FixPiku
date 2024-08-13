@@ -55,6 +55,7 @@ public class ItemSystemStoneEx : MonoBehaviour
                 damagePoint = coll.gameObject.GetComponent<Weapon>().rockDamage;
                 //Hit(_pos);
                 rockHp -= damagePoint;
+                SoundManager.instance.PlaySFX(chop_sound);
                 Debug.Log(rockHp);
                 if (rockHp <= 0 && parentCol.enabled)
                 {
@@ -76,7 +77,7 @@ public class ItemSystemStoneEx : MonoBehaviour
 
     private void FallDownStone()
     {
-        //SoundManager.instance.PlaySE(falldown_sound);
+        SoundManager.instance.PlaySFX(falldown_sound);
         Destroy(mainObject.gameObject);
         parentCol.enabled = false;
         for (int i = 0; i < childStone.Count(); i++)
