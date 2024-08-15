@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     TextMeshProUGUI maxHpText;
     TextMeshProUGUI currentHpText;
 
-
+    private WeaponSlotInventory weaponSlotInventory; //추가~~~~~~~~~~~~~~
     private void Awake()
     {
 
@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
         playerSpawn = GetComponent<PlayerSpawner>();
         weaponController = GetComponent<WeaponController>();
+        weaponSlotInventory = FindObjectOfType<WeaponSlotInventory>();
     }
 
     private void Start()
@@ -325,6 +326,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetTrigger("OnDie");
         IsInvincible = true;
         playerSpawn.PlayerSpawn();
+        this.gameObject.GetComponent<PlayerState>().rock = 0;
+        this.gameObject.GetComponent<PlayerState>().wood = 0;
+        this.gameObject.GetComponent<PlayerState>().leather = 0;
+        weaponSlotInventory.ResetSlotOutline();
     }
 
     public void UnActive()
