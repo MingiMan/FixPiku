@@ -9,26 +9,18 @@ public class ItemSystemStone : MonoBehaviour
     public GameObject player;
     private float damagePoint;
 
-    [SerializeField]
-    private GameObject rock_Prefabs;  // 통나무. 나무가 쓰러진 이후 생성할 재료.
+    [SerializeField] private GameObject rock_Prefabs;  // 통나무. 나무가 쓰러진 이후 생성할 재료.
 
-    [SerializeField]
-    private float force;  // 나무가 땅에 쓰러지도록 밀어줄 힘의 세기(랜덤으로 정할 것) 
-    [SerializeField]
-    private GameObject[] childStone;  // 부서질 돌조각. 부서진 다음에 지연 시간 후 파괴되야 해서 필요함.
+    [SerializeField] private float force;  // 나무가 땅에 쓰러지도록 밀어줄 힘의 세기(랜덤으로 정할 것) 
+    [SerializeField] private GameObject[] childStone;  // 부서질 돌조각. 부서진 다음에 지연 시간 후 파괴되야 해서 필요함.
 
-    [SerializeField]
-    private GameObject stonePlace; // 바위가 있던 자리 오브젝트
+    [SerializeField] private GameObject stonePlace; // 바위가 있던 자리 오브젝트
 
-    [SerializeField]
-    private CapsuleCollider parentCol;  // 전체적인 바위에 붙어있는 캡슐 콜라이더. 바위가 부서지면 이걸 비활성화 해주어야 함.
-    [SerializeField]
-    private CapsuleCollider[] childCol;  // 부서지는 바위인 바위 윗 부분에 붙어있는 캡슐 콜라이더. 바위가 부서지면 이걸 활성화 해주어야 함.
-    [SerializeField]
-    private Rigidbody[] childRigid; // 부서지는 바위인 바위 윗 부분에 붙어있는 Rigidbody를 통해 바위가 부서지면 중력을 활성화 해주어야 함.
+    [SerializeField] private CapsuleCollider parentCol;  // 전체적인 바위에 붙어있는 캡슐 콜라이더. 바위가 부서지면 이걸 비활성화 해주어야 함.
+    [SerializeField] private CapsuleCollider[] childCol;  // 부서지는 바위인 바위 윗 부분에 붙어있는 캡슐 콜라이더. 바위가 부서지면 이걸 활성화 해주어야 함.
+    [SerializeField] private Rigidbody[] childRigid; // 부서지는 바위인 바위 윗 부분에 붙어있는 Rigidbody를 통해 바위가 부서지면 중력을 활성화 해주어야 함.
 
-    [SerializeField]
-    private float destroyTime;  // 돌조각 제거 시간. 바위 윗 부분이 땅에 흩어지고 나서 파괴될 시간.
+    [SerializeField] private float destroyTime;  // 돌조각 제거 시간. 바위 윗 부분이 땅에 흩어지고 나서 파괴될 시간.
 
     [SerializeField]
     private string chop_sound;  // 바위 공격 시 재생시킬 사운드 이름 
@@ -134,7 +126,7 @@ public class ItemSystemStone : MonoBehaviour
             Destroy(childStone[i].gameObject);
         }
 
-        this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+        //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
     }
 
 }

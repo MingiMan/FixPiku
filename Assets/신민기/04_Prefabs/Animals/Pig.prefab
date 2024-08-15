@@ -337,6 +337,10 @@ MonoBehaviour:
   dead_Sound: {fileID: 8300000, guid: 872576eae71354e449641997b00aec3f, type: 3}
   hurt_Sound: {fileID: 8300000, guid: 7eb9eefe60f682a41853a2806657edd5, type: 3}
   idle_Sound: {fileID: 0}
+  item_count:
+  - 3
+  - 10
+  item_Prefabs: {fileID: 8604270983622776101, guid: 73936c80aab6eba4e9ebf969d6cb5616, type: 3}
 --- !u!114 &1752814499172184978
 MonoBehaviour:
   m_ObjectHideFlags: 0

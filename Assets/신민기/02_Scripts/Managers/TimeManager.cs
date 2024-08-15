@@ -77,19 +77,19 @@ public class TimeManager : MonoBehaviour
 
     private void OnHoursChange(int value)
     {
-        if (value == 6) // �� -> ������ �¾��� ��������.
+        if (value == 6) 
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
             StartCoroutine(LerpLight(graddientNightToSunrise, 10f));
             GameManager.Instance.monsterSpawner.AllMonsterDeath();
             nightCheck = false;
         }
-        else if (value == 8) // ������ Ǫ���ϴ÷� ���Ѵ�.
+        else if (value == 8) 
         {
             StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));
             StartCoroutine(LerpLight(graddientSunriseToDay, 10f));
         }
-        else if (value == 18)  // Ǫ���ϴÿ��� ������ ����������.
+        else if (value == 18) 
         {
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
             StartCoroutine(LerpLight(graddientDayToSunset, 10f));
@@ -100,7 +100,7 @@ public class TimeManager : MonoBehaviour
             GameManager.Instance.WaringUISetAcitve();
         }
 
-        else if (value == 22) // �������� ������ ���Ѵ�.
+        else if (value == 22) 
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
             StartCoroutine(LerpLight(graddientSunsetToNight, 10f));
@@ -117,7 +117,7 @@ public class TimeManager : MonoBehaviour
         for (float i = 0; i < time; i += Time.deltaTime)
         {
             RenderSettings.skybox.SetFloat("_Blend", i / time);
-            yield return null;
+            yield return null;  
         }
         RenderSettings.skybox.SetTexture("_Texture1", b);
     }

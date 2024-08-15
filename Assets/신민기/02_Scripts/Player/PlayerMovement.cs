@@ -1,7 +1,7 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     CharacterController controller;
     Animator animator;
     Camera cam;
+    PlayerSpawner playerSpawn;
+    WeaponController weaponController;
 
     Vector3 moveDirection;
     Vector3 desiredMoveDirection;
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsActive; // 외부스트립트에서도 적용시킬거임
     bool IsRun;
     bool IsFalling;
-    bool IsGrounded;
+    public bool IsGrounded;
     bool BlockRotationPlayer;
     bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
     bool IsRecovering;
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     TextMeshProUGUI maxHpText;
     TextMeshProUGUI currentHpText;
 
-
+    private WeaponSlotInventory weaponSlotInventory; //추가~~~~~~~~~~~~~~
     private void Awake()
     {
 
@@ -69,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
         backHpBar = GameObject.Find("PlayerHealth").transform.Find("BackHpSlider").GetComponent<Slider>();
         maxHpText = hpBar.transform.Find("MaxHp").GetComponent<TextMeshProUGUI>();
         currentHpText = hpBar.transform.Find("CurrentHp").GetComponent<TextMeshProUGUI>();
+        playerSpawn = GetComponent<PlayerSpawner>();
+        weaponController = GetComponent<WeaponController>();
+        weaponSlotInventory = FindObjectOfType<WeaponSlotInventory>();
     }
 
     private void Start()
@@ -76,14 +81,25 @@ public class PlayerMovement : MonoBehaviour
         Initalize();
     }
 
-    void Initalize()
+    private void OnEnable()
     {
+        Initalize();
+    }
+
+    public void Initalize()
+    {
+        animator.SetTrigger("OnActive");
+        weaponController.Initalize();
         IsParticularAcitve = true;
+        IsInvincible = false;
         IsActive = true;
         currentStamina = maxStamina;
         currentHp = maxHp;
         maxHpText.text = "/ " + $"{maxHp}";
         currentHpText.text = $"{currentHp}";
+        transform.gameObject.tag = "Player";
+        hpBar.value = 1;
+        backHpBar.value = hpBar.value;
         staminaParent.SetActive(false);
     }
 
@@ -245,58 +261,77 @@ public class PlayerMovement : MonoBehaviour
 
     void Turn()
     {
-        if (Input.GetMouseButton(1))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
-
-            if (Physics.Raycast(ray, out rayHit, Mathf.Infinity))
-            {
-                Vector3 directionToLook = rayHit.point - transform.position;
-                directionToLook.y = 0;
-
-                if (directionToLook != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
-                }
-            }
-        }
-
-        //if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButton(1))
         //{
         //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(ray, out hit, 100))
-        //    {
-        //        Vector3 directionLookPos = hit.point - transform.position;
-        //        directionLookPos.y = 0;
+        //    RaycastHit rayHit;
 
-        //        if (directionLookPos != Vector3.zero)
+        //    if (Physics.Raycast(ray, out rayHit, Mathf.Infinity))
+        //    {
+        //        Vector3 directionToLook = rayHit.point - transform.position;
+        //        directionToLook.y = 0;
+
+        //        if (directionToLook != Vector3.zero)
         //        {
-        //            Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
-        //            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
+        //            Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
+        //            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50f);
         //        }
         //    }
         //}
 
-    }
-    public void OnDamage(int _atkDamage)
-    {
-        if (IsInvincible || currentHp <= 0) return;
 
-        IsInvincible = true;
-        animator.SetTrigger("OnDamage");
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            Vector3 directionLookPos = hit.point - transform.position;
+            directionLookPos.y = 0;
+
+            if (directionLookPos != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100f);
+            }
+        }
+
+
+    }
+    public void OnDamage(int _atkDamage) // 순서 바꾸지마세요...
+    {
+        if (IsInvincible)
+            return;
 
         currentHp -= _atkDamage;
         UpdateHpUI();
+
+        if (currentHp <= 0)
+        {
+            OnDie();
+            return;
+        }
+
+
+        IsInvincible = true;
+        animator.SetTrigger("OnDamage");
 
         if (!backHpHit)
         {
             StartCoroutine(BackHpCoroutine());
         }
-
     }
+
+    void OnDie()
+    {
+        IsActive = false;
+        animator.SetTrigger("OnDie");
+        IsInvincible = true;
+        playerSpawn.PlayerSpawn();
+        this.gameObject.GetComponent<PlayerState>().rock = 0;
+        this.gameObject.GetComponent<PlayerState>().wood = 0;
+        this.gameObject.GetComponent<PlayerState>().leather = 0;
+        weaponSlotInventory.ResetSlotOutline();
+    }
+
     public void UnActive()
     {
         IsActive = false;
@@ -330,7 +365,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         IsInvincible = false;
     }
-
 
     private void OnAnimatorMove()
     {

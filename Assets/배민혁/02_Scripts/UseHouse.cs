@@ -11,12 +11,13 @@ public class UseHouse : MonoBehaviour
     public GameObject player;
     public PlayerState playerState;
     public GameObject inventory;
-    public List<Item> items;
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
     [SerializeField] int houseLevelLimit;
     [SerializeField] HouseInventory houseInventory;
+    [SerializeField] HouseAttacked houseAttacked;
+
     public TextMeshProUGUI slotText;
     [SerializeField]
     private Canvas houseUI;
@@ -59,7 +60,6 @@ public class UseHouse : MonoBehaviour
             if (!TimeManager.Instance.nightCheck) houseUI.enabled = true;
             else houseUI.enabled = false;
         }
-
 
     }
     void OnTriggerExit(Collider coll)
@@ -230,8 +230,9 @@ public class UseHouse : MonoBehaviour
                 houseInventory.leather = houseInventory.leather + playerState.leather - useLevelUpItem[houseLevel].leather;
                 playerState.leather = 0;
             }
-
+            SoundManager.instance.PlaySFX("HouseLevelUp");
             houseLevel += 1;
+            houseAttacked.HouseCurrentHpSet();
         }
     }
     public bool LevelUpItemCheck()
@@ -252,5 +253,6 @@ public class UseHouse : MonoBehaviour
         playerState.rock = 0;
         playerState.wood = 0;
         playerState.leather = 0;
+        SoundManager.instance.PlaySFX("SaveItem");
     }
 }

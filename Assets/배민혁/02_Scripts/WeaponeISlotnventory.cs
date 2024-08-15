@@ -48,7 +48,7 @@ public class WeaponSlotInventory : MonoBehaviour
                             slots[i].transform.GetComponent<Outline>().enabled = false;
                         }
                         break;
-                    case ("Sword"):
+                    case ("Gun"):
                         if (player.GetComponent<WeaponController>().activeWeaponIndex == 2)
                         {
                             slots[i].transform.GetComponent<Outline>().enabled = true;
@@ -131,4 +131,14 @@ public class WeaponSlotInventory : MonoBehaviour
             print("슬롯이 가득 차 있습니다.");
         }
     }
+    public void ResetSlotOutline()
+    {
+        for (int i = 0; i < items.Count && i < slots.Length; i++)
+        {
+            player.GetComponent<WeaponController>().activeWeaponIndex = -1;
+            slots[i].transform.GetComponent<Outline>().enabled = false;
+        }
+    }
+
+
 }

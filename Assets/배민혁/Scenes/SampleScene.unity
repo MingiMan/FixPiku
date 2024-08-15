@@ -254,7 +254,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -622,7 +623,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -849,7 +851,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1246,7 +1249,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1442,11 +1446,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &453062976 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 790127287661457600, guid: 44024d6c75ae9fd43a50dc091e36a6e2, type: 3}
-  m_PrefabInstance: {fileID: 2626894606965896385}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &491495416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,7 +1582,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1950,7 +1950,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2086,7 +2087,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3688,19 +3690,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerState: {fileID: 0}
   inventory: {fileID: 1867863954}
   items:
   - {fileID: 11400000, guid: ff913839a67a0c343a7026f79166215a, type: 2}
   - {fileID: 11400000, guid: 4e7933b04bcbeb1489d6a61a6181bd29, type: 2}
   - {fileID: 11400000, guid: 4a17c01d144a55b4fa895f69a3de7573, type: 2}
-  inevetotyScript: {fileID: 0}
-  slotParent: {fileID: 1896023274}
-  slots:
-  - {fileID: 1677925946}
-  - {fileID: 1292571604}
-  - {fileID: 1583399310}
+  LevelUpButton: {fileID: 0}
+  ItemSaveButton: {fileID: 0}
+  houseLevelLimit: 0
+  houseInventory: {fileID: 0}
   slotText: {fileID: 0}
-  HouseUI: {fileID: 1485399242}
+  houseUI: {fileID: 0}
+  houseLevel: 0
+  houseParts: []
+  useLevelUpItem: []
 --- !u!1 &1867863954
 GameObject:
   m_ObjectHideFlags: 0
@@ -3742,7 +3746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.24966669}
-  m_AnchoredPosition: {x: 0, y: -21.1}
+  m_AnchoredPosition: {x: 0, y: -21.099976}
   m_SizeDelta: {x: -332.8774, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1867863956
@@ -3954,7 +3958,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -4150,16 +4155,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e7933b04bcbeb1489d6a61a6181bd29, type: 2}
   - {fileID: 11400000, guid: 4a17c01d144a55b4fa895f69a3de7573, type: 2}
   slotText: {fileID: 0}
-  player: {fileID: 0}
-  Inventory: {fileID: 1867863954}
+  useHouse: {fileID: 0}
   rock: 3
   wood: 3
   leather: 3
-  slotParent: {fileID: 1896023274}
-  slots:
-  - {fileID: 1677925946}
-  - {fileID: 1292571604}
-  - {fileID: 1583399310}
+  QuestSlotParent: {fileID: 0}
+  HouseSlotParent: {fileID: 0}
+  QuestSlots: []
+  HouseSlots: []
 --- !u!1 &1908556964
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,7 +4728,7 @@ PrefabInstance:
     - target: {fileID: 8110216138980573763, guid: 44024d6c75ae9fd43a50dc091e36a6e2, type: 3}
       propertyPath: childTree
       value: 
-      objectReference: {fileID: 453062976}
+      objectReference: {fileID: 0}
     - target: {fileID: 8879705187690626018, guid: 44024d6c75ae9fd43a50dc091e36a6e2, type: 3}
       propertyPath: m_Name
       value: NomalTree

@@ -124,7 +124,7 @@ public class ItemSystemTree : MonoBehaviour
         //SoundManager.instance.PlaySE(logChange_sound);
 
         Destroy(childTree.gameObject);
-        this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+        //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
     }
 
 }
