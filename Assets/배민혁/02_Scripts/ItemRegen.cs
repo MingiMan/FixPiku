@@ -25,7 +25,7 @@ public class ItemRegen : MonoBehaviour
         if (oneCycle && !TimeManager.Instance.nightCheck)
         {
             childList = gameObject.GetComponentsInChildren<Transform>();
-            Debug.Log("regen");
+            //Debug.Log("regen");
             if (childList != null)
             {
                 for (int i = 0; i < parentObject.transform.childCount; i++)

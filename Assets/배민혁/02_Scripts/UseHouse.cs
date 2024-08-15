@@ -16,6 +16,8 @@ public class UseHouse : MonoBehaviour
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
     [SerializeField] int houseLevelLimit;
     [SerializeField] HouseInventory houseInventory;
+    [SerializeField] HouseAttacked houseAttacked;
+
     public TextMeshProUGUI slotText;
     [SerializeField]
     private Canvas houseUI;
@@ -58,7 +60,6 @@ public class UseHouse : MonoBehaviour
             if (!TimeManager.Instance.nightCheck) houseUI.enabled = true;
             else houseUI.enabled = false;
         }
-
 
     }
     void OnTriggerExit(Collider coll)
@@ -231,6 +232,7 @@ public class UseHouse : MonoBehaviour
             }
             SoundManager.instance.PlaySFX("HouseLevelUp");
             houseLevel += 1;
+            houseAttacked.HouseCurrentHpSet();
         }
     }
     public bool LevelUpItemCheck()

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
-// ¹ã¿¡¸¸ ³ª¿À´Â ¸ó½ºÅÍµéÀº ÀÌ ½ºÅ©¸³Æ®¸¦ Àû¿ë½ÃÄÑÁØ´Ù.
+// ï¿½ã¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 
 public class Monsters : Enemys
 {
@@ -38,6 +38,7 @@ public class Monsters : Enemys
         IsTargeting = false;
         gameObject.layer = 8;
         gameObject.tag = "ENEMY";
+        meleeArea.enabled = false; // ê³µê²© í™œì„±í™” ìˆ˜ì •!!!!!!!!!!!!!!!!!!!!!!
         StartCoroutine(CheckOffMeshLink());
     }
 
@@ -61,8 +62,8 @@ public class Monsters : Enemys
         if (!IsPlayerTarget && IsRunning)
         {
             nav.SetDestination(targetPoint.position);
-            float distanceToHouse= Vector3.Distance(transform.position, targetPoint.transform.position);
-            if(distanceToHouse <= nav.stoppingDistance)
+            float distanceToHouse = Vector3.Distance(transform.position, targetPoint.transform.position);
+            if (distanceToHouse <= nav.stoppingDistance)
             {
                 IsTargeting = true;
                 Quaternion targetRotation = Quaternion.LookRotation(houseTr.transform.position - transform.position);
@@ -113,12 +114,14 @@ public class Monsters : Enemys
         IsAttack = true;
         IsRunning = false;
         nav.isStopped = true;
+        meleeArea.enabled = true; // ê³µê²© í™œì„±í™” ìˆ˜ì •!!!!!!!!!!!!!!!!!!!!!!
         yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("OnAttack");
         yield return new WaitForSeconds(1f);
         nav.isStopped = false;
         IsRunning = true;
         IsAttack = false;
+        meleeArea.enabled = false; // ê³µê²© í™œì„±í™” ìˆ˜ì •!!!!!!!!!!!!!!!!!!!!!!
     }
 
     public void EnableCollider()
