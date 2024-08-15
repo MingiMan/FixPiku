@@ -842,6 +842,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 33090f2a16a6e814a89e2f3665a95652, type: 3}
   - name: SaveItem
     clip: {fileID: 8300000, guid: b2f709059f58fd245b36d8360445a74e, type: 3}
+  - name: GunSound
+    clip: {fileID: 8300000, guid: d9062a1106c3ef240b1fa5177e9d6003, type: 3}
+  - name: CannonSound
+    clip: {fileID: 8300000, guid: 8621e381bd37dc847975873c16413e4e, type: 3}
+  - name: CannonExplosion
+    clip: {fileID: 8300000, guid: 8a87c9529aba83f42aea13a23fd9adca, type: 3}
   bgm:
   - name: BGM
     clip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
@@ -856,6 +862,7 @@ MonoBehaviour:
   - {fileID: 9151071226093070203}
   - {fileID: 8787437456265348467}
   - {fileID: 6663254606994660123}
+  - {fileID: 795954624531224534}
   - {fileID: 795954624531224534}
 --- !u!82 &7065040684305729499
 AudioSource:

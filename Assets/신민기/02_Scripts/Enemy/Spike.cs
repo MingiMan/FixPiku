@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spike : Enemys
+public class Spike : Animals
 {
     [SerializeField] BoxCollider meleeArea;
     [SerializeField] Transform point;
@@ -20,7 +20,6 @@ public class Spike : Enemys
         base.OnEnable();
         transform.position = point.position;
         nav.speed = Stats.runSpeed;
-        rigid.isKinematic = false;
         meleeArea.enabled = false;
         Initialize();
     }
@@ -32,6 +31,8 @@ public class Spike : Enemys
         IsRunning = false;
         IsAttack = false;
         nav.isStopped = true;
+        nav.velocity = Vector3.zero;
+        rigid.isKinematic = true;
         nav.ResetPath();
     }
 
@@ -98,20 +99,55 @@ public class Spike : Enemys
         yield return new WaitForSeconds(0.5f);
         IsRunning = true;
         IsActive = true;
+        rigid.isKinematic = false;
         nav.isStopped = false;
     }
-    
+
     public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
-        base.Damage(_dmg, _tarGetPos);
-
-        if (!IsDead)
+        if (!IsDead && !Invisible)
         {
-            IsActive = true;
-            IsRunning = true;
+            Invisible = true;
+            currentHp -= _dmg;
+
+            if (currentHp <= 0)
+            {
+                Dead();
+                return;
+            }
+            if (hurt_Sound != null)
+                PlaySE(hurt_Sound);
+            StartCoroutine(ColorDamage());
+            animator.SetTrigger("OnDamage");
+        }
+    }
+    IEnumerator ColorDamage()
+    {
+        float duration = 0.2f;
+        float elapsed = 0f;
+        Color originalColor = mat.color;
+        Color damagedColor = Color.red;
+
+        while (elapsed < duration)
+        {
+            mat.color = Color.Lerp(originalColor, damagedColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
+        mat.color = damagedColor;
+
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            mat.color = Color.Lerp(damagedColor, originalColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Invisible = false;
+        mat.color = originalColor;
     }
+
     public override void Dead()
     {
         StopAllCoroutines();

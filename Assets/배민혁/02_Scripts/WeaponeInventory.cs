@@ -35,6 +35,7 @@ public class WeaponInventory : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerState = player.gameObject.GetComponent<PlayerState>();
+                
         weaponeWindow.SetActive(false);
         weaponeWindowOff = true;
         waeponeClearOff = true;
@@ -199,11 +200,8 @@ public class WeaponInventory : MonoBehaviour
         {
             waeponeClear.SetActive(false);
         }
-
-
-
-
     }
+
 
     [SerializeField]
     private Transform slotParent;

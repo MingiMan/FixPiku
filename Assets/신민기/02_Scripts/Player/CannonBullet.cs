@@ -7,6 +7,7 @@ public class CannonBullet : MonoBehaviour
     public int damage;
     public float speed;
     public float destroyTime;
+    public string cannonExplosion;
     [SerializeField] ParticleSystem explosionParticle;
     Rigidbody rigid;
 
@@ -29,6 +30,7 @@ public class CannonBullet : MonoBehaviour
     {
         rigid.isKinematic = true;
         Instantiate(explosionParticle, transform.position, transform.rotation);
+        SoundManager.instance.PlaySFX(cannonExplosion);
         Destroy(this.gameObject);
     }
 
@@ -37,9 +39,7 @@ public class CannonBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ENEMY"))
         {
-            StopAllCoroutines();
             StartCoroutine(Explosion());
-            // other.GetComponent<Enemys>().Damage(damage, transform.position);
         }
     }
 
@@ -50,9 +50,11 @@ public class CannonBullet : MonoBehaviour
         RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, 4f, Vector3.up, 0f, LayerMask.GetMask("ENEMY"));
         foreach(RaycastHit hitObj in rayHits)
         {
-            hitObj.transform.GetComponent<Enemys>().HitByCannon(damage,transform.position);
+            // hitObj.transform.GetComponent<Enemys>().Damage(damage,transform.position);
+            hitObj.transform.GetComponent<Enemys>().Dead();
         }
-        yield return new WaitForSeconds(0.3f);
+        SoundManager.instance.PlaySFX(cannonExplosion);
+        yield return new WaitForSeconds(0.1f);
         Destroy(this.gameObject);
     }
 }

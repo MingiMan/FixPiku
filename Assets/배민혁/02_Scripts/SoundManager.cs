@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Sound
@@ -18,6 +19,19 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioSource bgmPlayer = null;
     [SerializeField] AudioSource[] sfxPlayer = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -56,15 +70,15 @@ public class SoundManager : MonoBehaviour
                     {
                         sfxPlayer[j].clip = sfx[i].clip;
                         sfxPlayer[j].Play();
-                        Debug.Log("효과음 재생");
+                        // Debug.Log("효과음 재생");
                         return;
                     }
                 }
-                Debug.Log("모든 오디오 플레이어가 재생중입니다.");
+                // Debug.Log("모든 오디오 플레이어가 재생중입니다.");
                 return;
             }
         }
-        Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
+        // Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
         return;
     }
 

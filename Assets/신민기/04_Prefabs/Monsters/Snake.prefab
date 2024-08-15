@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadDustParticle: {fileID: 132836380312461158, guid: 3d62bfbb169a40c428b652efb36ed79b, type: 3}
-  enemyType: 0
+  enemyType: 1
   Stats:
     health: 80
     atkDamage: 10
@@ -916,10 +916,12 @@ MonoBehaviour:
     walkTime: 5
     waitTime: 5
     runTime: 5
-    monsterType: 5
+    monsterType: 7
   dead_Sound: {fileID: 0}
   hurt_Sound: {fileID: 0}
   idle_Sound: {fileID: 0}
+  item_count: []
+  item_Prefabs: {fileID: 0}
   meleeArea: {fileID: 3496287088208606356}
 --- !u!114 &5077657073626144671
 MonoBehaviour:
