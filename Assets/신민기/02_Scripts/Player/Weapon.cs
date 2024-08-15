@@ -35,11 +35,13 @@ public class Weapon : MonoBehaviour
     public GameObject cannonBulletPrefab;
     public int maxAmmo;
     public int curAmmo;
+    public string cannonSound;
 
     [Space(10)]
     [Header("Rifle")]
     public Transform rifleBulletPos;
     public GameObject rifleBulletPrefab;
+    public string gunSound;
     public int rifleMaxAmmo;
     public int riflecurAmmo;
 
@@ -100,6 +102,7 @@ public class Weapon : MonoBehaviour
     {
         player.IsActive = false;
         yield return new WaitForSeconds(1f);
+        SoundManager.instance.PlaySFX(cannonSound);
         GameObject bullet = Instantiate(cannonBulletPrefab, cannonBulletPos.position, Quaternion.identity);
         bullet.GetComponent<CannonBullet>().FireBullet(cannonBulletPos.transform);
         yield return new WaitForSeconds(0.5f);
@@ -110,6 +113,7 @@ public class Weapon : MonoBehaviour
     {
         player.IsActive = false;
         yield return new WaitForSeconds(0.3f);
+        SoundManager.instance.PlaySFX(gunSound);
         GameObject bullet = Instantiate(rifleBulletPrefab, rifleBulletPos.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().FireBullet(rifleBulletPos.transform);
         yield return new WaitForSeconds(0.5f);

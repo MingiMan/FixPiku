@@ -916,10 +916,12 @@ MonoBehaviour:
     walkTime: 5
     waitTime: 5
     runTime: 5
-    monsterType: 5
+    monsterType: 7
   dead_Sound: {fileID: 0}
   hurt_Sound: {fileID: 0}
   idle_Sound: {fileID: 0}
+  item_count: []
+  item_Prefabs: {fileID: 0}
   meleeArea: {fileID: 3496287088208606356}
 --- !u!114 &5077657073626144671
 MonoBehaviour:

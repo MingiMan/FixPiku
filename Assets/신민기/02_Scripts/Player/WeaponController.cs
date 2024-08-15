@@ -5,6 +5,7 @@ public class WeaponController : MonoBehaviour
 {
     [Header("0 : 도끼  1 : 곡괭이  2 : 검 3 : 캐논")]
     public GameObject[] weapons;
+    PlayerMovement player;
     public bool[] hasWeapon;
     public int activeWeaponIndex = -1;/////////////////////////////////////////
     Weapon equipWeapon;
@@ -16,6 +17,7 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        player = GetComponent<PlayerMovement>();
     }
 
     private void Start()
@@ -28,7 +30,17 @@ public class WeaponController : MonoBehaviour
         foreach (var weapon in weapons)
             weapon.gameObject.SetActive(false);
         WeaponLock();// 잠금추가/////////////////////////////////////////
-        hasWeapon[0] = true; // 도끼만 잠금해제/////////////////////////////////////////
+        hasWeapon[2] = true; // 도끼만 잠금해제/////////////////////////////////////////
+    }
+
+    public void Initalize()
+    {
+        foreach (var weapon in weapons)
+            weapon.gameObject.SetActive(false);
+
+        if(equipWeapon != null)
+            equipWeapon.gameObject.SetActive(false);
+
     }
 
     private void Update()
@@ -109,12 +121,15 @@ public class WeaponController : MonoBehaviour
                 _ => null
             };
 
-            if (weaponBool != null)
-                animator.SetBool(weaponBool, true);
+            if (player.IsActive && player.IsGrounded)
+            {
+                if (weaponBool != null)
+                    animator.SetBool(weaponBool, true);
 
-            animator.SetTrigger("OnAttack");
-            equipWeapon.GetComponent<Weapon>().Use();
-            atkDelay = 0;
+                animator.SetTrigger("OnAttack");
+                equipWeapon.GetComponent<Weapon>().Use();
+                atkDelay = 0;
+            }
         }
     }
 
