@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
     TextMeshProUGUI currentHpText;
 
     private WeaponSlotInventory weaponSlotInventory; //추가~~~~~~~~~~~~~~
+    private HouseAttacked houseAttacked; //추가~~~~~~~~~~~~~~
     private void Awake()
     {
 
@@ -74,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         playerSpawn = GetComponent<PlayerSpawner>();
         weaponController = GetComponent<WeaponController>();
         weaponSlotInventory = FindObjectOfType<WeaponSlotInventory>();
+        houseAttacked = FindObjectOfType<HouseAttacked>();
     }
 
     private void Start()
@@ -330,6 +332,21 @@ public class PlayerMovement : MonoBehaviour
         this.gameObject.GetComponent<PlayerState>().wood = 0;
         this.gameObject.GetComponent<PlayerState>().leather = 0;
         weaponSlotInventory.ResetSlotOutline();
+        if (TimeManager.Instance.nightCheck)
+        {
+            StartCoroutine(WaitDieFadeIn());
+            StopCoroutine(WaitDieFadeIn());
+        }
+    }
+
+    IEnumerator WaitDieFadeIn() // 죽은 후 페이드인아웃 대기시간 후 디펜스 실패 결과 연결
+    {
+
+        houseAttacked.LooseHouseItem(); // 먼저 자원 다잃고 거점 데미지 비활성화, 체력/레벨 초기화
+        yield return new WaitForSeconds(5.0f); // 페이드인/아웃 시간은 임의로 조정
+        houseAttacked.LooseHouseText(); // 페이드인/아웃 끝나면 문구 띄우고 낮으로 전환
+
+
     }
 
     public void UnActive()
