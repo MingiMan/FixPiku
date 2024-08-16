@@ -80,18 +80,18 @@ public class HouseInventory : MonoBehaviour
                 switch (HouseSlots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
                 {
                     case ("Rock"):
-                        temp = $"<color=#ffff00>{rock}</color>";
+                        temp = $"<color=#000000>{rock}</color>";
                         //temp = $"<color=#ffffff>{rock}/{useHouse.useLevelUpItem[useHouse.houseLevel].rock}</color>";
                         slotText.text = temp;
                         break;
                     case ("Wood"):
-                        temp = $"<color=#ffff00>{wood}</color>";
+                        temp = $"<color=#000000>{wood}</color>";
                         //temp = $"<color=#ffffff>{wood}/{useHouse.useLevelUpItem[useHouse.houseLevel].wood}</color>";
 
                         slotText.text = temp;
                         break;
                     case ("Leather"):
-                        temp = $"<color=#ffff00>{leather}</color>";
+                        temp = $"<color=#000000>{leather}</color>";
                         //temp = $"<color=#ffffff>{leather}/{useHouse.useLevelUpItem[useHouse.houseLevel].leather}</color>";
                         slotText.text = temp;
                         break;
