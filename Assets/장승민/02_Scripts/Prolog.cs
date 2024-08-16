@@ -8,6 +8,7 @@ public class ImageSwitcher : MonoBehaviour
     public Button switchButton; // 버튼 컴포넌트
     public float transitionDuration = 0.5f; // 전환 시간 (초)
 
+    [SerializeField] Image fadeOutIn;
     private int currentIndex = 0; // 현재 이미지 인덱스
     private bool isTransitioning = false; // 전환 중인지 여부
 
@@ -16,6 +17,7 @@ public class ImageSwitcher : MonoBehaviour
         // 버튼 클릭 이벤트 등록
         if (switchButton != null)
         {
+            Debug.Log("버튼 눌림");
             switchButton.onClick.AddListener(OnButtonClick);
         }
 
@@ -30,11 +32,10 @@ public class ImageSwitcher : MonoBehaviour
         }
     }
 
-    private void OnButtonClick()
+    public void OnButtonClick()
     {
         if (isTransitioning || canvasGroups.Length <= 1) return;
-
-        StartCoroutine(SwitchImage());
+            StartCoroutine(SwitchImage());
     }
 
     private IEnumerator SwitchImage()
@@ -69,6 +70,8 @@ public class ImageSwitcher : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float alpha = Mathf.Lerp(0, 1, elapsedTime / transitionDuration);
+           // Color color = fadeOutIn.color;
+           // color.a = alpha;
             nextCanvasGroup.alpha = alpha;
             yield return null;
         }
