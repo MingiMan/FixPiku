@@ -38,6 +38,7 @@ public class TimeManager : MonoBehaviour
 
     public bool nightCheck = false;//밤낮 확인////////////////////
 
+    public string battleSound;
     private void Awake()
     {
         if (Instance == null)

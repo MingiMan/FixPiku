@@ -82,6 +82,37 @@ public class SoundManager : MonoBehaviour
         return;
     }
 
+    public void FadeOutMusic()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeOutMusicCoroutine());
+    }
+
+    public void FadeInMusic()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeInMusicCoroutine());
+    }
+
+    IEnumerator FadeOutMusicCoroutine()
+    {
+        for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+        {
+            bgmPlayer.volume = i;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    IEnumerator FadeInMusicCoroutine()
+    {
+        for (float i = 0.1f; i <= 1f; i += 0.01f)
+        {
+            bgmPlayer.volume = i;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+
     #region 간단버전
     // private SoundManager _instance;
 

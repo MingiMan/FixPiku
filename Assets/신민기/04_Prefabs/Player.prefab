@@ -1947,6 +1947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+  IsGrounded: 0
   moveSpeed: 6
   runSpeed: 9
   jumpForce: 7
@@ -1954,7 +1955,7 @@ MonoBehaviour:
   jumpCost: 20
   maxStamina: 100
   staminaTime: 2
-  staminaHeal: 10
+  staminaHeal: 30
   maxHp: 200
 --- !u!114 &3925094647601421858
 MonoBehaviour:

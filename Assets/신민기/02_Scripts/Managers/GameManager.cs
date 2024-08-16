@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] TextMeshProUGUI waringUI;
 
+    public string battleSound;
     private void Awake()
     {
         if (Instance == null)
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
         switch (level)
         {
             case 1:
+
                 monsterSpawner.OnMonsterSpawn(monstersPerLevel1);
                 break;
             case 2:
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
 
     public void WaringUISetAcitve()
     {
