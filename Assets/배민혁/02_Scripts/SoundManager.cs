@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioSource bgmPlayer = null;
     [SerializeField] AudioSource[] sfxPlayer = null;
+    WaitForSeconds waitTime = new WaitForSeconds(0.05f);
 
     private void Awake()
     {
@@ -96,19 +97,19 @@ public class SoundManager : MonoBehaviour
 
     IEnumerator FadeOutMusicCoroutine()
     {
-        for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+        for (float i = 0.3f; i >= 0.0f; i -= 0.01f)
         {
             bgmPlayer.volume = i;
-            yield return new WaitForSeconds(0.01f);
+            yield return waitTime;
         }
     }
 
     IEnumerator FadeInMusicCoroutine()
     {
-        for (float i = 0.1f; i <= 1f; i += 0.01f)
+        for (float i = 0.1f; i <= 0.3f; i += 0.01f)
         {
             bgmPlayer.volume = i;
-            yield return new WaitForSeconds(0.01f);
+            yield return waitTime;
         }
     }
 

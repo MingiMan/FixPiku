@@ -848,13 +848,15 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8621e381bd37dc847975873c16413e4e, type: 3}
   - name: CannonExplosion
     clip: {fileID: 8300000, guid: 8a87c9529aba83f42aea13a23fd9adca, type: 3}
+  - name: StartBtn
+    clip: {fileID: 8300000, guid: d5ad33b1db11b034eb737131ca2eea27, type: 3}
   bgm:
-  - name: BGM
-    clip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
+  - name: TitleBGM
+    clip: {fileID: 8300000, guid: 3aa663df61232ea419d003e742254c65, type: 3}
+  - name: PrologBGM
+    clip: {fileID: 8300000, guid: a6d10ac2dbd96124193dc50ec1fc16d9, type: 3}
   - name: BattleBGM1
     clip: {fileID: 8300000, guid: 0327651d6ba6a4b458626bda7ea41723, type: 3}
-  - name: BattleBGM2
-    clip: {fileID: 8300000, guid: fd942b7243e3dd249bd6e7d9b25b6d97, type: 3}
   - name: BattleBGM3
     clip: {fileID: 8300000, guid: 0327651d6ba6a4b458626bda7ea41723, type: 3}
   - name: BattleBGM4
@@ -885,7 +887,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
