@@ -12,15 +12,15 @@ public class GameManager : MonoBehaviour
     public AnimalSpawner animalSpawner;
     public SnakeSpawner wildMonsterSpawner;
     public MonsterSpawner monsterSpawner;
-
+    public CircleFadeInOutUI theCircleFade;
     public int level = 1;
 
     [Header("Monsters Per Level")]
-    public int monstersPerLevel1 = 24; // 울프 
+    public int monstersPerLevel1 = 10; // 울프 
     public int monstersPerLevel2 = 12; // 웨어 울프
-    public int monstersPerLevel3 = 30; // 폭탄맨
-    public int monstersPerLevel4 = 50; // 울프 웨어 울프
-    public int monstersPerLevel5 = 60; // 울프 웨어울프 폭탄맨
+    public int monstersPerLevel3 = 10; // 폭탄맨
+    public int monstersPerLevel4 = 15; // 울프 웨어 울프
+    public int monstersPerLevel5 = 20; // 울프 웨어울프 폭탄맨
 
     [Space(10)]
     [Header("UI")]
@@ -39,10 +39,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        animalSpawner = FindObjectOfType<AnimalSpawner>();
-        wildMonsterSpawner = FindObjectOfType<SnakeSpawner>();
-        if(monsterSpawner == null)
-            monsterSpawner = FindObjectOfType<MonsterSpawner>();
+        //animalSpawner = FindObjectOfType<AnimalSpawner>();
+        //wildMonsterSpawner = FindObjectOfType<SnakeSpawner>();
+        //theCircleFade = FindObjectOfType<CircleFadeInOutUI>();
+
+        //if (monsterSpawner == null)
+        //    monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
         waringUI.gameObject.SetActive(false);
 

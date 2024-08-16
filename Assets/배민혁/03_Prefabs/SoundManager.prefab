@@ -842,9 +842,23 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 33090f2a16a6e814a89e2f3665a95652, type: 3}
   - name: SaveItem
     clip: {fileID: 8300000, guid: b2f709059f58fd245b36d8360445a74e, type: 3}
+  - name: GunSound
+    clip: {fileID: 8300000, guid: d9062a1106c3ef240b1fa5177e9d6003, type: 3}
+  - name: CannonSound
+    clip: {fileID: 8300000, guid: 8621e381bd37dc847975873c16413e4e, type: 3}
+  - name: CannonExplosion
+    clip: {fileID: 8300000, guid: 8a87c9529aba83f42aea13a23fd9adca, type: 3}
   bgm:
   - name: BGM
     clip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
+  - name: BattleBGM1
+    clip: {fileID: 8300000, guid: fe0505420f7d9b943b7429f36219721c, type: 3}
+  - name: BattleBGM2
+    clip: {fileID: 8300000, guid: fd942b7243e3dd249bd6e7d9b25b6d97, type: 3}
+  - name: BattleBGM3
+    clip: {fileID: 8300000, guid: 0327651d6ba6a4b458626bda7ea41723, type: 3}
+  - name: BattleBGM4
+    clip: {fileID: 8300000, guid: 992270185d6596c4192010a59c601f49, type: 3}
   bgmPlayer: {fileID: 7065040684305729499}
   sfxPlayer:
   - {fileID: 6636184128918937246}
@@ -856,6 +870,7 @@ MonoBehaviour:
   - {fileID: 9151071226093070203}
   - {fileID: 8787437456265348467}
   - {fileID: 6663254606994660123}
+  - {fileID: 795954624531224534}
   - {fileID: 795954624531224534}
 --- !u!82 &7065040684305729499
 AudioSource:

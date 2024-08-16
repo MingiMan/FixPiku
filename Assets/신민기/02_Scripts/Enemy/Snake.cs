@@ -47,14 +47,48 @@ public class Snake : Animals
 
     public override void Damage(int _dmg, Vector3 _tarGetPos)
     {
-        base.Damage(_dmg, _tarGetPos);
-
-        IsTracking = true;
-
-        if (!IsDead)
+        if (!IsDead && !Invisible)
+        {
+            Invisible = true;
+            currentHp -= _dmg;
+            if (currentHp <= 0)
+            {
+                Dead();
+                return;
+            }
+            if (hurt_Sound != null)
+                PlaySE(hurt_Sound);
+            StartCoroutine(ColorDamage());
+            animator.SetTrigger("OnDamage");
+            IsTracking = true;
             PlayerTracking();
+        }
     }
+    IEnumerator ColorDamage()
+    {
+        float duration = 0.2f;
+        float elapsed = 0f;
+        Color originalColor = mat.color;
+        Color damagedColor = Color.red;
 
+        while (elapsed < duration)
+        {
+            mat.color = Color.Lerp(originalColor, damagedColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        mat.color = damagedColor;
+
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            mat.color = Color.Lerp(damagedColor, originalColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Invisible = false;
+        mat.color = originalColor;
+    }
     protected override void Initialize()
     {
         IsTracking = false;
@@ -115,7 +149,7 @@ public class Snake : Animals
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20f);
                 StartCoroutine(CoroutineAttack());
             }
-            else if (distanceToPlayer > 15f) 
+            else if (distanceToPlayer > 15f)
             {
                 Initialize();
             }
@@ -144,7 +178,7 @@ public class Snake : Animals
 
     public void EnableCollider()
     {
-        meleeArea.enabled = true;      
+        meleeArea.enabled = true;
     }
 
     void PlayerTracking()
@@ -159,6 +193,7 @@ public class Snake : Animals
     }
     public override void Dead()
     {
+        StopAllCoroutines();
         mat.color = Color.red;
         IsWalking = false;
         IsRunning = false;
@@ -166,10 +201,11 @@ public class Snake : Animals
 
         if (dead_Sound != null)
             PlaySE(dead_Sound);
-        gameObject.layer = 6;
-        gameObject.tag = "Untagged";
+
         animator.SetTrigger("OnDie");
         rigid.isKinematic = false;
+        gameObject.layer = 6;
+        gameObject.tag = "Untagged";
         StartCoroutine(SnakeDeath());
     }
 

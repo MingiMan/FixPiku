@@ -194,7 +194,6 @@ public class Enemys : MonoBehaviour
 
     public virtual void Damage(int _dmg, Vector3 _tarGetPos)
     {
-
         if (!IsDead && !Invisible)
         {
             Invisible = true;

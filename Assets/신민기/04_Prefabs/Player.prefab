@@ -419,8 +419,10 @@ MonoBehaviour:
   cannonBulletPrefab: {fileID: 0}
   maxAmmo: 0
   curAmmo: 0
+  cannonSound: 
   rifleBulletPos: {fileID: 0}
   rifleBulletPrefab: {fileID: 0}
+  gunSound: 
   rifleMaxAmmo: 0
   riflecurAmmo: 0
 --- !u!1 &1809731309464890000
@@ -972,8 +974,10 @@ MonoBehaviour:
   cannonBulletPrefab: {fileID: 2154287810665332540, guid: a1aaee1139a67464297e61285dcc73a0, type: 3}
   maxAmmo: 0
   curAmmo: 0
+  cannonSound: 
   rifleBulletPos: {fileID: 4423145965076318115}
   rifleBulletPrefab: {fileID: 6901894400936181154, guid: 4b35fe4289f491741a1e65888c62d27f, type: 3}
+  gunSound: GunSound
   rifleMaxAmmo: 0
   riflecurAmmo: 0
 --- !u!1 &5112484671523104711
@@ -1056,8 +1060,10 @@ MonoBehaviour:
   cannonBulletPrefab: {fileID: 2154287810665332540, guid: a1aaee1139a67464297e61285dcc73a0, type: 3}
   maxAmmo: 5
   curAmmo: 5
+  cannonSound: CannonSound
   rifleBulletPos: {fileID: 4423145965076318115}
   rifleBulletPrefab: {fileID: 6901894400936181154, guid: 4b35fe4289f491741a1e65888c62d27f, type: 3}
+  gunSound: 
   rifleMaxAmmo: 0
   riflecurAmmo: 0
 --- !u!1 &5365136858139484880
@@ -1289,8 +1295,10 @@ MonoBehaviour:
   cannonBulletPrefab: {fileID: 0}
   maxAmmo: 0
   curAmmo: 0
+  cannonSound: 
   rifleBulletPos: {fileID: 0}
   rifleBulletPrefab: {fileID: 0}
+  gunSound: 
   rifleMaxAmmo: 0
   riflecurAmmo: 0
 --- !u!1 &5943723345335119360
@@ -1851,6 +1859,7 @@ GameObject:
   - component: {fileID: 3925094647601421858}
   - component: {fileID: 1260270864819596740}
   - component: {fileID: 5851816056245450616}
+  - component: {fileID: 3464086009015071562}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1946,7 +1955,7 @@ MonoBehaviour:
   maxStamina: 100
   staminaTime: 2
   staminaHeal: 10
-  maxHp: 100
+  maxHp: 200
 --- !u!114 &3925094647601421858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,6 +2018,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3464086009015071562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8996813250497868841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c79923bb1ce4f418add707534ce98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9032217672277424143
 GameObject:
   m_ObjectHideFlags: 0

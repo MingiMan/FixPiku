@@ -46,7 +46,7 @@ public class ItemSystemTreeEx : MonoBehaviour
     {
         if (treeActive)
         {
-            if (coll.CompareTag("MELEE"))
+            if (coll.CompareTag("MELEE") && coll.gameObject.GetComponent<Weapon>() != null)
             {
                 damagePoint = coll.gameObject.GetComponent<Weapon>().woodDamage;
                 woodHp -= damagePoint;
