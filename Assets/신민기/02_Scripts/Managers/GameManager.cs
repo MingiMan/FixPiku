@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public SnakeSpawner wildMonsterSpawner;
     public MonsterSpawner monsterSpawner;
     public CircleFadeInOutUI theCircleFade;
+    public SoundManager theSound;
     public int level = 1;
 
     [Header("Monsters Per Level")]
@@ -48,7 +49,8 @@ public class GameManager : MonoBehaviour
         //    monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
         waringUI.gameObject.SetActive(false);
-
+        theSound = FindObjectOfType<SoundManager>();
+        theCircleFade.FadeIn();
         // dayText.gameObject.SetActive(true);
     }
 
@@ -60,14 +62,15 @@ public class GameManager : MonoBehaviour
     public void LevelUp()
     {
         level++;
+        StartCoroutine(GameSound());    
     }
 
     public void OnMonsterSpawnForLevel()
     {
+        StartCoroutine(BattleSound());
         switch (level)
         {
             case 1:
-
                 monsterSpawner.OnMonsterSpawn(monstersPerLevel1);
                 break;
             case 2:
@@ -86,6 +89,22 @@ public class GameManager : MonoBehaviour
                 Debug.Log("게임 종료"); // 모든 레벨 완료 시
                 break;
         }
+    }
+
+    IEnumerator BattleSound()
+    {
+        theSound.FadeOutMusic();
+        yield return new WaitForSeconds(2f);
+        theSound.PlayBGM(battleSound);
+        theSound.FadeInMusic();
+    }
+
+    IEnumerator GameSound()
+    {
+        theSound.FadeOutMusic();
+        yield return new WaitForSeconds(2f);
+        theSound.PlayBGM("BGM");
+        theSound.FadeInMusic();
     }
 
 

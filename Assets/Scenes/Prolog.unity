@@ -455,6 +455,7 @@ MonoBehaviour:
   isTransitioning: 0
   DialogueBox: {fileID: 1417364310}
   circleFadeInOutUI: {fileID: 697831918}
+  theSound: {fileID: 777828835}
   prologBGM: PrologBGM
 --- !u!114 &358668858
 MonoBehaviour:
@@ -760,27 +761,22 @@ PrefabInstance:
       propertyPath: bgm.Array.size
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 6848900767250542146, guid: 3fd6bb7a394e7cc4b8728a4b3889be3f, type: 3}
-      propertyPath: bgm.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
-    - target: {fileID: 6848900767250542146, guid: 3fd6bb7a394e7cc4b8728a4b3889be3f, type: 3}
-      propertyPath: bgm.Array.data[2].name
-      value: BGM
-      objectReference: {fileID: 0}
-    - target: {fileID: 6848900767250542146, guid: 3fd6bb7a394e7cc4b8728a4b3889be3f, type: 3}
-      propertyPath: bgm.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0327651d6ba6a4b458626bda7ea41723, type: 3}
-    - target: {fileID: 6848900767250542146, guid: 3fd6bb7a394e7cc4b8728a4b3889be3f, type: 3}
-      propertyPath: bgm.Array.data[3].name
-      value: BattleBGM1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fd6bb7a394e7cc4b8728a4b3889be3f, type: 3}
+--- !u!114 &777828835 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6848900767250542146, guid: 3fd6bb7a394e7cc4b8728a4b3889be3f, type: 3}
+  m_PrefabInstance: {fileID: 777828834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701c6753f35e8de45a584d8e051bd481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &837253509
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Sound
@@ -26,18 +24,12 @@ public class SoundManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        instance = this;
-        PlayBGM("BGM");
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayBGM(string p_bgmName)

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ImageSwitcher : MonoBehaviour
@@ -13,11 +14,13 @@ public class ImageSwitcher : MonoBehaviour
     public Image DialogueBox;
 
     public CircleFadeInOutUI circleFadeInOutUI;
+    public SoundManager theSound;
     public string prologBGM;
 
     private void Awake()
     {
         circleFadeInOutUI = FindObjectOfType<CircleFadeInOutUI>();
+        theSound = FindObjectOfType<SoundManager>();
     }
 
     private void Start()
@@ -105,6 +108,10 @@ public class ImageSwitcher : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         circleFadeInOutUI.FadeOut();
+        theSound.FadeOutMusic();
         yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(2);
+        theSound.PlayBGM("BGM");
+        theSound.FadeInMusic();
     }
 }

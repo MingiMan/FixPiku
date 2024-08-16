@@ -855,9 +855,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3aa663df61232ea419d003e742254c65, type: 3}
   - name: PrologBGM
     clip: {fileID: 8300000, guid: a6d10ac2dbd96124193dc50ec1fc16d9, type: 3}
+  - name: BGM
+    clip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
   - name: BattleBGM1
-    clip: {fileID: 8300000, guid: 0327651d6ba6a4b458626bda7ea41723, type: 3}
-  - name: BattleBGM3
     clip: {fileID: 8300000, guid: 0327651d6ba6a4b458626bda7ea41723, type: 3}
   - name: BattleBGM4
     clip: {fileID: 8300000, guid: 992270185d6596c4192010a59c601f49, type: 3}
