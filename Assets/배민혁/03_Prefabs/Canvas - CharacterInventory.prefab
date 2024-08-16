@@ -3102,7 +3102,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3800,7 +3800,7 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: 1d1f8d7eafe1bd54999ebd570b1bdc94, type: 2}
   - {fileID: 11400000, guid: 15766025a0cb5be42beeac72a6e27145, type: 2}
-  - {fileID: 11400000, guid: ff675ca50cb2b91488cec41a66eb523d, type: 2}
+  - {fileID: 11400000, guid: a7792ca706491d9478d27b2654311861, type: 2}
   - {fileID: 11400000, guid: 5d422e222d798db49b5ca51bcf062b0f, type: 2}
   slotText: {fileID: 0}
   player: {fileID: 0}

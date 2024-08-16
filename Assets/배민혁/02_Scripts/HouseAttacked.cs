@@ -47,28 +47,39 @@ public class HouseAttacked : MonoBehaviour
             recoveryStart = true;
         }
     }
-    void OnTriggerEnter(Collider coll) // 적이 공격할 때 데미지 받음
+    public void OnTriggerEnter(Collider coll) // 적이 공격할 때 데미지 받음
     {
         if (coll.name == "Melee" || coll.name == "MeleeArea")
         {
-
-            currentHouseHP += -10.0f;
+            float damgePoint = coll.gameObject.GetComponentInParent<Monsters>().Stats.atkDamage;
+            Debug.Log(damgePoint);
+            currentHouseHP -= damgePoint;
+            //currentHouseHP += -10.0f;
             //coll. 적 데미지 수치 확인필요
             if (currentHouseHP <= 0.0f)
             {
-                if (useHouse.houseLevel > 0) useHouse.houseLevel -= 1; // 레벨 0이상일 경우 1레벨 다운
-                houseInventory.rock = 0;        // 집의 자원 없어짐
-                houseInventory.wood = 0;
-                houseInventory.leather = 0;
-                TimeManager.Instance.Hours = 6; //강제로 다음 아침으로 넘어가기
-                GameManager.Instance.level = 1; // 웨이브 난이도 1로 돌아감
-                HouseCurrentHpSet();            //hp최대치로 변경
-                this.gameObject.GetComponent<BoxCollider>().enabled = false; // 적이 죽은 후 타격 방지를 위한 박스콜리더 비활성화
-                StartCoroutine(LooseDefense()); //집 무너짐 문구 및 박스콜리더 재활성화
+                LooseHouseItem();
+                LooseHouseText();
             }
 
 
         }
+    }
+    public void LooseHouseItem()
+    {
+        if (useHouse.houseLevel > 0) useHouse.houseLevel -= 1; // 레벨 0이상일 경우 1레벨 다운
+        houseInventory.rock = 0;        // 집의 자원 없어짐
+        houseInventory.wood = 0;
+        houseInventory.leather = 0;
+        HouseCurrentHpSet();            //hp최대치로 변경
+        this.gameObject.GetComponent<BoxCollider>().enabled = false; // 적이 죽은 후 타격 방지를 위한 박스콜리더 비활성화
+
+    }
+    public void LooseHouseText()
+    {
+        TimeManager.Instance.Hours = 6; //강제로 다음 아침으로 넘어가기
+        GameManager.Instance.level = 1; // 웨이브 난이도 1로 돌아감
+        StartCoroutine(LooseDefense()); //집 무너짐 문구 및 박스콜리더 재활성화
     }
     public void HouseCurrentHpSet()// 하우스 현재체력 최대체력으로 초기화
     {
