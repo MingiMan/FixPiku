@@ -1956,7 +1956,7 @@ MonoBehaviour:
   maxStamina: 100
   staminaTime: 2
   staminaHeal: 30
-  maxHp: 200
+  maxHp: 20
 --- !u!114 &3925094647601421858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rock: 0
-  wood: 100
+  wood: 0
   leather: 0
   attackState: 50
 --- !u!54 &5851816056245450616

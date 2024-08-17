@@ -30,7 +30,7 @@ public class WeaponController : MonoBehaviour
         foreach (var weapon in weapons)
             weapon.gameObject.SetActive(false);
         WeaponLock();// 잠금추가/////////////////////////////////////////
-        hasWeapon[2] = true; // 도끼만 잠금해제/////////////////////////////////////////
+        hasWeapon[0] = true; // 도끼만 잠금해제/////////////////////////////////////////
     }
 
     public void Initalize()
@@ -38,7 +38,7 @@ public class WeaponController : MonoBehaviour
         foreach (var weapon in weapons)
             weapon.gameObject.SetActive(false);
 
-        if(equipWeapon != null)
+        if (equipWeapon != null)
             equipWeapon.gameObject.SetActive(false);
 
     }
@@ -52,23 +52,23 @@ public class WeaponController : MonoBehaviour
     void SwapWeapon()
     {
         int weaponIndex = -1;
-        if (Input.GetButtonDown("Swap1") && hasWeapon[0] && !IsSwap && !weapons[0].activeSelf && hasWeapon[0])  // 잠긴건 실행 안되도록 수정
+        if (Input.GetButtonDown("Swap1") && hasWeapon[0] && !IsSwap && !weapons[0].activeSelf)  // 잠긴건 실행 안되도록 수정
         {
             weaponIndex = 0;
             activeWeaponIndex = 0;/////////////////////////////////////////
 
         }
-        else if (Input.GetButtonDown("Swap2") && hasWeapon[1] && !IsSwap && !weapons[1].activeSelf && hasWeapon[1])
+        else if (Input.GetButtonDown("Swap2") && hasWeapon[1] && !IsSwap && !weapons[1].activeSelf)
         {
             weaponIndex = 1;
             activeWeaponIndex = 1;/////////////////////////////////////////
         }
-        else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf && hasWeapon[2])
+        else if (Input.GetButtonDown("Swap3") && hasWeapon[2] && !IsSwap && !weapons[2].activeSelf)
         {
             weaponIndex = 2;
             activeWeaponIndex = 2;/////////////////////////////////////////
         }
-        else if (Input.GetButtonDown("Swap4") && hasWeapon[3] && !IsSwap && !weapons[3].activeSelf && hasWeapon[3])
+        else if (Input.GetButtonDown("Swap4") && hasWeapon[3] && !IsSwap && !weapons[3].activeSelf)
         {
             weaponIndex = 3;
             activeWeaponIndex = 3;/////////////////////////////////////////
