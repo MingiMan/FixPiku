@@ -80,8 +80,8 @@ MonoBehaviour:
   childRigid: {fileID: 3853821634145996497}
   destroyTime: 6
   item_count:
-  - 3
   - 10
+  - 15
   chop_sound: TreeAttack
   falldown_sound: TreeBreak
   logChange_sound: 

@@ -37,7 +37,6 @@ public class TimeManager : MonoBehaviour
     public int timer;
 
     public bool nightCheck = false;//밤낮 확인////////////////////
-
     private void Awake()
     {
         if (Instance == null)

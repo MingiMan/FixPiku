@@ -136,7 +136,6 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         monster.transform.position = spawnPoint.position;
-
         Transform targetPoint = pointsQueue.Dequeue();
         monster.GetComponent<Monsters>().TargetSetDestination(targetPoint);
         monster.SetActive(true);
