@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelUp()
     {
+        TimeManager.Instance.Hours = 6;
         level++;
         StartCoroutine(GameSound());    
     }

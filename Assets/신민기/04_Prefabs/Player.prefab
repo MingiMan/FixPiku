@@ -1946,6 +1946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba97d1b4916ae04185960a6d730f0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAmount: 0
   IsActive: 0
   IsGrounded: 0
   moveSpeed: 6
@@ -1958,7 +1959,7 @@ MonoBehaviour:
   staminaHeal: 30
   maxHp: 200
   hpTime: 10
-  hpHealAmount: 3
+  hpHealAmount: 50
   healInterval: 0.5
 --- !u!114 &3925094647601421858
 MonoBehaviour:

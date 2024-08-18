@@ -461,7 +461,7 @@ MonoBehaviour:
     waitTime: 0
     runTime: 0
     monsterType: 4
-  dead_Sound: {fileID: 0}
+  dead_Sound: {fileID: 8300000, guid: 393c43c9ea09e1d4ab0943f7043586a4, type: 3}
   hurt_Sound: {fileID: 0}
   idle_Sound: {fileID: 0}
   meleeArea: {fileID: 8023591439338679505}

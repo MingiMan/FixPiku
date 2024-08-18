@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,11 +52,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player HP")]
     [SerializeField] int maxHp;
     [SerializeField] float hpTime;
-    [SerializeField] int hpHealAmount = 3; // 회복할 정수 단위
+    [SerializeField] int hpHealAmount = 5; // 회복할 정수 단위
     [SerializeField] float healInterval = 0.1f; // 회복 간격 (초)
     private float healTimer;
     float hpCoolTimer;
-    int currentHp;
+    float currentHp;
     bool IsHpRecovering;
     Slider hpBar;
     Slider backHpBar;
@@ -332,8 +331,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void UpdateHpUI()
     {
-        hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
-        currentHpText.text = $"{currentHp}";
+        hpBar.value = Mathf.Clamp01(Mathf.RoundToInt(currentHp) / (float)maxHp);
+        currentHpText.text = $"{Mathf.RoundToInt(currentHp)}";
     }
 
     private IEnumerator BackHpCoroutine()
@@ -362,10 +361,9 @@ public class PlayerMovement : MonoBehaviour
                 healTimer += Time.deltaTime;
                 if (healTimer >= healInterval) 
                 {
-                    currentHp += hpHealAmount;
-                    currentHp = Mathf.Clamp(currentHp, 0, maxHp); 
-                    healTimer = 0f; 
-                    UpdateHpUI(); 
+                    currentHp += hpHealAmount * Time.deltaTime;
+                    currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+                    UpdateHpUI();
                 }
             }
         }

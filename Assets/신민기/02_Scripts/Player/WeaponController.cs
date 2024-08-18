@@ -140,7 +140,7 @@ public class WeaponController : MonoBehaviour
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity,8))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 Vector3 directionLookPos = hit.point - player.transform.position;
                 directionLookPos.y = 0;

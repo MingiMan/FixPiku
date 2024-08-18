@@ -528,6 +528,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeyBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 1254922677249745718, guid: d1e0db03b91bc4440a39b18b0410aef7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2384774635631066318, guid: d1e0db03b91bc4440a39b18b0410aef7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
