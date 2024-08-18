@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [Header("0 : 도끼  1 : 곡괭이  2 : 검 3 : 캐논")]
+    Camera cam;
     public GameObject[] weapons;
     PlayerMovement player;
     public bool[] hasWeapon;
@@ -16,6 +17,7 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
+        cam = Camera.main;
         animator = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
     }
@@ -95,44 +97,61 @@ public class WeaponController : MonoBehaviour
         IsSwap = false;
     }
 
-    void Attack()
-    {
-        if (equipWeapon == null)
-            return;
-
-        atkDelay += Time.deltaTime;
-        IsAttack = equipWeapon.GetComponent<Weapon>().atkSpeed < atkDelay;
-
-        if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
+        void Attack()
         {
-            WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
+            if (equipWeapon == null)
+                return;
 
+            atkDelay += Time.deltaTime;
+            IsAttack = equipWeapon.GetComponent<Weapon>().atkSpeed < atkDelay;
 
-            animator.SetBool("IsAxe", false);
-            animator.SetBool("IsPickAxe", false);
-            animator.SetBool("IsSword", false);
-            animator.SetBool("IsCannon", false);
-            string weaponBool = weaponType switch
+            if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
             {
-                WeaponType.Axe => "IsAxe",
-                WeaponType.PickAxe => "IsPickAxe",
-                WeaponType.Sword => "IsSword",
-                WeaponType.Cannon => "IsCannon",
-                _ => null
-            };
+                RotateTowardsMouse();
+                WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
 
-            if (player.IsActive && player.IsGrounded)
-            {
-                if (weaponBool != null)
-                    animator.SetBool(weaponBool, true);
 
-                animator.SetTrigger("OnAttack");
-                equipWeapon.GetComponent<Weapon>().Use();
-                atkDelay = 0;
+                animator.SetBool("IsAxe", false);
+                animator.SetBool("IsPickAxe", false);
+                animator.SetBool("IsSword", false);
+                animator.SetBool("IsCannon", false);
+                string weaponBool = weaponType switch
+                {
+                    WeaponType.Axe => "IsAxe",
+                    WeaponType.PickAxe => "IsPickAxe",
+                    WeaponType.Sword => "IsSword",
+                    WeaponType.Cannon => "IsCannon",
+                    _ => null
+                };
+
+                if (player.IsActive && player.IsGrounded)
+                {
+                    if (weaponBool != null)
+                        animator.SetBool(weaponBool, true);
+
+                    animator.SetTrigger("OnAttack");
+                    equipWeapon.GetComponent<Weapon>().Use();
+                    atkDelay = 0;
+                }
             }
         }
-    }
 
+        void RotateTowardsMouse()
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity,8))
+            {
+                Vector3 directionLookPos = hit.point - player.transform.position;
+                directionLookPos.y = 0;
+
+                if (directionLookPos != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * 100f);
+                }
+            }
+        }
 
     public void WeaponLock() // 무기 해금 구현 부분/////////////////////////////////////////
     {

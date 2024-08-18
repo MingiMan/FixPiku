@@ -413,7 +413,7 @@ MonoBehaviour:
   atkSpeed: 0.7
   woodDamage: 30
   rockDamage: 10
-  monsterDamage: 20
+  monsterDamage: 40
   enableTime: 0.15
   cannonBulletPos: {fileID: 0}
   cannonBulletPrefab: {fileID: 0}
@@ -1956,7 +1956,10 @@ MonoBehaviour:
   maxStamina: 100
   staminaTime: 2
   staminaHeal: 30
-  maxHp: 20
+  maxHp: 200
+  hpTime: 10
+  hpHealAmount: 3
+  healInterval: 0.5
 --- !u!114 &3925094647601421858
 MonoBehaviour:
   m_ObjectHideFlags: 0

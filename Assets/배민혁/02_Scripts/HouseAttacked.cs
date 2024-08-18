@@ -61,10 +61,20 @@ public class HouseAttacked : MonoBehaviour
                 LooseHouseItem();
                 LooseHouseText();
             }
-
-
         }
     }
+
+    public void HouseDamage(int atkDamage)
+    {
+        currentHouseHP -= atkDamage;
+
+        if(currentHouseHP <= 0.0f)
+        {
+            LooseHouseItem();
+            LooseHouseText();
+        }
+    }
+
     public void LooseHouseItem()
     {
         if (useHouse.houseLevel > 0) useHouse.houseLevel -= 1; // 레벨 0이상일 경우 1레벨 다운

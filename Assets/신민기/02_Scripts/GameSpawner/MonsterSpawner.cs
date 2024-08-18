@@ -125,12 +125,12 @@ public class MonsterSpawner : MonoBehaviour
 
                 // ´Á´ë ¿ş¾î¿ïÇÁ
             case 4:
-                monster = PoolManager.Instance.MonsterGet(Random.Range(0,4));
+                monster = PoolManager.Instance.MonsterGet(Random.Range(0,3));
                 break;
 
                 // ´Á´ë ¿ş¾î¿ïÇÁ ÆøÅº¸ó½ºÅÍ
             case 5:
-                monster = PoolManager.Instance.MonsterGet(Random.Range(0, 5));
+                monster = PoolManager.Instance.MonsterGet(Random.Range(0, 4));
                 break;
 
         }

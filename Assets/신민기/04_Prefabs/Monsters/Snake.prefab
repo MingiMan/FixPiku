@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 5077657073626144671}
   - component: {fileID: 8422031635800123522}
   - component: {fileID: 6893662589771148411}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Snake
   m_TagString: ENEMY
   m_Icon: {fileID: 0}
