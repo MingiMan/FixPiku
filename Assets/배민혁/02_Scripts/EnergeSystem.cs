@@ -30,7 +30,7 @@ public class EnergeSystem : MonoBehaviour//, IPointerEnterHandler, IPointerExitH
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        houseInventory = GameObject.FindGameObjectWithTag("HOUSE").GetComponentInChildren<HouseInventory>();
+        houseInventory = GameObject.Find("House").GetComponentInChildren<HouseInventory>();
         playerState = player.gameObject.GetComponent<PlayerState>();
         //weaponController = FindObjectOfType<WeaponController>();
         FreshSlot();

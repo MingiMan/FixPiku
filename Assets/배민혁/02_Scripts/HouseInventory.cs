@@ -14,6 +14,7 @@ public class HouseInventory : MonoBehaviour
     public int wood = 0;
     public int leather = 0;
 
+    int houseLevel;
     void Update()
     {
         QuestSlotUpdate();
@@ -25,6 +26,16 @@ public class HouseInventory : MonoBehaviour
     {
         string temp;
         string textColor;
+
+        if (useHouse.houseLevel >= useHouse.houseLevelLimit)
+        {
+            houseLevel = useHouse.houseLevelLimit;
+        }
+        else
+        {
+            houseLevel = useHouse.houseLevel;
+        }
+        //Debug.Log(houseLevel);
         for (int i = 0; i < items.Count && i < QuestSlots.Length; i++)
         {
             slotText = QuestSlots[i].transform.GetComponentInChildren<TMP_Text>(); //slot의 text 가져오기
@@ -34,29 +45,29 @@ public class HouseInventory : MonoBehaviour
                 switch (QuestSlots[i].item.name) // 현재 slot에 할당된 아이템의 이름에 따라 플레이어의 재료 개수를 text에 넣음
                 {
                     case ("Rock"):
-                        if (rock + player.gameObject.GetComponent<PlayerState>().rock < useHouse.useLevelUpItem[useHouse.houseLevel].rock) textColor = "<color=#ff0000>";
+                        if (rock + player.gameObject.GetComponent<PlayerState>().rock < useHouse.useLevelUpItem[houseLevel].rock) textColor = "<color=#ff0000>";
                         else textColor = "<color=#ffffff>";
 
-                        temp = textColor + $"{rock + player.gameObject.GetComponent<PlayerState>().rock}</color>/<color=#ffffff>{useHouse.useLevelUpItem[useHouse.houseLevel].rock}</color>";
+                        temp = textColor + $"{rock + player.gameObject.GetComponent<PlayerState>().rock}</color>/<color=#ffffff>{useHouse.useLevelUpItem[houseLevel].rock}</color>";
                         //temp = $"<color=#ffffff>{rock + player.gameObject.GetComponent<PlayerState>().rock}/{useHouse.useLevelUpItem[useHouse.houseLevel].rock}</color>";
                         //temp = $"<color=#ffffff>{rock}/{useHouse.useLevelUpItem[useHouse.houseLevel].rock}</color>";
                         slotText.text = temp;
                         break;
                     case ("Wood"):
-                        if (wood + player.gameObject.GetComponent<PlayerState>().wood < useHouse.useLevelUpItem[useHouse.houseLevel].wood) textColor = "<color=#ff0000>";
+                        if (wood + player.gameObject.GetComponent<PlayerState>().wood < useHouse.useLevelUpItem[houseLevel].wood) textColor = "<color=#ff0000>";
                         else textColor = "<color=#ffffff>";
 
-                        temp = textColor + $"{wood + player.gameObject.GetComponent<PlayerState>().wood}</color>/<color=#ffffff>{useHouse.useLevelUpItem[useHouse.houseLevel].wood}</color>";
+                        temp = textColor + $"{wood + player.gameObject.GetComponent<PlayerState>().wood}</color>/<color=#ffffff>{useHouse.useLevelUpItem[houseLevel].wood}</color>";
                         //temp = $"<color=#ffffff>{wood + player.gameObject.GetComponent<PlayerState>().wood}/{useHouse.useLevelUpItem[useHouse.houseLevel].wood}</color>";
                         //temp = $"<color=#ffffff>{wood}/{useHouse.useLevelUpItem[useHouse.houseLevel].wood}</color>";
 
                         slotText.text = temp;
                         break;
                     case ("Leather"):
-                        if (leather + player.gameObject.GetComponent<PlayerState>().leather < useHouse.useLevelUpItem[useHouse.houseLevel].leather) textColor = "<color=#ff0000>";
+                        if (leather + player.gameObject.GetComponent<PlayerState>().leather < useHouse.useLevelUpItem[houseLevel].leather) textColor = "<color=#ff0000>";
                         else textColor = "<color=#ffffff>";
 
-                        temp = textColor + $"{leather + player.gameObject.GetComponent<PlayerState>().leather}</color>/<color=#ffffff>{useHouse.useLevelUpItem[useHouse.houseLevel].leather}</color>";
+                        temp = textColor + $"{leather + player.gameObject.GetComponent<PlayerState>().leather}</color>/<color=#ffffff>{useHouse.useLevelUpItem[houseLevel].leather}</color>";
                         //temp = $"<color=#ffffff>{leather + player.gameObject.GetComponent<PlayerState>().leather}/{useHouse.useLevelUpItem[useHouse.houseLevel].leather}</color>";
                         //temp = $"<color=#ffffff>{leather}/{useHouse.useLevelUpItem[useHouse.houseLevel].leather}</color>";
                         slotText.text = temp;

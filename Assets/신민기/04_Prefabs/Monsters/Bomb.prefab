@@ -512,7 +512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9201695813014926419}
   - component: {fileID: 3487341761325642828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Maker
   m_TagString: MAKER
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ public class UseHouse : MonoBehaviour
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
-    [SerializeField] int houseLevelLimit;
+    [SerializeField] public int houseLevelLimit;
     [SerializeField] HouseInventory houseInventory;
     [SerializeField] HouseAttacked houseAttacked;
 

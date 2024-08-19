@@ -16,6 +16,7 @@ public class MouserCursor : MonoBehaviour
     private void Awake()
     {
         cursorImage = GetComponent<Image>();
+        cursorObject.GetComponent<RectTransform>().pivot = new Vector2(0, 1);
     }
 
     private void Start()
@@ -27,7 +28,7 @@ public class MouserCursor : MonoBehaviour
     {
         cursorObject.transform.position = Input.mousePosition;
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
             cursorImage.color = Color.gray;
 
         if (Input.GetMouseButtonUp(0))

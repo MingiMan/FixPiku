@@ -850,6 +850,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8a87c9529aba83f42aea13a23fd9adca, type: 3}
   - name: StartBtn
     clip: {fileID: 8300000, guid: d5ad33b1db11b034eb737131ca2eea27, type: 3}
+  - name: ItemPick
+    clip: {fileID: 8300000, guid: abc12a6c8dd71ba4996afcb7aed0bdc0, type: 3}
   bgm:
   - name: TitleBGM
     clip: {fileID: 8300000, guid: 3aa663df61232ea419d003e742254c65, type: 3}
