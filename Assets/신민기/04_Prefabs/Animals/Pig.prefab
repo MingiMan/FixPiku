@@ -339,7 +339,7 @@ MonoBehaviour:
   idle_Sound: {fileID: 0}
   item_count:
   - 3
-  - 10
+  - 5
   item_Prefabs: {fileID: 8604270983622776101, guid: 73936c80aab6eba4e9ebf969d6cb5616, type: 3}
 --- !u!114 &1752814499172184978
 MonoBehaviour:

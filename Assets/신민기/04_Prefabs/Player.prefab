@@ -82,7 +82,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &162586044628513236
 GameObject:
@@ -413,7 +413,7 @@ MonoBehaviour:
   atkSpeed: 0.7
   woodDamage: 30
   rockDamage: 10
-  monsterDamage: 20
+  monsterDamage: 40
   enableTime: 0.15
   cannonBulletPos: {fileID: 0}
   cannonBulletPrefab: {fileID: 0}
@@ -1735,7 +1735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4610844188494426576}
   - component: {fileID: 5024059846068939422}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Maker
   m_TagString: MAKER
   m_Icon: {fileID: 0}
@@ -1946,7 +1946,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba97d1b4916ae04185960a6d730f0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAmount: 0
   IsActive: 0
+  IsGrounded: 0
   moveSpeed: 6
   runSpeed: 9
   jumpForce: 7
@@ -1954,8 +1956,11 @@ MonoBehaviour:
   jumpCost: 20
   maxStamina: 100
   staminaTime: 2
-  staminaHeal: 10
+  staminaHeal: 30
   maxHp: 200
+  hpTime: 10
+  hpHealAmount: 50
+  healInterval: 0.5
 --- !u!114 &3925094647601421858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1975,6 +1980,7 @@ MonoBehaviour:
   - {fileID: 5112484671523104711}
   hasWeapon: 
   activeWeaponIndex: -1
+  attackActive: 1
 --- !u!114 &1260270864819596740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1988,9 +1994,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rock: 0
-  wood: 100
+  wood: 0
   leather: 0
+  energe: 0
   attackState: 50
+  inHouse: 0
 --- !u!54 &5851816056245450616
 Rigidbody:
   m_ObjectHideFlags: 0

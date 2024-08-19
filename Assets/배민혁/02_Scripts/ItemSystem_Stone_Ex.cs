@@ -36,6 +36,8 @@ public class ItemSystemStoneEx : MonoBehaviour
     private string logChange_sound;  // 바위가 부숴져 돌조각으로 바뀔 때 재생시킬 사운드 이름
     private bool stoneActive = true;
 
+    private bool objectHitting = false;
+
 
 
     void Start()
@@ -50,11 +52,12 @@ public class ItemSystemStoneEx : MonoBehaviour
     {
         if (stoneActive)
         {
-            if (coll.CompareTag("MELEE"))
+            if (coll.CompareTag("MELEE") && coll.gameObject.GetComponent<Weapon>() != null && !objectHitting)
             {
                 damagePoint = coll.gameObject.GetComponent<Weapon>().rockDamage;
                 //Hit(_pos);
                 rockHp -= damagePoint;
+                StartCoroutine(ObjectHitting());
                 SoundManager.instance.PlaySFX(chop_sound);
                 Debug.Log(rockHp);
                 if (rockHp <= 0 && parentCol.enabled)
@@ -125,6 +128,12 @@ public class ItemSystemStoneEx : MonoBehaviour
         }
 
         //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+    }
+    IEnumerator ObjectHitting()
+    {
+        objectHitting = true;
+        yield return new WaitForSeconds(0.5f);
+        objectHitting = false;
     }
 
 }

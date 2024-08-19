@@ -13,6 +13,8 @@ public class WeaponInventory : MonoBehaviour
     public GameObject player;
     public PlayerState playerState;
 
+    PlayerMovement playerMovement;
+
     [SerializeField] private Button[] weaponeActiveButton; // 무기 제작 버튼
     private bool weaponeWindowOff;
     private bool waeponeClearOff;
@@ -20,6 +22,7 @@ public class WeaponInventory : MonoBehaviour
 
     [SerializeField] private Button weaponeWindowButton; // 무기 제작 버튼
     [SerializeField] private GameObject waeponeClear; // 무기 전부 제작
+
     [Serializable]
     public struct weaponeActiveItem
     {
@@ -35,7 +38,7 @@ public class WeaponInventory : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerState = player.gameObject.GetComponent<PlayerState>();
-                
+        playerMovement = player.GetComponent<PlayerMovement>();
         weaponeWindow.SetActive(false);
         weaponeWindowOff = true;
         waeponeClearOff = true;
@@ -55,6 +58,7 @@ public class WeaponInventory : MonoBehaviour
                    waeponeClear.SetActive(true);
                    weaponeWindowOff = false;
                    waeponeClearOff = false;
+                   playerMovement.IsActive = false;
                }
                else
                {
@@ -62,14 +66,13 @@ public class WeaponInventory : MonoBehaviour
                    waeponeClear.SetActive(false);
                    weaponeWindowOff = true;
                    waeponeClearOff = true;
+                   playerMovement.IsActive = true;
                }
            }
            catch (Exception e)
            {
                Debug.Log(e.Message);
            }
-
-
        });
 
         weaponeActiveButton[0].onClick.AddListener(() => // 무기0
@@ -200,6 +203,8 @@ public class WeaponInventory : MonoBehaviour
         {
             waeponeClear.SetActive(false);
         }
+
+        UnEnableWeaponWindow();
     }
 
 
@@ -243,6 +248,15 @@ public class WeaponInventory : MonoBehaviour
         else
         {
             print("슬롯이 가득 차 있습니다.");
+        }
+    }
+
+    void UnEnableWeaponWindow()
+    {
+        if (weaponeWindow.activeSelf && Input.GetKeyUp(KeyCode.Escape))
+        {
+            playerMovement.IsActive = true;
+            weaponeWindow.SetActive(false);
         }
     }
     #region 무기 해금 부분

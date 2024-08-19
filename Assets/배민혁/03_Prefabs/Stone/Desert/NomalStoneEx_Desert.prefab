@@ -84,8 +84,8 @@ MonoBehaviour:
   objectPlace: {fileID: 3676271942863966305, guid: b53e37d72f783594abcabe26f3065776, type: 3}
   parentCol: {fileID: 2692200839463248999}
   item_count:
-  - 10
-  - 20
+  - 15
+  - 25
   destroyTime: 6
   chop_sound: StoneAttack
   falldown_sound: StoneBreak
