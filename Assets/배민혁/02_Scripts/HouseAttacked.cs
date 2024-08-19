@@ -87,8 +87,7 @@ public class HouseAttacked : MonoBehaviour
     }
     public void LooseHouseText()
     {
-        TimeManager.Instance.Hours = 6; //강제로 다음 아침으로 넘어가기
-        GameManager.Instance.level = 1; // 웨이브 난이도 1로 돌아감
+        GameManager.Instance.LevelUp();
         StartCoroutine(LooseDefense()); //집 무너짐 문구 및 박스콜리더 재활성화
     }
     public void HouseCurrentHpSet()// 하우스 현재체력 최대체력으로 초기화

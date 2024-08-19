@@ -107,7 +107,7 @@ public class WeaponController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
             {
-                RotateTowardsMouse();
+                // RotateTowardsMouse();
                 WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
 
 

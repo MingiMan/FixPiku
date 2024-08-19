@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class UseHouse : MonoBehaviour
 {
@@ -21,6 +19,8 @@ public class UseHouse : MonoBehaviour
     public TextMeshProUGUI slotText;
     [SerializeField]
     private Canvas houseUI;
+
+    bool hasEnded;
 
     [Serializable]
     public struct levelUpItem
@@ -50,7 +50,6 @@ public class UseHouse : MonoBehaviour
     void Update()
     {
         HousePartsActive();
-
     }
     void OnTriggerEnter(Collider coll)
     {
@@ -183,6 +182,11 @@ public class UseHouse : MonoBehaviour
             houseParts[4].gameObject.SetActive(true);
             houseParts[5].gameObject.SetActive(true);
             houseParts[6].gameObject.SetActive(true);
+            if (!hasEnded)
+            {
+                hasEnded = true;
+                GameManager.Instance.GoToEnding();
+            }
         }
         else // 집레벨 0
         {

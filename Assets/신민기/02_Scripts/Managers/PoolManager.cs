@@ -22,7 +22,7 @@ public class PoolManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
+            // DontDestroyOnLoad(Instance);
         }
         else
             Destroy(Instance);

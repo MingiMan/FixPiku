@@ -4,6 +4,7 @@ using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public MonsterSpawner monsterSpawner;
     public CircleFadeInOutUI theCircleFade;
     public SoundManager theSound;
+    public PlayerMovement player;
     public int level = 1;
 
     [Header("Monsters Per Level")]
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
+            // DontDestroyOnLoad(Instance);
         }
         else
             Destroy(Instance);
@@ -61,8 +63,12 @@ public class GameManager : MonoBehaviour
 
     public void LevelUp()
     {
+        if (monsterSpawner.count == 0)
+            level++;
+        else
+           monsterSpawner.AllMonsterDeath();
+
         TimeManager.Instance.Hours = 6;
-        level++;
         StartCoroutine(GameSound());    
     }
 
@@ -87,7 +93,7 @@ public class GameManager : MonoBehaviour
                 monsterSpawner.OnMonsterSpawn(monstersPerLevel5);
                 break;
             default:
-                Debug.Log("게임 종료"); // 모든 레벨 완료 시
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel5);
                 break;
         }
     }
@@ -124,6 +130,25 @@ public class GameManager : MonoBehaviour
     public void ReactivateSpike(GameObject spike, float delay)
     {
         StartCoroutine(ReactivateAfterDelay(spike, delay));
+    }
+
+    public void GoToEnding()
+    {
+        player.IsActive = false;
+        TimeManager.Instance.timeLock = true;
+        StartCoroutine(EndingScene());
+    }
+
+    IEnumerator EndingScene()
+    {
+        yield return new WaitForSeconds(3f);
+        theCircleFade.FadeOut();
+        theSound.FadeOutMusic();
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(3);
+        theSound.StopBGM();
+        theSound.PlayBGM("EndingSound");
+        theSound.FadeInMusic();
     }
 
     private IEnumerator ReactivateAfterDelay(GameObject spike, float delay)
