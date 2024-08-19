@@ -27,7 +27,7 @@ public class MonsterSpawner : MonoBehaviour
     Dictionary<GameObject, Transform> monsterQueue = new Dictionary<GameObject, Transform>();
 
     int currentMonster;
-    int count;
+    public int count;
 
     float watingTime;
 
@@ -48,7 +48,7 @@ public class MonsterSpawner : MonoBehaviour
     void Initalize()
     {
         availableFrontPoints.Clear();
-        availableRightPoints.Clear();
+        availableRightPoints.Clear();   
         availableLeftPoints.Clear();
         availableBackPoints.Clear();
 
@@ -125,12 +125,12 @@ public class MonsterSpawner : MonoBehaviour
 
                 // ´Á´ë ¿þ¾î¿ïÇÁ
             case 4:
-                monster = PoolManager.Instance.MonsterGet(Random.Range(0,4));
+                monster = PoolManager.Instance.MonsterGet(Random.Range(0,3));
                 break;
 
                 // ´Á´ë ¿þ¾î¿ïÇÁ ÆøÅº¸ó½ºÅÍ
             case 5:
-                monster = PoolManager.Instance.MonsterGet(Random.Range(0, 5));
+                monster = PoolManager.Instance.MonsterGet(Random.Range(0, 4));
                 break;
 
         }
@@ -205,15 +205,14 @@ public class MonsterSpawner : MonoBehaviour
 
     public void AllMonsterDeath()
     {
-        foreach (var monster in monsterQueue.Keys)
+        if(count != 0)
         {
-            monster.GetComponent<Monsters>().Dead();
+            foreach (var monster in monsterQueue.Keys)
+                monster.GetComponent<Monsters>().Dead();
         }
-
-        GameManager.Instance.LevelUp();
         Initalize();
-
         currentMonster = 0;
         count = 0;
     }
+
 }

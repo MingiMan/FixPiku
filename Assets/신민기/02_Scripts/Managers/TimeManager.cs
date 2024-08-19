@@ -37,12 +37,13 @@ public class TimeManager : MonoBehaviour
     public int timer;
 
     public bool nightCheck = false;//밤낮 확인////////////////////
+
+    public bool timeLock;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(Instance);
@@ -50,12 +51,15 @@ public class TimeManager : MonoBehaviour
 
     public void Update()
     {
-        tempSecond += Time.deltaTime;
-
-        if (tempSecond >= 1)
+        if (!timeLock)
         {
-            Minutes += 1;
-            tempSecond = 0;
+            tempSecond += Time.deltaTime;
+
+            if (tempSecond >= 1)
+            {
+                Minutes += 1;
+                tempSecond = 0;
+            }
         }
     }
 
@@ -78,9 +82,9 @@ public class TimeManager : MonoBehaviour
     {
         if (value == 6) 
         {
+            GameManager.Instance.monsterSpawner.AllMonsterDeath();
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
             StartCoroutine(LerpLight(graddientNightToSunrise, 10f));
-            GameManager.Instance.monsterSpawner.AllMonsterDeath();
             nightCheck = false;
         }
         else if (value == 8) 
@@ -99,7 +103,7 @@ public class TimeManager : MonoBehaviour
             GameManager.Instance.WaringUISetAcitve();
         }
 
-        else if (value == 22) 
+        else if (value == 22 && !timeLock) 
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
             StartCoroutine(LerpLight(graddientSunsetToNight, 10f));

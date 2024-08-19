@@ -19,7 +19,11 @@ TagManager:
   - Grid
   - BROCK
   - PLAYER
+<<<<<<< HEAD
   - Energe
+=======
+  - Maker
+>>>>>>> 277da9af2785225514365a8f014c63a21982b093
   layers:
   - Default
   - TransparentFX

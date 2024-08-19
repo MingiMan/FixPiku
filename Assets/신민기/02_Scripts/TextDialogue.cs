@@ -34,7 +34,7 @@ public class TextDialogue : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
             if (text.text == lines[index] && !image.isTransitioning)
             {

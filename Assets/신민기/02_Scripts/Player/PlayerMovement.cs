@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     float inputX;
     float inputZ;
-    float moveAmount;
+    public float moveAmount;
     float dempTime;
     float ySpeed;
 
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded;
     bool BlockRotationPlayer;
     bool IsParticularAcitve; // 스테미나가 떨어지면 특정행동을 불가능하도록 만든 bool 값
-    bool IsRecovering;
+    bool IsStaminaRecovering;
     bool IsInvincible;
     bool backHpHit;
 
@@ -51,7 +51,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player HP")]
     [SerializeField] int maxHp;
-    int currentHp;
+    [SerializeField] float hpTime;
+    [SerializeField] int hpHealAmount = 5; // 회복할 정수 단위
+    [SerializeField] float healInterval = 0.1f; // 회복 간격 (초)
+    private float healTimer;
+    float hpCoolTimer;
+    float currentHp;
+    bool IsHpRecovering;
     Slider hpBar;
     Slider backHpBar;
     TextMeshProUGUI maxHpText;
@@ -59,9 +65,9 @@ public class PlayerMovement : MonoBehaviour
 
     private WeaponSlotInventory weaponSlotInventory; //추가~~~~~~~~~~~~~~
     private HouseAttacked houseAttacked; //추가~~~~~~~~~~~~~~
+
     private void Awake()
     {
-
         //Debug.Log(GameObject.Find("StaminaBar").transform.name); 
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -124,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         UpdateStamina();
         UpdateHP();
+        Heal();
     }
 
     void MoveInput()
@@ -138,12 +145,16 @@ public class PlayerMovement : MonoBehaviour
         {
             IsRun = true;
             currentSpeed = runSpeed;
+            IsHpRecovering = false;
+            hpCoolTimer = 0;
             CostStamina(runCost, true);
             PlayerMoveAndRotation();
         }
 
         else if (moveAmount > 0.1f)
         {
+            IsHpRecovering = false;
+            hpCoolTimer = 0;
             IsRun = false;
             dempTime = 0.3f;
             currentSpeed = moveSpeed;
@@ -189,59 +200,11 @@ public class PlayerMovement : MonoBehaviour
             ySpeed = jumpForce;
             CostStamina(jumpCost, false);
             animator.SetTrigger("OnJump");
+            IsHpRecovering = false;
+            hpCoolTimer = 0;
         }
     }
 
-    #region 스테미나
-    void CostStamina(float cost, bool UseDeltaTime = false)
-    {
-        staminaParent.SetActive(true);
-
-        if (UseDeltaTime)
-            currentStamina -= cost * Time.deltaTime;
-
-        else
-            currentStamina -= cost;
-
-        if (currentStamina <= maxStamina)
-        {
-            IsRecovering = false;
-            staminaCoolTime = 0;
-        }
-    }
-
-    void UpdateStamina()
-    {
-        if (currentStamina <= maxStamina)
-        {
-            if (!IsRecovering)
-            {
-                staminaCoolTime += Time.deltaTime;
-                if (staminaCoolTime >= staminaTime)
-                    IsRecovering = true;
-            }
-            else
-            {
-                currentStamina += staminaHeal * Time.deltaTime;
-                currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-                if (currentStamina >= maxStamina)
-                {
-                    staminaParent.SetActive(false);
-                    IsRecovering = false;
-                    IsParticularAcitve = true;
-                }
-            }
-        }
-
-        if (currentStamina <= 0)
-            IsParticularAcitve = false;
-        else if (currentStamina >= jumpCost) // 점프비용이 제일 큰 값이라서 점프비용만큼 채웠더라면 다시 특정행동을 활성화 할 수 있다.
-            IsParticularAcitve = true;
-
-        staminaBar.fillAmount = currentStamina / maxStamina;
-    }
-
-    #endregion
 
     void GroundCheck()
     {
@@ -281,10 +244,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
         //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit, 100))
+        //if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         //{
         //    Vector3 directionLookPos = hit.point - transform.position;
         //    directionLookPos.y = 0;
@@ -301,6 +263,8 @@ public class PlayerMovement : MonoBehaviour
         if (IsInvincible)
             return;
 
+        IsHpRecovering = false;
+        hpCoolTimer = 0;
         currentHp -= _atkDamage;
         UpdateHpUI();
 
@@ -320,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnDie()
+    public void OnDie()
     {
         IsActive = false;
         animator.SetTrigger("OnDie");
@@ -339,12 +303,9 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator WaitDieFadeIn() // 죽은 후 페이드인아웃 대기시간 후 디펜스 실패 결과 연결
     {
-
         houseAttacked.LooseHouseItem(); // 먼저 자원 다잃고 거점 데미지 비활성화, 체력/레벨 초기화
         yield return new WaitForSeconds(5.0f); // 페이드인/아웃 시간은 임의로 조정
         houseAttacked.LooseHouseText(); // 페이드인/아웃 끝나면 문구 띄우고 낮으로 전환
-
-
     }
 
     public void UnActive()
@@ -357,6 +318,7 @@ public class PlayerMovement : MonoBehaviour
         IsActive = true;
     }
 
+    #region Hp
     private void UpdateHP()
     {
         backHpBar.value = Mathf.Lerp(backHpBar.value, hpBar.value, Time.deltaTime * 10f);
@@ -369,8 +331,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void UpdateHpUI()
     {
-        hpBar.value = Mathf.Clamp01(currentHp / (float)maxHp);
-        currentHpText.text = $"{currentHp}";
+        hpBar.value = Mathf.Clamp01(Mathf.RoundToInt(currentHp) / (float)maxHp);
+        currentHpText.text = $"{Mathf.RoundToInt(currentHp)}";
     }
 
     private IEnumerator BackHpCoroutine()
@@ -381,6 +343,90 @@ public class PlayerMovement : MonoBehaviour
         IsInvincible = false;
     }
 
+    void Heal()
+    {
+        if (currentHp < maxHp) 
+        {
+            if (!IsHpRecovering)
+            {
+                hpCoolTimer += Time.deltaTime;
+                if (hpCoolTimer >= hpTime && moveAmount == 0) 
+                {
+                    IsHpRecovering = true;
+                    hpCoolTimer = 0f; 
+                }
+            }
+            else
+            {
+                healTimer += Time.deltaTime;
+                if (healTimer >= healInterval) 
+                {
+                    currentHp += hpHealAmount * Time.deltaTime;
+                    currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+                    UpdateHpUI();
+                }
+            }
+        }
+        else
+        {
+            IsHpRecovering = false; 
+            healTimer = 0f; 
+        }
+    }
+
+    #endregion
+
+
+    #region 스테미나
+    void CostStamina(float cost, bool UseDeltaTime = false)
+    {
+        staminaParent.SetActive(true);
+
+        if (UseDeltaTime)
+            currentStamina -= cost * Time.deltaTime;
+
+        else
+            currentStamina -= cost;
+
+        if (currentStamina <= maxStamina)
+        {
+            IsStaminaRecovering = false;
+            staminaCoolTime = 0;
+        }
+    }
+
+    void UpdateStamina()
+    {
+        if (currentStamina <= maxStamina)
+        {
+            if (!IsStaminaRecovering)
+            {
+                staminaCoolTime += Time.deltaTime;
+                if (staminaCoolTime >= staminaTime)
+                    IsStaminaRecovering = true;
+            }
+            else
+            {
+                currentStamina += staminaHeal * Time.deltaTime;
+                currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+                if (currentStamina >= maxStamina)
+                {
+                    staminaParent.SetActive(false);
+                    IsStaminaRecovering = false;
+                    IsParticularAcitve = true;
+                }
+            }
+        }
+
+        if (currentStamina <= 0)
+            IsParticularAcitve = false;
+        else if (currentStamina >= jumpCost) // 점프비용이 제일 큰 값이라서 점프비용만큼 채웠더라면 다시 특정행동을 활성화 할 수 있다.
+            IsParticularAcitve = true;
+
+        staminaBar.fillAmount = currentStamina / maxStamina;
+    }
+
+    #endregion
     private void OnAnimatorMove()
     {
         animator.SetBool("IsRunning", IsRun);
