@@ -38,7 +38,7 @@ public class WeaponInventory : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerState = player.gameObject.GetComponent<PlayerState>();
-        playerMovement = player.GetComponent<PlayerMovement>(); 
+        playerMovement = player.GetComponent<PlayerMovement>();
         weaponeWindow.SetActive(false);
         weaponeWindowOff = true;
         waeponeClearOff = true;

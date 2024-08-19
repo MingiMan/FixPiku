@@ -3263,9 +3263,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a17c01d144a55b4fa895f69a3de7573, type: 2}
   slotText: {fileID: 0}
   useHouse: {fileID: 5524489221375678239}
-  rock: 100
-  wood: 100
-  leather: 100
+  rock: 0
+  wood: 0
+  leather: 0
   QuestSlotParent: {fileID: 870011874756279367}
   HouseSlotParent: {fileID: 125932930535541009}
   QuestSlots:
@@ -10166,11 +10166,7 @@ GameObject:
   - component: {fileID: 1007992456350332177}
   - component: {fileID: 1224294131004648408}
   - component: {fileID: 7991323126768612027}
-<<<<<<< HEAD
-  - component: {fileID: 823668138678580081}
-=======
-  - component: {fileID: 6814204326333999646}
->>>>>>> 277da9af2785225514365a8f014c63a21982b093
+  - component: {fileID: 9023258655771014488}
   m_Layer: 5
   m_Name: WeaponeButton
   m_TagString: Untagged
@@ -10280,11 +10276,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD
---- !u!114 &823668138678580081
-=======
---- !u!114 &6814204326333999646
->>>>>>> 277da9af2785225514365a8f014c63a21982b093
+--- !u!114 &9023258655771014488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10293,11 +10285,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4822539038619704860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: e8afc1f12a569a949950663aaa5446b2, type: 3}
-=======
-  m_Script: {fileID: 11500000, guid: cebed1f6c30809f4bb06ddc1cb36d050, type: 3}
->>>>>>> 277da9af2785225514365a8f014c63a21982b093
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4823096849889927954

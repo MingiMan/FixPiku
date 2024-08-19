@@ -331,6 +331,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void UpdateHpUI()
     {
+        currentHp = Mathf.Max(0, currentHp);
+
+        // HP 값을 업데이트할 때, 클램프된 값을 사용
         hpBar.value = Mathf.Clamp01(Mathf.RoundToInt(currentHp) / (float)maxHp);
         currentHpText.text = $"{Mathf.RoundToInt(currentHp)}";
     }
@@ -345,21 +348,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Heal()
     {
-        if (currentHp < maxHp) 
+        if (currentHp < maxHp)
         {
             if (!IsHpRecovering)
             {
                 hpCoolTimer += Time.deltaTime;
-                if (hpCoolTimer >= hpTime && moveAmount == 0) 
+                if (hpCoolTimer >= hpTime && moveAmount == 0)
                 {
                     IsHpRecovering = true;
-                    hpCoolTimer = 0f; 
+                    hpCoolTimer = 0f;
                 }
             }
             else
             {
                 healTimer += Time.deltaTime;
-                if (healTimer >= healInterval) 
+                if (healTimer >= healInterval)
                 {
                     currentHp += hpHealAmount * Time.deltaTime;
                     currentHp = Mathf.Clamp(currentHp, 0, maxHp);
@@ -369,8 +372,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            IsHpRecovering = false; 
-            healTimer = 0f; 
+            IsHpRecovering = false;
+            healTimer = 0f;
         }
     }
 

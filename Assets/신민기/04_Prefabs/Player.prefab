@@ -82,7 +82,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &162586044628513236
 GameObject:
@@ -1980,6 +1980,7 @@ MonoBehaviour:
   - {fileID: 5112484671523104711}
   hasWeapon: 
   activeWeaponIndex: -1
+  attackActive: 1
 --- !u!114 &1260270864819596740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1995,7 +1996,9 @@ MonoBehaviour:
   rock: 0
   wood: 0
   leather: 0
+  energe: 0
   attackState: 50
+  inHouse: 0
 --- !u!54 &5851816056245450616
 Rigidbody:
   m_ObjectHideFlags: 0

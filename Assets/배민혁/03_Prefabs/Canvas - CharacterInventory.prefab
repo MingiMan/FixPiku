@@ -623,13 +623,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- You lost items from your House inventory
-
-    - The house level has
-    been lowered (except when the house level is 0).'
+  m_text: "- \uC9D1\uC5D0 \uC788\uB358 \uC544\uC774\uD15C\uC744 \uC783\uC5B4\uBC84\uB838\uC2B5\uB2C8\uB2E4.\n-
+    \uC9D1\uC758 \uB808\uBCA8\uC774 1 \uAC10\uC18C\uD569\uB2C8\uB2E4. (\uC9D1 \uB808\uBCA8\uC774
+    0\uC77C \uACBD\uC6B0 \uC81C\uC678)"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ab89a2991c095e045a8bfe5dcac5bff9, type: 2}
+  m_sharedMaterial: {fileID: -5809248318376833760, guid: ab89a2991c095e045a8bfe5dcac5bff9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2823,7 +2822,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 4361779730784510961}
   m_HandleRect: {fileID: 0}
@@ -3924,7 +3923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Your house collapsed\r"
+  m_text: "\uC9D1\uC774 \uBB34\uB108\uC84C\uC2B5\uB2C8\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab89a2991c095e045a8bfe5dcac5bff9, type: 2}
   m_sharedMaterial: {fileID: -5809248318376833760, guid: ab89a2991c095e045a8bfe5dcac5bff9, type: 2}

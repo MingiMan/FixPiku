@@ -98,7 +98,6 @@ public class WeaponController : MonoBehaviour
         IsSwap = false;
     }
 
-<<<<<<< HEAD
     void Attack()
     {
         if (equipWeapon == null)
@@ -108,9 +107,6 @@ public class WeaponController : MonoBehaviour
         IsAttack = equipWeapon.GetComponent<Weapon>().atkSpeed < atkDelay;
 
         if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap && (activeWeaponIndex == 0 || activeWeaponIndex == 1))
-=======
-        void Attack()
->>>>>>> 277da9af2785225514365a8f014c63a21982b093
         {
             if (equipWeapon == null)
                 return;
@@ -148,7 +144,6 @@ public class WeaponController : MonoBehaviour
                 }
             }
         }
-<<<<<<< HEAD
         //총이나 대포일 시 기능 변경
         else if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap && ((activeWeaponIndex == 2 && player.gameObject.GetComponent<PlayerState>().energe >= 1) || (activeWeaponIndex == 3 && player.gameObject.GetComponent<PlayerState>().energe >= 10)))
         {
@@ -187,25 +182,23 @@ public class WeaponController : MonoBehaviour
             }
         }
     }
-=======
->>>>>>> 277da9af2785225514365a8f014c63a21982b093
 
-        void RotateTowardsMouse()
+    void RotateTowardsMouse()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                Vector3 directionLookPos = hit.point - player.transform.position;
-                directionLookPos.y = 0;
+            Vector3 directionLookPos = hit.point - player.transform.position;
+            directionLookPos.y = 0;
 
-                if (directionLookPos != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * 100f);
-                }
+            if (directionLookPos != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionLookPos);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * 100f);
             }
         }
+    }
 
     public void WeaponLock() // 무기 해금 구현 부분/////////////////////////////////////////
     {
