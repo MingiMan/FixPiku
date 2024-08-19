@@ -30,6 +30,7 @@ public class ItemSystemTreeEx : MonoBehaviour
     [SerializeField] private string falldown_sound;  // 나무 쓰러질 때 재생시킬 사운드 이름 
     [SerializeField] private string logChange_sound;  // 나무 쓰러져서 통나무로 바뀔 때 재생시킬 사운드 이름
     private bool treeActive = true; // 오브젝트 존재시간. 존재하지 않을 시 && 낮이 될시 오브젝트 리젠
+    private bool objectHitting = false;
 
 
 
@@ -46,10 +47,11 @@ public class ItemSystemTreeEx : MonoBehaviour
     {
         if (treeActive)
         {
-            if (coll.CompareTag("MELEE") && coll.gameObject.GetComponent<Weapon>() != null)
+            if (coll.CompareTag("MELEE") && coll.gameObject.GetComponent<Weapon>() != null && !objectHitting)
             {
                 damagePoint = coll.gameObject.GetComponent<Weapon>().woodDamage;
                 woodHp -= damagePoint;
+                StartCoroutine(ObjectHitting());
                 SoundManager.instance.PlaySFX(chop_sound);
                 Debug.Log(woodHp);
                 if (woodHp <= 0 && parentCol.enabled)
@@ -103,6 +105,13 @@ public class ItemSystemTreeEx : MonoBehaviour
 
         Destroy(mainObject.gameObject);
         //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+    }
+
+    IEnumerator ObjectHitting()
+    {
+        objectHitting = true;
+        yield return new WaitForSeconds(0.5f);
+        objectHitting = false;
     }
 
 }

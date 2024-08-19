@@ -2069,7 +2069,7 @@ MonoBehaviour:
     leather: 0
   - rock: 40
     wood: 40
-    leather: 0
+    leather: 40
   houseInventory: {fileID: 8666111530208744434}
   slotParent: {fileID: 5107047868829467898}
   slots:
@@ -3263,9 +3263,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a17c01d144a55b4fa895f69a3de7573, type: 2}
   slotText: {fileID: 0}
   useHouse: {fileID: 5524489221375678239}
-  rock: 0
-  wood: 0
-  leather: 0
+  rock: 100
+  wood: 100
+  leather: 100
   QuestSlotParent: {fileID: 870011874756279367}
   HouseSlotParent: {fileID: 125932930535541009}
   QuestSlots:
@@ -4211,9 +4211,6 @@ MonoBehaviour:
   - 3500
   - 4000
   currentHouseHP: 0
-  houseHpBar: {fileID: 0}
-  houseHpBarText: {fileID: 0}
-  looseText: {fileID: 0}
   houseHPRecovery: 10
   houseHPRecoveryTime: 1
 --- !u!1 &1741023089120661847
@@ -7458,6 +7455,7 @@ GameObject:
   - component: {fileID: 5834258793665971110}
   - component: {fileID: 3171922010623008614}
   - component: {fileID: 3596963912118250486}
+  - component: {fileID: 3330634286707400509}
   m_Layer: 0
   m_Name: Button - LevelUpButton
   m_TagString: Untagged
@@ -7567,6 +7565,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3330634286707400509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3423546989175742935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8afc1f12a569a949950663aaa5446b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3431346867554909118
 GameObject:
   m_ObjectHideFlags: 0
@@ -10156,6 +10166,7 @@ GameObject:
   - component: {fileID: 1007992456350332177}
   - component: {fileID: 1224294131004648408}
   - component: {fileID: 7991323126768612027}
+  - component: {fileID: 823668138678580081}
   m_Layer: 5
   m_Name: WeaponeButton
   m_TagString: Untagged
@@ -10265,6 +10276,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &823668138678580081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4822539038619704860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8afc1f12a569a949950663aaa5446b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4823096849889927954
 GameObject:
   m_ObjectHideFlags: 0
@@ -17387,6 +17410,7 @@ GameObject:
   - component: {fileID: 520048847546987324}
   - component: {fileID: 972840195745499527}
   - component: {fileID: 5260345880510247162}
+  - component: {fileID: 3666317522450238168}
   m_Layer: 0
   m_Name: Button - ItemSaveButton
   m_TagString: Untagged
@@ -17496,6 +17520,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3666317522450238168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8436171371798797043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8afc1f12a569a949950663aaa5446b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8478509985035963604
 GameObject:
   m_ObjectHideFlags: 0
@@ -18131,6 +18167,7 @@ GameObject:
   - component: {fileID: 6652067400164222754}
   - component: {fileID: 5863478906359104762}
   - component: {fileID: 733024957163244416}
+  - component: {fileID: 9218476064889910356}
   m_Layer: 5
   m_Name: WeaponeWIndow
   m_TagString: Untagged
@@ -18223,6 +18260,18 @@ MonoBehaviour:
   m_Spacing: {x: 210, y: 50}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &9218476064889910356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9001319201533276724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8afc1f12a569a949950663aaa5446b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9005170420459802828
 GameObject:
   m_ObjectHideFlags: 0

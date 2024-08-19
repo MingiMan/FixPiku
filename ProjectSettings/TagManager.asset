@@ -19,6 +19,7 @@ TagManager:
   - Grid
   - BROCK
   - PLAYER
+  - Energe
   layers:
   - Default
   - TransparentFX

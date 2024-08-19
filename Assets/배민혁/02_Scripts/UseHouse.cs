@@ -57,8 +57,16 @@ public class UseHouse : MonoBehaviour
         if (coll.CompareTag("Player"))
         {
             //Debug.Log("stay");
-            if (!TimeManager.Instance.nightCheck) houseUI.enabled = true;
-            else houseUI.enabled = false;
+            if (!TimeManager.Instance.nightCheck)
+            {
+                houseUI.enabled = true;
+                player.GetComponent<PlayerState>().inHouse = true;
+            }
+            else
+            {
+                houseUI.enabled = false;
+                player.GetComponent<PlayerState>().inHouse = false;
+            }
         }
 
     }
@@ -68,6 +76,7 @@ public class UseHouse : MonoBehaviour
         {
             //Debug.Log("out");
             houseUI.enabled = false;
+            player.GetComponent<PlayerState>().inHouse = false;
         }
 
     }

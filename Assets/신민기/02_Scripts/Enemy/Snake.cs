@@ -7,6 +7,13 @@ public class Snake : Animals
     bool IsTracking;
     bool IsAttack;
 
+
+    //아이템 드롭용 구현//////////////////
+    [SerializeField]
+    private float[] dropItem_count;  // 아이템 생성 최소 최대 개수
+    [SerializeField] private GameObject dropItem_Prefabs;  // 재료아이템. 오브젝트가 파괴된 이후 생성할 재료.
+
+    //아이템 드롭용 구현//////////////////
     protected override void Awake()
     {
         base.Awake();
@@ -54,6 +61,16 @@ public class Snake : Animals
             if (currentHp <= 0)
             {
                 Dead();
+                ////////////////////죽으면 아이템 드롭///////////////////
+                if (dropItem_count[1] - dropItem_count[0] <= 1) Instantiate(dropItem_Prefabs, this.gameObject.transform.position + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
+                else
+                {
+                    for (int i = 0; i < Random.Range(dropItem_count[0], dropItem_count[1] + 1); i++)
+                    {
+                        Instantiate(dropItem_Prefabs, this.gameObject.transform.position + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
+                    }
+                }
+                ////////////////////죽으면 아이템 드롭///////////////////
                 return;
             }
             if (hurt_Sound != null)

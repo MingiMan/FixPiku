@@ -920,9 +920,15 @@ MonoBehaviour:
   dead_Sound: {fileID: 0}
   hurt_Sound: {fileID: 0}
   idle_Sound: {fileID: 0}
-  item_count: []
-  item_Prefabs: {fileID: 0}
+  item_count:
+  - 1
+  - 3
+  item_Prefabs: {fileID: 2861588204405462499, guid: 536b6abd5f2701f45a540fa420ca9ea8, type: 3}
   meleeArea: {fileID: 3496287088208606356}
+  dropItem_count:
+  - 1
+  - 2
+  dropItem_Prefabs: {fileID: 2861588204405462499, guid: 536b6abd5f2701f45a540fa420ca9ea8, type: 3}
 --- !u!114 &5077657073626144671
 MonoBehaviour:
   m_ObjectHideFlags: 0

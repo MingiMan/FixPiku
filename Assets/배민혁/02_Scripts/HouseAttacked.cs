@@ -14,9 +14,9 @@ public class HouseAttacked : MonoBehaviour
     [SerializeField] private float[] maxHouseHP;
     public float currentHouseHP;
 
-    [SerializeField] private GameObject houseHpBar;
-    [SerializeField] private TMP_Text houseHpBarText;
-    [SerializeField] private GameObject looseText;
+    private GameObject houseHpBar;
+    private TMP_Text houseHpBarText;
+    private GameObject looseTextPanel;
 
 
     [SerializeField] private float houseHPRecovery = 10.0f;
@@ -27,8 +27,11 @@ public class HouseAttacked : MonoBehaviour
 
     void Awake()
     {
+        houseHpBar = GameObject.Find("HouseHpBar");
+        houseHpBarText = GameObject.Find("HouseHpBarText").GetComponent<TMP_Text>();
+        looseTextPanel = GameObject.Find("LooseTextPanel");
         HouseCurrentHpSet();
-        looseText.SetActive(false);
+        looseTextPanel.SetActive(false);
     }
     void Update()
     {
@@ -115,9 +118,9 @@ public class HouseAttacked : MonoBehaviour
     }
     IEnumerator LooseDefense() // 집 지키기 실패시 문구 출력 및 비활성화된 박스 콜리더 활성화
     {
-        looseText.SetActive(true);
+        looseTextPanel.SetActive(true);
         yield return new WaitForSeconds(5.0f);
-        looseText.SetActive(false);
+        looseTextPanel.SetActive(false);
         this.gameObject.GetComponent<BoxCollider>().enabled = true;
 
 

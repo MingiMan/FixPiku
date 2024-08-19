@@ -138,6 +138,10 @@ PrefabInstance:
       value: TreeObject
       objectReference: {fileID: 0}
     - target: {fileID: 6777186990708218792, guid: ade8b7a45cea613488706db5a4412ef8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777186990708218792, guid: ade8b7a45cea613488706db5a4412ef8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}

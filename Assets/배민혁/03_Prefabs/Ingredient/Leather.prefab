@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8400560844527955327}
   - component: {fileID: -67754630872868229}
   - component: {fileID: 8528244879340777897}
-  m_Layer: 30
+  m_Layer: 31
   m_Name: Leather
   m_TagString: LEATHER
   m_Icon: {fileID: 0}

@@ -13,6 +13,7 @@ public class WeaponController : MonoBehaviour
     bool IsSwap;
     bool IsAttack;
     float atkDelay;
+    public bool attackActive = true;   // 활성화 시에만 공격 가능
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class WeaponController : MonoBehaviour
     private void Update()
     {
         SwapWeapon();
-        Attack();
+        if (attackActive) Attack();
     }
 
     void SwapWeapon()
@@ -103,7 +104,7 @@ public class WeaponController : MonoBehaviour
         atkDelay += Time.deltaTime;
         IsAttack = equipWeapon.GetComponent<Weapon>().atkSpeed < atkDelay;
 
-        if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap)
+        if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap && (activeWeaponIndex == 0 || activeWeaponIndex == 1))
         {
             WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
 
@@ -129,6 +130,43 @@ public class WeaponController : MonoBehaviour
                 animator.SetTrigger("OnAttack");
                 equipWeapon.GetComponent<Weapon>().Use();
                 atkDelay = 0;
+            }
+        }
+        //총이나 대포일 시 기능 변경
+        else if (Input.GetMouseButtonDown(0) && IsAttack && !IsSwap && ((activeWeaponIndex == 2 && player.gameObject.GetComponent<PlayerState>().energe >= 1) || (activeWeaponIndex == 3 && player.gameObject.GetComponent<PlayerState>().energe >= 10)))
+        {
+            WeaponType weaponType = equipWeapon.GetComponent<Weapon>().weaponType;
+
+
+            animator.SetBool("IsAxe", false);
+            animator.SetBool("IsPickAxe", false);
+            animator.SetBool("IsSword", false);
+            animator.SetBool("IsCannon", false);
+            string weaponBool = weaponType switch
+            {
+                WeaponType.Axe => "IsAxe",
+                WeaponType.PickAxe => "IsPickAxe",
+                WeaponType.Sword => "IsSword",
+                WeaponType.Cannon => "IsCannon",
+                _ => null
+            };
+
+            if (player.IsActive && player.IsGrounded)
+            {
+                if (weaponBool != null)
+                    animator.SetBool(weaponBool, true);
+
+                animator.SetTrigger("OnAttack");
+                equipWeapon.GetComponent<Weapon>().Use();
+                atkDelay = 0;
+            }
+            if (activeWeaponIndex == 2)
+            {
+                player.gameObject.GetComponent<PlayerState>().energe -= 1;
+            }
+            else if (activeWeaponIndex == 3)
+            {
+                player.gameObject.GetComponent<PlayerState>().energe -= 10;
             }
         }
     }
