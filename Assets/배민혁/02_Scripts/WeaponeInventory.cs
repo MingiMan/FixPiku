@@ -16,12 +16,12 @@ public class WeaponInventory : MonoBehaviour
     PlayerMovement playerMovement;
 
     [SerializeField] private Button[] weaponeActiveButton; // 무기 제작 버튼
-    private bool weaponeWindowOff;
-    private bool waeponeClearOff;
-    [SerializeField] private GameObject weaponeWindow;
+    public bool weaponeWindowOff;
+    public bool waeponeClearOff;
+    [SerializeField] public GameObject weaponeWindow;
 
     [SerializeField] private Button weaponeWindowButton; // 무기 제작 버튼
-    [SerializeField] private GameObject waeponeClear; // 무기 전부 제작
+    [SerializeField] public GameObject waeponeClear; // 무기 전부 제작
 
     [Serializable]
     public struct weaponeActiveItem
@@ -173,15 +173,20 @@ public class WeaponInventory : MonoBehaviour
            {
                Debug.Log(e.Message);
            }
-
-
        });
 
 
     }
     void Update()
     {
-
+        if (TimeManager.Instance.nightCheck)
+        {
+            playerMovement.IsActive = true;
+            waeponeClear.SetActive(false);
+            weaponeWindow.SetActive(false);
+            weaponeWindowOff = true;
+            waeponeClearOff = true;
+        }
         for (int i = 0; i < player.GetComponent<WeaponController>().hasWeapon.Count(); i++)
         {
             if (player.GetComponent<WeaponController>().hasWeapon[i])
@@ -251,7 +256,7 @@ public class WeaponInventory : MonoBehaviour
         }
     }
 
-    void UnEnableWeaponWindow()
+    public void UnEnableWeaponWindow()
     {
         if (weaponeWindow.activeSelf && Input.GetKeyUp(KeyCode.Escape))
         {

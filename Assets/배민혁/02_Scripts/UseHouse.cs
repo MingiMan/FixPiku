@@ -15,6 +15,8 @@ public class UseHouse : MonoBehaviour
     [SerializeField] public int houseLevelLimit;
     [SerializeField] HouseInventory houseInventory;
     [SerializeField] HouseAttacked houseAttacked;
+    [SerializeField] WeaponInventory weaponInventory;
+
 
     public TextMeshProUGUI slotText;
     [SerializeField]
