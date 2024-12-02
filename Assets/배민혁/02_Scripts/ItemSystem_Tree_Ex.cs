@@ -30,6 +30,7 @@ public class ItemSystemTreeEx : MonoBehaviour
     [SerializeField] private string falldown_sound;  // 나무 쓰러질 때 재생시킬 사운드 이름 
     [SerializeField] private string logChange_sound;  // 나무 쓰러져서 통나무로 바뀔 때 재생시킬 사운드 이름
     private bool treeActive = true; // 오브젝트 존재시간. 존재하지 않을 시 && 낮이 될시 오브젝트 리젠
+    private bool objectHitting = false;
 
 
 
@@ -46,10 +47,11 @@ public class ItemSystemTreeEx : MonoBehaviour
     {
         if (treeActive)
         {
-            if (coll.CompareTag("MELEE") && coll.gameObject.GetComponent<Weapon>() != null)
+            if (coll.CompareTag("MELEE") && coll.gameObject.GetComponent<Weapon>() != null && !objectHitting)
             {
                 damagePoint = coll.gameObject.GetComponent<Weapon>().woodDamage;
                 woodHp -= damagePoint;
+                StartCoroutine(ObjectHitting());
                 SoundManager.instance.PlaySFX(chop_sound);
                 Debug.Log(woodHp);
                 if (woodHp <= 0 && parentCol.enabled)
@@ -83,7 +85,7 @@ public class ItemSystemTreeEx : MonoBehaviour
         regenObject.transform.SetParent(this.gameObject.transform, false);
         for (int i = 0; i < Random.Range(item_count[0], item_count[1] + 1); i++)
         {
-            Instantiate(item_Prefabs, this.gameObject.transform.position + new Vector3(Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f)), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
+            Instantiate(item_Prefabs, this.gameObject.transform.position + new Vector3(Random.Range(1.0f, 1.5f) - 1.0f, Random.Range(1.0f, 1.5f), Random.Range(1.0f, 1.5f) - 1.0f), Quaternion.LookRotation(this.transform.parent.up * Random.Range(0.0f, 180.0f)));
         }
         var stumpExp = this.gameObject.AddComponent<Rigidbody>();
         var objectPlaceRigid = this.gameObject.GetComponent<Rigidbody>();
@@ -103,6 +105,13 @@ public class ItemSystemTreeEx : MonoBehaviour
 
         Destroy(mainObject.gameObject);
         //this.gameObject.GetComponentInParent<ItemRegen>().checkObject = false;
+    }
+
+    IEnumerator ObjectHitting()
+    {
+        objectHitting = true;
+        yield return new WaitForSeconds(0.5f);
+        objectHitting = false;
     }
 
 }

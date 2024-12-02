@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Rock
   itemType: 1
-  itemImage: {fileID: 21300000, guid: 06af80a09cd18584fa054c0e12964e8b, type: 3}
+  itemImage: {fileID: 21300000, guid: d28864a3b5e07cf498f5f4a2ecea6895, type: 3}
   itemPrefab: {fileID: 1356507732100226269, guid: 7dccd82efab48ca4babd8ddefe0625a1, type: 3}
   weaponType: 

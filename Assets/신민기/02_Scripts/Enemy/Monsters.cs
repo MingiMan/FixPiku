@@ -114,19 +114,24 @@ public class Monsters : Enemys
         IsAttack = true;
         IsRunning = false;
         nav.isStopped = true;
-        meleeArea.enabled = true; // 공격 활성화 수정!!!!!!!!!!!!!!!!!!!!!!
+        // meleeArea.enabled = true; // 공격 활성화 수정!!!!!!!!!!!!!!!!!!!!!!
         yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("OnAttack");
         yield return new WaitForSeconds(1f);
         nav.isStopped = false;
         IsRunning = true;
         IsAttack = false;
-        meleeArea.enabled = false; // 공격 활성화 수정!!!!!!!!!!!!!!!!!!!!!!
+        // meleeArea.enabled = false; // 공격 활성화 수정!!!!!!!!!!!!!!!!!!!!!!
     }
 
     public void EnableCollider()
     {
         meleeArea.enabled = true;
+    }
+
+    public void UnEnableCollider()
+    {
+        meleeArea.enabled = false;
     }
 
     public void TargetSetDestination(Transform point)

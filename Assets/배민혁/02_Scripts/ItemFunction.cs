@@ -1,51 +1,30 @@
+using System.Collections;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemFunction : MonoBehaviour
 {
-    public GameObject player;
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(this.gameObject.tag);
+        if (this.gameObject.tag == "Rock") this.gameObject.GetComponent<SphereCollider>().enabled = false;
+        else if (this.gameObject.tag == "Wood") this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        else if (this.gameObject.tag == "Leather") this.gameObject.GetComponent<BoxCollider>().enabled = false;
+
+        //this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        StartCoroutine(ActiveItem());
     }
-
-
-
-    void OnTriggerEnter(Collider coll)
+    IEnumerator ActiveItem()
     {
-        if (coll.CompareTag("Player"))
-        {
-            switch (this.gameObject.tag)
-            {
-                case ("ROCK"):
-                    Debug.Log("ROCK");
-                    // coll.gameObject.GetComponent<PlayerController>().rock += 1;
-                    player.GetComponent<PlayerState>().rock += 1;
-                    Destroy(this.gameObject);
-                    break;
-                case ("WOOD"):
-                    Debug.Log("WOOD");
-                    // coll.gameObject.GetComponent<PlayerController>().wood += 1;
-                    player.GetComponent<PlayerState>().wood += 1;
-
-                    Destroy(this.gameObject);
-                    break;
-                case ("LEATHER"):
-                    Debug.Log("LEATHER");
-                    // coll.gameObject.GetComponent<PlayerController>().leather += 1;
-                    player.GetComponent<PlayerState>().leather += 1;
-                    Destroy(this.gameObject);
-                    break;
-
-
-                default:
-                    break;
-
-            }
-        }
-
-
+        Debug.Log(this.gameObject.tag + "실행");
+        yield return new WaitForSeconds(1.0f);
+        if (this.gameObject.tag == "Rock") this.gameObject.GetComponent<SphereCollider>().enabled = true;
+        else if (this.gameObject.tag == "Wood") this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        else if (this.gameObject.tag == "Leather") this.gameObject.GetComponent<BoxCollider>().enabled = true;
+        //this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
     }
+
+
 
 }

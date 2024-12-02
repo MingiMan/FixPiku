@@ -4,6 +4,7 @@ using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     public SnakeSpawner wildMonsterSpawner;
     public MonsterSpawner monsterSpawner;
     public CircleFadeInOutUI theCircleFade;
+    public SoundManager theSound;
+    public PlayerMovement player;
     public int level = 1;
 
     [Header("Monsters Per Level")]
@@ -26,12 +29,13 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] TextMeshProUGUI waringUI;
 
+    public string battleSound;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
+            // DontDestroyOnLoad(Instance);
         }
         else
             Destroy(Instance);
@@ -47,7 +51,8 @@ public class GameManager : MonoBehaviour
         //    monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
         waringUI.gameObject.SetActive(false);
-
+        theSound = FindObjectOfType<SoundManager>();
+        theCircleFade.FadeIn();
         // dayText.gameObject.SetActive(true);
     }
 
@@ -58,11 +63,18 @@ public class GameManager : MonoBehaviour
 
     public void LevelUp()
     {
-        level++;
+        if (monsterSpawner.count == 0)
+            level++;
+        else
+           monsterSpawner.AllMonsterDeath();
+
+        TimeManager.Instance.Hours = 6;
+        StartCoroutine(GameSound());    
     }
 
     public void OnMonsterSpawnForLevel()
     {
+        StartCoroutine(BattleSound());
         switch (level)
         {
             case 1:
@@ -81,10 +93,27 @@ public class GameManager : MonoBehaviour
                 monsterSpawner.OnMonsterSpawn(monstersPerLevel5);
                 break;
             default:
-                Debug.Log("게임 종료"); // 모든 레벨 완료 시
+                monsterSpawner.OnMonsterSpawn(monstersPerLevel5);
                 break;
         }
     }
+
+    IEnumerator BattleSound()
+    {
+        theSound.FadeOutMusic();
+        yield return new WaitForSeconds(2f);
+        theSound.PlayBGM(battleSound);
+        theSound.FadeInMusic();
+    }
+
+    IEnumerator GameSound()
+    {
+        theSound.FadeOutMusic();
+        yield return new WaitForSeconds(2f);
+        theSound.PlayBGM("BGM");
+        theSound.FadeInMusic();
+    }
+
 
     public void WaringUISetAcitve()
     {
@@ -101,6 +130,25 @@ public class GameManager : MonoBehaviour
     public void ReactivateSpike(GameObject spike, float delay)
     {
         StartCoroutine(ReactivateAfterDelay(spike, delay));
+    }
+
+    public void GoToEnding()
+    {
+        player.IsActive = false;
+        TimeManager.Instance.timeLock = true;
+        StartCoroutine(EndingScene());
+    }
+
+    IEnumerator EndingScene()
+    {
+        yield return new WaitForSeconds(3f);
+        theCircleFade.FadeOut();
+        theSound.FadeOutMusic();
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(3);
+        theSound.StopBGM();
+        theSound.PlayBGM("EndingSound");
+        theSound.FadeInMusic();
     }
 
     private IEnumerator ReactivateAfterDelay(GameObject spike, float delay)

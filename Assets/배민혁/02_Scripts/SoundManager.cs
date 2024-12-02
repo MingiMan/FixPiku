@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Sound
@@ -19,24 +17,19 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioSource bgmPlayer = null;
     [SerializeField] AudioSource[] sfxPlayer = null;
+    WaitForSeconds waitTime = new WaitForSeconds(0.05f);
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        instance = this;
-        PlayBGM("BGM");
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayBGM(string p_bgmName)
@@ -81,6 +74,37 @@ public class SoundManager : MonoBehaviour
         // Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
         return;
     }
+
+    public void FadeOutMusic()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeOutMusicCoroutine());
+    }
+
+    public void FadeInMusic()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeInMusicCoroutine());
+    }
+
+    IEnumerator FadeOutMusicCoroutine()
+    {
+        for (float i = 0.3f; i >= 0.0f; i -= 0.01f)
+        {
+            bgmPlayer.volume = i;
+            yield return waitTime;
+        }
+    }
+
+    IEnumerator FadeInMusicCoroutine()
+    {
+        for (float i = 0.1f; i <= 0.3f; i += 0.01f)
+        {
+            bgmPlayer.volume = i;
+            yield return waitTime;
+        }
+    }
+
 
     #region 간단버전
     // private SoundManager _instance;

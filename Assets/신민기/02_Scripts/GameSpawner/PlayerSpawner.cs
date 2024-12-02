@@ -22,6 +22,10 @@ public class PlayerSpawner : MonoBehaviour
     IEnumerator PlayerSpawnCoroutine()
     {
         yield return new WaitForSeconds(3f);
+
+        if (TimeManager.Instance.nightCheck) // 버그 수정
+            GameManager.Instance.LevelUp();
+
         player.IsActive = false;
         GameManager.Instance.theCircleFade.FadeOut();
         yield return new WaitForSeconds(3f);

@@ -11,7 +11,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     Camera cam;
 
-    [SerializeField] float minVerticalAngle = -30f; 
+    [SerializeField] float minVerticalAngle = -30f;
     [SerializeField] float maxVerticalAngle = 60f;
     float currentVerticalAngle = 0f;
     Vector3 velocity = Vector3.zero;
@@ -32,7 +32,7 @@ public class CameraFollowPlayer : MonoBehaviour
         Vector3 newPos = target.position + offset;
         transform.position = newPos;
         Rotate();
-        Zoom();
+        //Zoom();
     }
 
     void Rotate()
@@ -49,7 +49,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
         //offset = transform.position - target.position;
 
-        if (Input.GetMouseButton(2)) // ¸¶¿ì½º ÈÙ ¹öÆ°À» ´­·¶À» ¶§
+        if (Input.GetMouseButton(2)) // ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
             float horizontalInput = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
             float verticalInput = Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime;
@@ -81,10 +81,10 @@ public class CameraFollowPlayer : MonoBehaviour
         else if (dist > maxZoomDist && scrollInput < 0.0f)
             return;
 
-        // ¸ñÇ¥ Ä«¸Þ¶ó À§Ä¡ °è»ê
+        // ï¿½ï¿½Ç¥ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
         desiredCameraPosition = cam.transform.position + cam.transform.forward * scrollInput * zoomSpeed;
 
-        // SmoothDamp¸¦ »ç¿ëÇØ ºÎµå·´°Ô Ä«¸Þ¶ó À§Ä¡ ÀÌµ¿
+        // SmoothDampï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå·´ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
         cam.transform.position = Vector3.SmoothDamp(cam.transform.position, desiredCameraPosition, ref velocity, 0.3f);
     }
 }

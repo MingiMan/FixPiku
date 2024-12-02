@@ -68,7 +68,6 @@ public class Bomb : Monsters
         }
     }
 
-
     void Explosion()
     {
         if (IsExplosion)
@@ -89,7 +88,8 @@ public class Bomb : Monsters
                     }
                     if (nearObject.CompareTag("HOUSE"))
                     {
-                        // House
+                        if (nearObject != null)
+                            nearObject.GetComponentInChildren<HouseAttacked>().HouseDamage(Stats.atkDamage);
                     }
                 }
                 GameManager.Instance.monsterSpawner.OnMonsterDeath(this.gameObject);

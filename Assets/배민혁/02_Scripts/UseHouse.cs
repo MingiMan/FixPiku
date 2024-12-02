@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class UseHouse : MonoBehaviour
 {
@@ -14,13 +12,17 @@ public class UseHouse : MonoBehaviour
 
     [SerializeField] private Button LevelUpButton; //거점레벨업 버튼
     [SerializeField] private Button ItemSaveButton; // 거점 아이템 저장버튼
-    [SerializeField] int houseLevelLimit;
+    [SerializeField] public int houseLevelLimit;
     [SerializeField] HouseInventory houseInventory;
     [SerializeField] HouseAttacked houseAttacked;
+    [SerializeField] WeaponInventory weaponInventory;
+
 
     public TextMeshProUGUI slotText;
     [SerializeField]
     private Canvas houseUI;
+
+    bool hasEnded;
 
     [Serializable]
     public struct levelUpItem
@@ -50,15 +52,22 @@ public class UseHouse : MonoBehaviour
     void Update()
     {
         HousePartsActive();
-
     }
     void OnTriggerEnter(Collider coll)
     {
         if (coll.CompareTag("Player"))
         {
             //Debug.Log("stay");
-            if (!TimeManager.Instance.nightCheck) houseUI.enabled = true;
-            else houseUI.enabled = false;
+            if (!TimeManager.Instance.nightCheck)
+            {
+                houseUI.enabled = true;
+                player.GetComponent<PlayerState>().inHouse = true;
+            }
+            else
+            {
+                houseUI.enabled = false;
+                player.GetComponent<PlayerState>().inHouse = false;
+            }
         }
 
     }
@@ -68,6 +77,7 @@ public class UseHouse : MonoBehaviour
         {
             //Debug.Log("out");
             houseUI.enabled = false;
+            player.GetComponent<PlayerState>().inHouse = false;
         }
 
     }
@@ -183,6 +193,11 @@ public class UseHouse : MonoBehaviour
             houseParts[4].gameObject.SetActive(true);
             houseParts[5].gameObject.SetActive(true);
             houseParts[6].gameObject.SetActive(true);
+            if (!hasEnded)
+            {
+                hasEnded = true;
+                GameManager.Instance.GoToEnding();
+            }
         }
         else // 집레벨 0
         {
